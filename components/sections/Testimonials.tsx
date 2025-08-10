@@ -1,9 +1,17 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Star, Quote, ChevronLeft, ChevronRight, Users, Award, TrendingUp } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/Card';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Star,
+  Quote,
+  ChevronLeft,
+  ChevronRight,
+  Users,
+  Award,
+  TrendingUp,
+} from "lucide-react";
+import { Card } from "@/components/ui/Card";
 
 const testimonials = [
   {
@@ -13,8 +21,9 @@ const testimonials = [
     company: "TechFlow Inc.",
     avatar: "/api/placeholder/80/80",
     rating: 5,
-    content: "CodeMoly transformed our development process. The AI-powered features saved us countless hours and improved our code quality significantly.",
-    metrics: { projects: 15, timesSaved: "40%" }
+    content:
+      "CodeMoly transformed our development process. The AI-powered features saved us countless hours and improved our code quality significantly.",
+    metrics: { projects: 15, timesSaved: "40%" },
   },
   {
     id: 2,
@@ -23,8 +32,9 @@ const testimonials = [
     company: "StartupXYZ",
     avatar: "/api/placeholder/80/80",
     rating: 5,
-    content: "The collaboration features are game-changing. Our remote team works seamlessly together, and the real-time sync is flawless.",
-    metrics: { projects: 8, timesSaved: "35%" }
+    content:
+      "The collaboration features are game-changing. Our remote team works seamlessly together, and the real-time sync is flawless.",
+    metrics: { projects: 8, timesSaved: "35%" },
   },
   {
     id: 3,
@@ -33,8 +43,9 @@ const testimonials = [
     company: "InnovateCorp",
     avatar: "/api/placeholder/80/80",
     rating: 5,
-    content: "From concept to deployment, CodeMoly streamlined our entire workflow. The analytics and insights help us make better decisions.",
-    metrics: { projects: 22, timesSaved: "50%" }
+    content:
+      "From concept to deployment, CodeMoly streamlined our entire workflow. The analytics and insights help us make better decisions.",
+    metrics: { projects: 22, timesSaved: "50%" },
   },
   {
     id: 4,
@@ -43,9 +54,10 @@ const testimonials = [
     company: "Independent",
     avatar: "/api/placeholder/80/80",
     rating: 5,
-    content: "As a freelancer, CodeMoly gives me enterprise-level tools at an affordable price. My clients are impressed with the results.",
-    metrics: { projects: 30, timesSaved: "45%" }
-  }
+    content:
+      "As a freelancer, CodeMoly gives me enterprise-level tools at an affordable price. My clients are impressed with the results.",
+    metrics: { projects: 30, timesSaved: "45%" },
+  },
 ];
 
 const companies = [
@@ -54,13 +66,25 @@ const companies = [
   { name: "InnovateCorp", logo: "/api/placeholder/120/40" },
   { name: "DevStudio", logo: "/api/placeholder/120/40" },
   { name: "CodeCraft", logo: "/api/placeholder/120/40" },
-  { name: "WebWorks", logo: "/api/placeholder/120/40" }
+  { name: "WebWorks", logo: "/api/placeholder/120/40" },
 ];
 
 const stats = [
-  { label: "Happy Customers", value: "10,000+", icon: <Users className="w-6 h-6" /> },
-  { label: "Projects Completed", value: "50,000+", icon: <Award className="w-6 h-6" /> },
-  { label: "Average Time Saved", value: "40%", icon: <TrendingUp className="w-6 h-6" /> }
+  {
+    label: "Happy Customers",
+    value: "10,000+",
+    icon: <Users className="w-6 h-6" />,
+  },
+  {
+    label: "Projects Completed",
+    value: "50,000+",
+    icon: <Award className="w-6 h-6" />,
+  },
+  {
+    label: "Average Time Saved",
+    value: "40%",
+    icon: <TrendingUp className="w-6 h-6" />,
+  },
 ];
 
 const Testimonials: React.FC = () => {
@@ -83,7 +107,9 @@ const Testimonials: React.FC = () => {
   };
 
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentTestimonial(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
     setIsAutoPlaying(false);
   };
 
@@ -100,10 +126,14 @@ const Testimonials: React.FC = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             Loved by
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Developers Worldwide</span>
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              {" "}
+              Developers Worldwide
+            </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Join thousands of developers who trust CodeMoly to build amazing applications.
+            Join thousands of developers who trust CodeMoly to build amazing
+            applications.
           </p>
         </motion.div>
 
@@ -115,7 +145,7 @@ const Testimonials: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          {stats.map((stat, index) => (
+          {stats.map((stat) => (
             <motion.div
               key={stat.label}
               className="text-center"
@@ -152,7 +182,10 @@ const Testimonials: React.FC = () => {
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card variant="elevated" className="p-8 md:p-12 text-center relative overflow-hidden">
+                <Card
+                  variant="elevated"
+                  className="p-8 md:p-12 text-center relative overflow-hidden"
+                >
                   {/* Quote Icon */}
                   <div className="absolute top-6 left-6 text-blue-200 dark:text-blue-800">
                     <Quote className="w-12 h-12" />
@@ -160,27 +193,36 @@ const Testimonials: React.FC = () => {
 
                   {/* Rating */}
                   <div className="flex justify-center mb-6">
-                    {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                      <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
-                    ))}
+                    {[...Array(testimonials[currentTestimonial].rating)].map(
+                      (_, i) => (
+                        <Star
+                          key={i}
+                          className="w-6 h-6 text-yellow-400 fill-current"
+                        />
+                      )
+                    )}
                   </div>
 
                   {/* Content */}
                   <blockquote className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
-                    "{testimonials[currentTestimonial].content}"
+                    &quot;{testimonials[currentTestimonial].content}&quot;
                   </blockquote>
 
                   {/* Author */}
                   <div className="flex items-center justify-center space-x-4">
                     <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
-                      {testimonials[currentTestimonial].name.split(' ').map(n => n[0]).join('')}
+                      {testimonials[currentTestimonial].name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
                     </div>
                     <div className="text-left">
                       <div className="font-semibold text-gray-900 dark:text-white">
                         {testimonials[currentTestimonial].name}
                       </div>
                       <div className="text-gray-600 dark:text-gray-400">
-                        {testimonials[currentTestimonial].role} at {testimonials[currentTestimonial].company}
+                        {testimonials[currentTestimonial].role} at{" "}
+                        {testimonials[currentTestimonial].company}
                       </div>
                     </div>
                   </div>
@@ -191,13 +233,17 @@ const Testimonials: React.FC = () => {
                       <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                         {testimonials[currentTestimonial].metrics.projects}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Projects</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        Projects
+                      </div>
                     </div>
                     <div className="text-center">
                       <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                         {testimonials[currentTestimonial].metrics.timesSaved}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">Time Saved</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        Time Saved
+                      </div>
                     </div>
                   </div>
                 </Card>
@@ -223,8 +269,8 @@ const Testimonials: React.FC = () => {
                     }}
                     className={`w-3 h-3 rounded-full transition-all duration-300 ${
                       index === currentTestimonial
-                        ? 'bg-blue-600 w-8'
-                        : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400'
+                        ? "bg-blue-600 w-8"
+                        : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400"
                     }`}
                   />
                 ))}
@@ -248,9 +294,11 @@ const Testimonials: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
           viewport={{ once: true }}
         >
-          <p className="text-gray-600 dark:text-gray-400 mb-8">Trusted by leading companies</p>
+          <p className="text-gray-600 dark:text-gray-400 mb-8">
+            Trusted by leading companies
+          </p>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center opacity-60 hover:opacity-100 transition-opacity duration-300">
-            {companies.map((company, index) => (
+            {companies.map((company) => (
               <motion.div
                 key={company.name}
                 className="flex items-center justify-center h-12 bg-gray-200 dark:bg-gray-700 rounded-lg"

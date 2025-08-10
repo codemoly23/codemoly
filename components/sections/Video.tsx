@@ -12,8 +12,8 @@ export default function Video() {
               </span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Discover how we're transforming the industry through innovation
-              and empowering developers worldwide
+              Discover how we&apos;re transforming the industry through
+              innovation and empowering developers worldwide
             </p>
           </div>
 
