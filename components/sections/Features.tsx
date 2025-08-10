@@ -1,89 +1,112 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Code2, 
-  Smartphone, 
-  Brain, 
-  Shield, 
-  Zap, 
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  Code2,
+  Smartphone,
+  Brain,
+  Shield,
+  Zap,
   Globe,
   Database,
   Palette,
   Users,
   BarChart3,
   Rocket,
-  Heart
-} from 'lucide-react';
-import { BentoFeatureGrid, BentoFeatureItem } from '@/components/ui/BentoGrid';
+  Heart,
+} from "lucide-react";
+import { BentoFeatureGrid, BentoFeatureItem } from "@/components/ui/BentoGrid";
 
 const features = [
   {
     title: "Web Development",
-    description: "Build responsive, fast-loading websites with modern frameworks and best practices.",
+    description:
+      "Build responsive, fast-loading websites with modern frameworks and best practices.",
     icon: <Code2 className="w-6 h-6" />,
     span: "md:col-span-3 lg:col-span-6",
     height: "md" as const,
     variant: "featured" as const,
-    stats: "500+ Projects"
+    stats: "500+ Projects",
   },
   {
     title: "Mobile Apps",
-    description: "Native and cross-platform mobile applications for iOS and Android.",
+    description:
+      "Native and cross-platform mobile applications for iOS and Android.",
     icon: <Smartphone className="w-6 h-6" />,
     span: "md:col-span-3 lg:col-span-6",
     height: "md" as const,
     variant: "default" as const,
-    stats: "200+ Apps"
+    stats: "200+ Apps",
   },
   {
     title: "AI Integration",
-    description: "Leverage artificial intelligence to enhance user experiences and automate processes.",
+    description:
+      "Leverage artificial intelligence to enhance user experiences and automate processes.",
     icon: <Brain className="w-6 h-6" />,
     span: "md:col-span-2 lg:col-span-4",
     height: "sm" as const,
-    variant: "default" as const
+    variant: "default" as const,
   },
   {
     title: "Security First",
-    description: "Enterprise-grade security with encryption and compliance standards.",
+    description:
+      "Enterprise-grade security with encryption and compliance standards.",
     icon: <Shield className="w-6 h-6" />,
     span: "md:col-span-2 lg:col-span-4",
     height: "sm" as const,
-    variant: "default" as const
+    variant: "default" as const,
   },
   {
     title: "Lightning Fast",
-    description: "Optimized performance with CDN delivery and caching strategies.",
+    description:
+      "Optimized performance with CDN delivery and caching strategies.",
     icon: <Zap className="w-6 h-6" />,
     span: "md:col-span-2 lg:col-span-4",
     height: "sm" as const,
-    variant: "default" as const
+    variant: "default" as const,
   },
   {
     title: "Global Reach",
-    description: "Multi-language support and international deployment capabilities.",
+    description:
+      "Multi-language support and international deployment capabilities.",
     icon: <Globe className="w-6 h-6" />,
     span: "md:col-span-3 lg:col-span-6",
     height: "md" as const,
-    variant: "minimal" as const
+    variant: "minimal" as const,
   },
   {
     title: "Database Solutions",
-    description: "Scalable database architecture with real-time synchronization.",
+    description:
+      "Scalable database architecture with real-time synchronization.",
     icon: <Database className="w-6 h-6" />,
     span: "md:col-span-3 lg:col-span-6",
     height: "md" as const,
-    variant: "minimal" as const
-  }
+    variant: "minimal" as const,
+  },
 ];
 
 const additionalFeatures = [
-  { title: "Custom Design", icon: <Palette className="w-5 h-5" />, description: "Tailored UI/UX design" },
-  { title: "Team Collaboration", icon: <Users className="w-5 h-5" />, description: "Built-in team tools" },
-  { title: "Analytics", icon: <BarChart3 className="w-5 h-5" />, description: "Detailed insights" },
-  { title: "Quick Deploy", icon: <Rocket className="w-5 h-5" />, description: "One-click deployment" }
+  {
+    title: "Custom Design",
+    icon: <Palette className="w-5 h-5" />,
+    description: "Tailored UI/UX design",
+  },
+  {
+    title: "Team Collaboration",
+    icon: <Users className="w-5 h-5" />,
+    description: "Built-in team tools",
+  },
+  {
+    title: "Analytics",
+    icon: <BarChart3 className="w-5 h-5" />,
+    description: "Detailed insights",
+  },
+  {
+    title: "Quick Deploy",
+    icon: <Rocket className="w-5 h-5" />,
+    description: "One-click deployment",
+  },
 ];
 
 const Features: React.FC = () => {
@@ -100,10 +123,14 @@ const Features: React.FC = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
             Powerful Features for
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Modern Development</span>
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              {" "}
+              Modern Development
+            </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Everything you need to build, deploy, and scale your applications with confidence.
+            Everything you need to build, deploy, and scale your applications
+            with confidence.
           </p>
         </motion.div>
 
@@ -116,7 +143,7 @@ const Features: React.FC = () => {
           className="mb-16"
         >
           <BentoFeatureGrid>
-            {features.map((feature, index) => (
+            {features.map((feature) => (
               <BentoFeatureItem
                 key={feature.title}
                 title={feature.title}
@@ -132,7 +159,7 @@ const Features: React.FC = () => {
                     {feature.stats}
                   </div>
                 )}
-                
+
                 {/* Interactive Element */}
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="w-8 h-8 rounded-full bg-white dark:bg-gray-800 shadow-lg flex items-center justify-center">
@@ -152,7 +179,7 @@ const Features: React.FC = () => {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {additionalFeatures.map((feature, index) => (
+          {additionalFeatures.map((feature) => (
             <motion.div
               key={feature.title}
               className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700"
