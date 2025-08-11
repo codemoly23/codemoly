@@ -4,82 +4,79 @@ import React from "react";
 import { motion } from "framer-motion";
 import {
   Code2,
-  Smartphone,
   Brain,
   Shield,
   Zap,
-  Globe,
-  Database,
-  Palette,
-  Users,
-  BarChart3,
-  Rocket,
+  Bot,
+  TestTube,
+  GitBranch,
+  Cpu,
   Heart,
 } from "lucide-react";
 import { BentoFeatureGrid, BentoFeatureItem } from "@/components/ui/BentoGrid";
 
 const features = [
   {
-    title: "Web Development",
+    title: "AI Code Generation",
     description:
-      "Build responsive, fast-loading websites with modern frameworks and best practices.",
+      "Generate high-quality code 55% faster with AI-powered development tools. Complete coding tasks in half the time with intelligent suggestions and automated boilerplate generation.",
     icon: <Code2 className="w-6 h-6" />,
     span: "md:col-span-3 lg:col-span-6",
     height: "md" as const,
     variant: "featured" as const,
-    stats: "500+ Projects",
+    stats: "55% Faster Development",
   },
   {
-    title: "Mobile Apps",
+    title: "Intelligent Testing",
     description:
-      "Native and cross-platform mobile applications for iOS and Android.",
-    icon: <Smartphone className="w-6 h-6" />,
+      "AI-powered automated testing reduces bugs by 30-40% and identifies vulnerabilities 80% faster than manual testing, ensuring robust application quality.",
+    icon: <TestTube className="w-6 h-6" />,
     span: "md:col-span-3 lg:col-span-6",
     height: "md" as const,
     variant: "default" as const,
-    stats: "200+ Apps",
+    stats: "80% Faster Bug Detection",
   },
   {
-    title: "AI Integration",
+    title: "Smart Code Review",
     description:
-      "Leverage artificial intelligence to enhance user experiences and automate processes.",
+      "AI analyzes code patterns, suggests optimizations, and ensures best practices with real-time feedback and automated quality checks.",
     icon: <Brain className="w-6 h-6" />,
     span: "md:col-span-2 lg:col-span-4",
     height: "sm" as const,
     variant: "default" as const,
   },
   {
-    title: "Security First",
+    title: "Automated Security",
     description:
-      "Enterprise-grade security with encryption and compliance standards.",
+      "AI-driven security scanning detects vulnerabilities early in development, ensuring enterprise-grade protection with continuous monitoring.",
     icon: <Shield className="w-6 h-6" />,
     span: "md:col-span-2 lg:col-span-4",
     height: "sm" as const,
     variant: "default" as const,
   },
   {
-    title: "Lightning Fast",
+    title: "Performance Optimization",
     description:
-      "Optimized performance with CDN delivery and caching strategies.",
+      "AI optimizes application performance automatically, reducing load times and improving user experience through intelligent caching and resource management.",
     icon: <Zap className="w-6 h-6" />,
     span: "md:col-span-2 lg:col-span-4",
     height: "sm" as const,
     variant: "default" as const,
   },
   {
-    title: "Global Reach",
+    title: "Continuous Integration",
     description:
-      "Multi-language support and international deployment capabilities.",
-    icon: <Globe className="w-6 h-6" />,
+      "AI-enhanced CI/CD pipelines automate deployment processes, reducing deployment time by 60% while maintaining zero-downtime releases.",
+    icon: <GitBranch className="w-6 h-6" />,
     span: "md:col-span-3 lg:col-span-6",
     height: "md" as const,
     variant: "minimal" as const,
   },
   {
-    title: "Database Solutions",
+    title: "Predictive Analytics",
     description:
-      "Scalable database architecture with real-time synchronization.",
-    icon: <Database className="w-6 h-6" />,
+      "Machine learning algorithms predict system behavior, optimize resource allocation, and prevent issues before they impact users.",
+    icon: <Cpu className="w-6 h-6" />,
     span: "md:col-span-3 lg:col-span-6",
     height: "md" as const,
     variant: "minimal" as const,
@@ -88,24 +85,24 @@ const features = [
 
 const additionalFeatures = [
   {
-    title: "Custom Design",
-    icon: <Palette className="w-5 h-5" />,
-    description: "Tailored UI/UX design",
+    title: "AI Documentation",
+    icon: <Bot className="w-5 h-5" />,
+    description: "Auto-generated docs & comments",
   },
   {
-    title: "Team Collaboration",
-    icon: <Users className="w-5 h-5" />,
-    description: "Built-in team tools",
+    title: "Smart Debugging",
+    icon: <Brain className="w-5 h-5" />,
+    description: "AI-powered error resolution",
   },
   {
-    title: "Analytics",
-    icon: <BarChart3 className="w-5 h-5" />,
-    description: "Detailed insights",
+    title: "Code Refactoring",
+    icon: <Code2 className="w-5 h-5" />,
+    description: "Intelligent code optimization",
   },
   {
-    title: "Quick Deploy",
-    icon: <Rocket className="w-5 h-5" />,
-    description: "One-click deployment",
+    title: "Deployment Intelligence",
+    icon: <Zap className="w-5 h-5" />,
+    description: "AI-optimized release cycles",
   },
 ];
 
@@ -122,15 +119,15 @@ const Features: React.FC = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Powerful Features for
+            AI-Powered Features for
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {" "}
-              Modern Development
+              Accelerated Development
             </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Everything you need to build, deploy, and scale your applications
-            with confidence.
+            Leverage cutting-edge AI technology to build, test, and deploy
+            applications 55% faster with enterprise-grade quality and security.
           </p>
         </motion.div>
 
@@ -210,7 +207,7 @@ const Features: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 cursor-pointer group">
-            Explore All Features
+            Experience AI Development
             <motion.div
               className="ml-2"
               animate={{ x: [0, 4, 0] }}
