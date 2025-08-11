@@ -4,15 +4,12 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
-  Play,
   Zap,
   Bot,
   Workflow,
   TrendingUp,
   Shield,
   Sparkles,
-  Users,
-  Award,
 } from "lucide-react";
 import Button from "@/components/ui/Button";
 
@@ -40,13 +37,6 @@ const Hero = () => {
       text: "Enterprise Security",
       color: "from-orange-500 to-red-500",
     },
-  ];
-
-  const stats = [
-    { value: "500+", label: "Businesses Automated" },
-    { value: "99.9%", label: "Uptime Guarantee" },
-    { value: "50+", label: "AI Integrations" },
-    { value: "24/7", label: "Expert Support" },
   ];
 
   useEffect(() => {
@@ -206,7 +196,7 @@ const Hero = () => {
           </motion.p>
 
           {/* Animated Feature Showcase */}
-          <motion.div
+          {/* <motion.div
             className="flex justify-center mb-12"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -238,11 +228,11 @@ const Hero = () => {
                 </motion.div>
               </AnimatePresence>
             </div>
-          </motion.div>
+          </motion.div> */}
 
-          {/* CTA Buttons */}
+          {/* CTA Button */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+            className="flex justify-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
@@ -256,70 +246,31 @@ const Hero = () => {
               Start Your AI Journey
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-
-            <Button
-              variant="secondary"
-              size="lg"
-              className="group bg-white/10 hover:bg-white/15 text-white border border-white/20 backdrop-blur-sm px-8 py-4"
-            >
-              <Play className="mr-2 h-5 w-5" />
-              Watch Our Story
-            </Button>
           </motion.div>
 
-          {/* Awards Section */}
+          {/* Featured Video */}
           <motion.div
-            className="flex flex-col md:flex-row items-center justify-center gap-8 mb-16"
+            className="max-w-7xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.0 }}
           >
-            <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-              <Award className="w-8 h-8 text-yellow-400" />
-              <div>
-                <div className="text-white font-semibold">
-                  Best AI Innovation
-                </div>
-                <div className="text-gray-400 text-sm">
-                  TechCrunch Awards 2024
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-              <Users className="w-8 h-8 text-blue-400" />
-              <div>
-                <div className="text-white font-semibold">
-                  Enterprise Excellence
-                </div>
-                <div className="text-gray-400 text-sm">Fortune 500 Partner</div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Stats Grid */}
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-          >
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                className="text-center p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.4 + index * 0.1 }}
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-white/10 backdrop-blur-sm">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10" />
+              <video
+                className="w-full h-full object-cover"
+                controls
+                poster="/video-poster.jpg"
+                preload="metadata"
               >
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-gray-400 text-sm font-medium">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
+                <source src="/demo-video.mp4" type="video/mp4" />
+                <source src="/demo-video.webm" type="video/webm" />
+                Your browser does not support the video tag.
+              </video>
+
+              {/* Video overlay for better integration */}
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/20 via-transparent to-transparent pointer-events-none" />
+            </div>
           </motion.div>
         </div>
       </div>

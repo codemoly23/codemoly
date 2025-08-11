@@ -6,8 +6,10 @@ import Features from "@/components/sections/Features";
 import ProductShowcase from "@/components/sections/ProductShowcase";
 import About from "@/components/sections/About";
 import GlobalPresence from "@/components/sections/GlobalPresence";
+import AIAutomations from "@/components/sections/AIAutomations";
 import Testimonials from "@/components/sections/Testimonials";
 import Pricing from "@/components/sections/Pricing";
+import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
@@ -15,14 +17,17 @@ export default function Home() {
     <main className="min-h-screen">
       <Navigation />
       <Hero />
-      <Video />
+      <Testimonials />
+      {/* <Video /> */}
       <Events />
       <Features />
       <ProductShowcase />
       <About />
       <GlobalPresence />
-      <Testimonials />
+      <AIAutomations />
+
       <Pricing />
+      <Contact />
       <Footer />
     </main>
   );
