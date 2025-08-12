@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion} from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Zap,
@@ -49,7 +49,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen pt-30 flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
+      className="relative min-h-screen pt-28 pb-14 flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
     >
       {/* Modern Background System */}
       <div className="absolute inset-0">
@@ -192,7 +192,7 @@ const Hero = () => {
               {" "}
               intelligent solutions
             </span>{" "}
-            that drive meaningful change.
+            that drive business growth.
           </motion.p>
 
           {/* Animated Feature Showcase */}
@@ -243,34 +243,49 @@ const Hero = () => {
               className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl shadow-blue-500/25 px-8 py-4"
             >
               <Zap className="mr-2 h-5 w-5" />
-              Start Your AI Journey
+              Book a Free Consultant
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </motion.div>
 
           {/* Featured Video */}
           <motion.div
-            className="max-w-7xl mx-auto"
+            className="max-w-6xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.0 }}
           >
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-white/10 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10" />
-              <video
-                className="w-full h-full object-cover"
-                controls
-                poster="/video-poster.jpg"
-                preload="metadata"
-              >
-                <source src="/demo-video.mp4" type="video/mp4" />
-                <source src="/demo-video.webm" type="video/webm" />
-                Your browser does not support the video tag.
-              </video>
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-white/10 backdrop-blur-sm group">
+              {/* Gradient border effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-cyan-500/20 rounded-2xl" />
+              <div className="absolute inset-[2px] bg-gray-900/50 rounded-2xl" />
 
-              {/* Video overlay for better integration */}
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/20 via-transparent to-transparent pointer-events-none" />
+              {/* YouTube Video Embed */}
+              <iframe
+                className="absolute inset-[2px] w-full h-full rounded-2xl border-0"
+                src="https://www.youtube.com/embed/9s2ydfkRz2E?rel=0&modestbranding=1&showinfo=0&controls=1&autoplay=0&mute=0&loop=0&playlist=9s2ydfkRz2E"
+                title="CodeMoly - Transforming Business Through AI Innovation"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+              />
+
+              {/* Hover glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+
+              {/* Corner accent */}
+              <div className="absolute top-4 right-4 w-3 h-3 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full opacity-60 animate-pulse" />
             </div>
+
+            {/* Video Caption */}
+            {/* <motion.p
+              className="text-center text-gray-400 text-sm mt-4 font-medium"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+            >
+              Watch how CodeMoly transforms businesses through AI innovation
+            </motion.p> */}
           </motion.div>
         </div>
       </div>

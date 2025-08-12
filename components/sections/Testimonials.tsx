@@ -7,25 +7,25 @@ import { Users, MessageSquare, Award, Calendar, Phone } from "lucide-react";
 const stats = [
   {
     icon: <Users className="w-8 h-8 text-blue-500" />,
-    number: "850+",
-    label: "People",
-    subtitle: "Pre-vetted & Ready",
+    number: "1– 4",
+    label: "Weeks",
+    subtitle: "Onboard Time",
   },
   {
     icon: <MessageSquare className="w-8 h-8 text-blue-500" />,
-    number: "18+",
-    label: "Years",
-    subtitle: "of Experience",
+    number: "24/7",
+    label: "Support",
+    subtitle: "Available for clients",
   },
   {
     icon: <Award className="w-8 h-8 text-blue-500" />,
-    number: "88%+",
+    number: "85%+",
     label: "Retention",
     subtitle: "Employee Success Rate",
   },
   {
     icon: <Calendar className="w-8 h-8 text-blue-500" />,
-    number: "Fortune 100",
+    number: "Fortune 500",
     label: "Trusted Partner",
     subtitle: "",
   },
@@ -46,7 +46,7 @@ const Testimonials: React.FC = () => {
           {/* Left Side - Content */}
           <div className="lg:col-span-5">
             {/* Clutch Rating Badge */}
-            <motion.div
+            {/* <motion.div
               className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -66,7 +66,7 @@ const Testimonials: React.FC = () => {
                 ))}
               </div>
               <div className="text-white text-sm font-semibold">5.0 RATING</div>
-            </motion.div>
+            </motion.div> */}
 
             {/* Orange Accent Text */}
             <motion.div
@@ -104,7 +104,7 @@ const Testimonials: React.FC = () => {
               viewport={{ once: true }}
             >
               From startups to enterprises—build scalable, secure software with
-              our 18+ years of expertise and ISO 27001-certified teams.
+              our expertise team.
             </motion.p>
 
             {/* CTA Button */}
@@ -118,7 +118,7 @@ const Testimonials: React.FC = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Phone className="w-5 h-5" />
-              Schedule a Call
+              Free 3 Day Developers Trial
             </motion.button>
           </div>
 
