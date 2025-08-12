@@ -3,27 +3,33 @@
 import React from "react";
 import { motion } from "framer-motion";
 import {
-  Shield,
-  TrendingUp,
-  Award,
-  CheckCircle,
   Code2,
   Database,
+  Bot,
+  Zap,
+  Brain,
+  Workflow,
+  Target,
+  Settings,
 } from "lucide-react";
 
 const stats = [
   {
-    number: "50K+",
-    label: "Active Developers",
+    number: "95%",
+    label: "Automation Success",
     color: "from-blue-500 to-cyan-500",
   },
   {
-    number: "100K+",
-    label: "Projects Built",
+    number: "10K+",
+    label: "AI Workflows Built",
     color: "from-purple-500 to-pink-500",
   },
-  { number: "99.9%", label: "Uptime", color: "from-green-500 to-emerald-500" },
-  { number: "24/7", label: "Support", color: "from-orange-500 to-red-500" },
+  {
+    number: "75%",
+    label: "Time Saved",
+    color: "from-green-500 to-emerald-500",
+  },
+  { number: "24/7", label: "AI Support", color: "from-orange-500 to-red-500" },
 ];
 
 const About: React.FC = () => {
@@ -45,7 +51,7 @@ const About: React.FC = () => {
           <div className="lg:col-span-7 space-y-6">
             {/* Top Row - Two Cards */}
             <div className="grid md:grid-cols-2 gap-6">
-              {/* Guaranteed Rewards Card */}
+              {/* AI Automation Excellence Card */}
               <motion.div
                 className="relative p-6 rounded-3xl bg-gradient-to-br from-purple-500 to-blue-600 text-white overflow-hidden"
                 initial={{ opacity: 0, x: -50 }}
@@ -56,23 +62,26 @@ const About: React.FC = () => {
               >
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-4">
-                    <Shield className="w-8 h-8 text-white" />
+                    <Bot className="w-8 h-8 text-white" />
                     <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
-                      <CheckCircle className="w-6 h-6 text-white" />
+                      <Zap className="w-6 h-6 text-white" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">Guaranteed Rewards</h3>
+                  <h3 className="text-xl font-bold mb-2">
+                    AI Automation Excellence
+                  </h3>
                   <p className="text-white/90 text-sm mb-4">
-                    Get rewarded in 24 hours or we pay $1,000 extra.
+                    Intelligent workflows that adapt and optimize automatically
+                    for maximum efficiency.
                   </p>
                   <div className="text-xs font-semibold text-white/80 uppercase tracking-wider">
-                    AVG. DISBURSEMENT TIME - 5HRS
+                    AVG. EFFICIENCY GAIN - 75%
                   </div>
                 </div>
                 <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-white/10 rounded-full"></div>
               </motion.div>
 
-              {/* Best Trading Conditions Card */}
+              {/* Smart Process Optimization Card */}
               <motion.div
                 className="relative p-6 rounded-3xl bg-gradient-to-br from-blue-500 to-purple-600 text-white overflow-hidden"
                 initial={{ opacity: 0, x: 50 }}
@@ -83,17 +92,17 @@ const About: React.FC = () => {
               >
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-4">
-                    <TrendingUp className="w-8 h-8 text-white" />
+                    <Brain className="w-8 h-8 text-white" />
                     <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
-                      <Award className="w-6 h-6 text-white" />
+                      <Target className="w-6 h-6 text-white" />
                     </div>
                   </div>
                   <h3 className="text-xl font-bold mb-2">
-                    Best Trading Conditions
+                    Smart Process Optimization
                   </h3>
                   <p className="text-white/90 text-sm">
-                    Transforming trading journeys globally through
-                    industry-leading resources
+                    AI-driven insights that continuously improve business
+                    processes and eliminate inefficiencies
                   </p>
                 </div>
                 <div className="absolute -top-4 -left-4 w-20 h-20 bg-white/10 rounded-full"></div>
@@ -113,14 +122,16 @@ const About: React.FC = () => {
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     <h3 className="text-2xl font-bold mb-3">
-                      Best Training Platforms
+                      Advanced AI Workflow Platform
                     </h3>
                     <p className="text-white/90 mb-4">
-                      Trade on our main label MT4, MT5, cTrader & Match-Trader
+                      Deploy intelligent automation across n8n, Zapier, Make &
+                      custom integrations
                     </p>
                     <p className="text-white/80 text-sm">
-                      Our MQ licenses and advanced in house technology ensure
-                      enhanced experience, security and efficiency.
+                      Our advanced AI technology ensures seamless workflow
+                      orchestration, predictive optimization and
+                      enterprise-grade reliability.
                     </p>
                   </div>
                 </div>
@@ -128,16 +139,16 @@ const About: React.FC = () => {
                 {/* Platform Icons */}
                 <div className="flex items-center space-x-4 mt-6">
                   <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                    <span className="text-2xl">🔷</span>
+                    <Workflow className="w-6 h-6 text-white" />
                   </div>
                   <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                    <span className="text-2xl">🔶</span>
+                    <Bot className="w-6 h-6 text-white" />
                   </div>
                   <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                    <span className="text-2xl">🔴</span>
+                    <Settings className="w-6 h-6 text-white" />
                   </div>
                   <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                    <span className="text-2xl">💎</span>
+                    <Brain className="w-6 h-6 text-white" />
                   </div>
                 </div>
               </div>
