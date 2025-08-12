@@ -19,7 +19,7 @@ const countries = [
     city: "Dhaka",
     stats: "HQ for APAC",
     address: "14/1, BTI Emporium Tower, Mirpur Road, Shamoli, Dhaka",
-    phone: "+01894 955 491",
+    phone: "+01894 955 494",
     email: "hello@codemoly.com",
   },
   {

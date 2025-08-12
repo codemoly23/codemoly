@@ -6,6 +6,8 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import FormModal from "@/components/ui/FormModal";
+import { useFormModal } from "@/hooks/useFormModal";
 
 interface NavItem {
   label: string;
@@ -28,6 +30,7 @@ const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const { isOpen: isModalOpen, openModal, closeModal } = useFormModal();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -131,7 +134,7 @@ const Navigation: React.FC = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="primary" size="sm">
+            <Button variant="primary" size="sm" onClick={openModal}>
               Get Started
             </Button>
           </div>
@@ -189,7 +192,12 @@ const Navigation: React.FC = () => {
                 </div>
               ))}
               <div className="pt-4">
-                <Button variant="primary" size="sm" className="w-full">
+                <Button
+                  variant="primary"
+                  size="sm"
+                  className="w-full"
+                  onClick={openModal}
+                >
                   Get Started
                 </Button>
               </div>
@@ -197,6 +205,9 @@ const Navigation: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Form Modal */}
+      <FormModal isOpen={isModalOpen} onClose={closeModal} />
     </motion.nav>
   );
 };

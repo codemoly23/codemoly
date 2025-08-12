@@ -17,6 +17,8 @@ import {
   Target,
   Settings,
 } from "lucide-react";
+import FormModal from "@/components/ui/FormModal";
+import { useFormModal } from "@/hooks/useFormModal";
 
 // Core AI Development Features with Real-World Metrics
 const coreFeatures = [
@@ -150,6 +152,7 @@ const trustMetrics = [
 
 const Features: React.FC = () => {
   const [selectedFeature, setSelectedFeature] = useState<number | null>(null);
+  const { isOpen, openModal, closeModal } = useFormModal();
 
   return (
     <section
@@ -455,10 +458,11 @@ const Features: React.FC = () => {
                 automation solutions.
               </p>
 
-              <motion.div
+              <motion.button
                 className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={openModal}
               >
                 Book a Free Strategy Call
                 <motion.div
@@ -467,11 +471,14 @@ const Features: React.FC = () => {
                 >
                   <ArrowRight className="w-5 h-5" />
                 </motion.div>
-              </motion.div>
+              </motion.button>
             </div>
           </div>
         </motion.div>
       </div>
+
+      {/* Form Modal */}
+      <FormModal isOpen={isOpen} onClose={closeModal} />
     </section>
   );
 };

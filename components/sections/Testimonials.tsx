@@ -3,6 +3,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Users, MessageSquare, Award, Calendar, Phone } from "lucide-react";
+import FormModal from "@/components/ui/FormModal";
+import { useFormModal } from "@/hooks/useFormModal";
 
 const stats = [
   {
@@ -32,6 +34,8 @@ const stats = [
 ];
 
 const Testimonials: React.FC = () => {
+  const { isOpen, openModal, closeModal } = useFormModal();
+
   return (
     <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
       {/* Background Pattern */}
@@ -116,6 +120,7 @@ const Testimonials: React.FC = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={openModal}
             >
               <Phone className="w-5 h-5" />
               Free 3 Day Developers Trial
@@ -153,6 +158,9 @@ const Testimonials: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Form Modal */}
+      <FormModal isOpen={isOpen} onClose={closeModal} />
     </section>
   );
 };
