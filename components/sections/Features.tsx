@@ -420,7 +420,7 @@ const Features: React.FC = () => {
         </motion.div>
 
         {/* Enhanced Call to Action */}
-        {/* <motion.div
+        <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -428,7 +428,6 @@ const Features: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 rounded-3xl p-12 text-white overflow-hidden">
-
             <div className="absolute inset-0 opacity-20">
               <div className="absolute top-0 right-0 w-40 h-40 bg-white rounded-full -translate-y-20 translate-x-20" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-white rounded-full translate-y-16 -translate-x-16" />
@@ -444,15 +443,16 @@ const Features: React.FC = () => {
                 viewport={{ once: true }}
               >
                 <Sparkles className="w-4 h-4" />
-                Experience AI Development
+                Start Your Growth Journey Today
               </motion.div>
 
               <h3 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-                Ready to Accelerate Your Development?
+                Ready to Scale Your Team & Automate Your Business?
               </h3>
               <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-                Join leading companies already building 10X faster with our
-                AI-powered development platform
+                Join hundreds of companies already cutting costs and saving up
+                to 70% of their time with our staff augmentation and intelligent
+                automation solutions.
               </p>
 
               <motion.div
@@ -460,7 +460,7 @@ const Features: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Start Building Today
+                Book a Free Strategy Call
                 <motion.div
                   animate={{ x: [0, 4, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
@@ -470,7 +470,7 @@ const Features: React.FC = () => {
               </motion.div>
             </div>
           </div>
-        </motion.div> */}
+        </motion.div>
       </div>
     </section>
   );

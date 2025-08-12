@@ -149,24 +149,32 @@ const ProductShowcase: React.FC = () => {
               </span>
             </h2>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <motion.button
               onClick={prev}
               aria-label="Previous"
-              className="w-12 h-12 rounded-2xl bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 text-white dark:text-gray-900 flex items-center justify-center hover:scale-105 transition-all duration-200 shadow-lg"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="group relative w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 via-purple-600 to-cyan-500 p-[2px] shadow-lg hover:shadow-xl transition-all duration-300"
+              whileHover={{ scale: 1.08, rotate: -2 }}
+              whileTap={{ scale: 0.92 }}
             >
-              <ArrowLeft className="w-5 h-5" />
+              <div className="w-full h-full rounded-2xl bg-white dark:bg-gray-900 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-blue-50 group-hover:to-purple-50 dark:group-hover:from-gray-800 dark:group-hover:to-gray-700 transition-all duration-300">
+                <ArrowLeft className="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300" />
+              </div>
+              {/* Glow effect */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500 via-purple-600 to-cyan-500 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300" />
             </motion.button>
             <motion.button
               onClick={next}
               aria-label="Next"
-              className="w-12 h-12 rounded-2xl bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 text-white dark:text-gray-900 flex items-center justify-center hover:scale-105 transition-all duration-200 shadow-lg"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="group relative w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 via-pink-600 to-orange-500 p-[2px] shadow-lg hover:shadow-xl transition-all duration-300"
+              whileHover={{ scale: 1.08, rotate: 2 }}
+              whileTap={{ scale: 0.92 }}
             >
-              <ArrowRight className="w-5 h-5" />
+              <div className="w-full h-full rounded-2xl bg-white dark:bg-gray-900 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-purple-50 group-hover:to-pink-50 dark:group-hover:from-gray-800 dark:group-hover:to-gray-700 transition-all duration-300">
+                <ArrowRight className="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300" />
+              </div>
+              {/* Glow effect */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-500 via-pink-600 to-orange-500 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300" />
             </motion.button>
           </div>
         </motion.div>
@@ -309,21 +317,28 @@ const ProductShowcase: React.FC = () => {
           viewport={{ once: true }}
           className="flex items-center justify-center gap-4 mt-12"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {products.map((_, index) => (
-              <button
+              <motion.button
                 key={index}
                 onClick={() => {
                   setCurrentIndex(index);
                   setIsAutoPlaying(false);
                 }}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`relative transition-all duration-300 ${
                   index === currentIndex
-                    ? "bg-gradient-to-r from-blue-500 to-purple-500 scale-125"
-                    : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500"
+                    ? "w-8 h-3 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 shadow-lg"
+                    : "w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 hover:bg-gradient-to-r hover:from-gray-400 hover:to-gray-500 dark:hover:from-gray-500 dark:hover:to-gray-400"
                 }`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
                 aria-label={`Go to product ${index + 1}`}
-              />
+              >
+                {/* Active indicator glow */}
+                {index === currentIndex && (
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 opacity-30 blur-sm" />
+                )}
+              </motion.button>
             ))}
           </div>
           <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">
@@ -339,16 +354,24 @@ const ProductShowcase: React.FC = () => {
           viewport={{ once: true }}
           className="flex justify-center mt-6"
         >
-          <button
+          <motion.button
             onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+            className={`relative px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 ${
               isAutoPlaying
-                ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400"
+                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-purple-700"
+                : "bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 text-gray-700 dark:text-gray-300 hover:from-gray-300 hover:to-gray-400 dark:hover:from-gray-600 dark:hover:to-gray-500 shadow-md hover:shadow-lg"
             }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            {isAutoPlaying ? "Pause Auto-slide" : "Resume Auto-slide"}
-          </button>
+            {/* Glow effect for active state */}
+            {isAutoPlaying && (
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 opacity-20 blur-lg" />
+            )}
+            <span className="relative z-10">
+              {isAutoPlaying ? "Pause Auto-slide" : "Resume Auto-slide"}
+            </span>
+          </motion.button>
         </motion.div>
       </div>
     </section>

@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import Button from '@/components/ui/Button';
-import { cn } from '@/lib/utils';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ChevronDown } from "lucide-react";
+import Button from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface NavItem {
   label: string;
@@ -13,20 +14,14 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Home', href: '#home' },
-  { 
-    label: 'Products', 
-    href: '#products',
-    children: [
-      { label: 'Web Development', href: '#web-dev' },
-      { label: 'Mobile Apps', href: '#mobile' },
-      { label: 'AI Solutions', href: '#ai' }
-    ]
+  { label: "Home", href: "#home" },
+  { label: "Services", href: "#services" },
+  {
+    label: "Products",
+    href: "#products",
   },
-  { label: 'Features', href: '#features' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' }
+  { label: "Features", href: "#features" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const Navigation: React.FC = () => {
@@ -39,27 +34,27 @@ const Navigation: React.FC = () => {
       setScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);
     setActiveDropdown(null);
-    
-    if (href.startsWith('#')) {
+
+    if (href.startsWith("#")) {
       const element = document.querySelector(href);
-      element?.scrollIntoView({ behavior: 'smooth' });
+      element?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
     <motion.nav
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        scrolled 
-          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg' 
-          : 'bg-transparent'
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        scrolled
+          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg"
+          : "bg-transparent"
       )}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -68,13 +63,17 @@ const Navigation: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <motion.div
-            className="flex-shrink-0"
-            whileHover={{ scale: 1.05 }}
-          >
-            <a href="#home" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <motion.div className="flex-shrink-0" whileHover={{ scale: 1.05 }}>
+            <Image
+              src="/logo-1.png"
+              alt="CodeMoly Logo"
+              width={100}
+              height={100}
+              className="h-8 w-auto"
+            />
+            {/* <a href="#home" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               CodeMoly
-            </a>
+            </a> */}
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -92,7 +91,7 @@ const Navigation: React.FC = () => {
                         {item.label}
                         <ChevronDown className="ml-1 h-4 w-4" />
                       </button>
-                      
+
                       <AnimatePresence>
                         {activeDropdown === item.label && (
                           <motion.div
@@ -143,7 +142,11 @@ const Navigation: React.FC = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -155,7 +158,7 @@ const Navigation: React.FC = () => {
           <motion.div
             className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >

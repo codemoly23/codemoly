@@ -145,7 +145,7 @@ const AIAutomations: React.FC = () => {
   const [hoveredService, setHoveredService] = useState<number | null>(null);
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 relative overflow-hidden">
+    <section id="services" className="py-16 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl" />
@@ -292,7 +292,7 @@ const AIAutomations: React.FC = () => {
 
         {/* Performance Stats */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -329,7 +329,7 @@ const AIAutomations: React.FC = () => {
         </motion.div>
 
         {/* Enhanced CTA Section */}
-        <motion.div
+        {/* <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -337,7 +337,7 @@ const AIAutomations: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 rounded-3xl p-12 text-white overflow-hidden">
-            {/* Background Pattern */}
+  
             <div className="absolute inset-0 opacity-20">
               <div className="absolute top-0 right-0 w-40 h-40 bg-white rounded-full -translate-y-20 translate-x-20" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-white rounded-full translate-y-16 -translate-x-16" />
@@ -373,18 +373,7 @@ const AIAutomations: React.FC = () => {
                   Start Free Consultation
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>
-
-                {/* <motion.button
-                  className="inline-flex items-center gap-3 bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-gray-900 transition-all duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Eye className="w-5 h-5" />
-                  View Live Demo
-                </motion.button> */}
               </div>
-
-              {/* Trust Indicators */}
               <div className="flex items-center justify-center gap-8 mt-8 pt-8 border-t border-white/20">
                 <div className="text-center">
                   <div className="text-2xl font-bold">500+</div>
@@ -401,7 +390,7 @@ const AIAutomations: React.FC = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );
