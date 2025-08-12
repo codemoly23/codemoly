@@ -374,14 +374,14 @@ const AIAutomations: React.FC = () => {
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>
 
-                <motion.button
+                {/* <motion.button
                   className="inline-flex items-center gap-3 bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-gray-900 transition-all duration-300"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Eye className="w-5 h-5" />
                   View Live Demo
-                </motion.button>
+                </motion.button> */}
               </div>
 
               {/* Trust Indicators */}

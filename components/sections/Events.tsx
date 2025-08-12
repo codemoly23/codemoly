@@ -85,9 +85,9 @@ const Events: React.FC = () => {
               developers committed to learning, growing, and finding success.
             </p>
 
-            <button className="text-white hover:text-gray-300 transition-colors duration-300 underline underline-offset-4 text-lg font-medium">
+            {/* <button className="text-white hover:text-gray-300 transition-colors duration-300 underline underline-offset-4 text-lg font-medium">
               Learn more
-            </button>
+            </button> */}
           </motion.div>
         </div>
 

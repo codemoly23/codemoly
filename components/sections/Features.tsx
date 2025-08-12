@@ -420,7 +420,7 @@ const Features: React.FC = () => {
         </motion.div>
 
         {/* Enhanced Call to Action */}
-        <motion.div
+        {/* <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -428,7 +428,7 @@ const Features: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 rounded-3xl p-12 text-white overflow-hidden">
-            {/* Background Pattern */}
+
             <div className="absolute inset-0 opacity-20">
               <div className="absolute top-0 right-0 w-40 h-40 bg-white rounded-full -translate-y-20 translate-x-20" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-white rounded-full translate-y-16 -translate-x-16" />
@@ -470,7 +470,7 @@ const Features: React.FC = () => {
               </motion.div>
             </div>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

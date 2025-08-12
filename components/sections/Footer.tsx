@@ -15,33 +15,22 @@ import {
 import Button from "@/components/ui/Button";
 
 const footerLinks = {
-  product: [
-    { name: "Features", href: "#features" },
-    { name: "Pricing", href: "#pricing" },
-    { name: "API Documentation", href: "#" },
-    { name: "Integrations", href: "#" },
-    { name: "Changelog", href: "#" },
+  services: [
+    { name: "Web Development", href: "#services" },
+    { name: "Mobile Apps", href: "#services" },
+    { name: "AI Solutions", href: "#services" },
+    { name: "Cloud Services", href: "#services" },
   ],
   company: [
     { name: "About Us", href: "#about" },
+    { name: "Contact", href: "#contact" },
     { name: "Careers", href: "#" },
     { name: "Blog", href: "#" },
-    { name: "Press Kit", href: "#" },
-    { name: "Contact", href: "#contact" },
-  ],
-  resources: [
-    { name: "Help Center", href: "#" },
-    { name: "Community", href: "#" },
-    { name: "Tutorials", href: "#" },
-    { name: "Webinars", href: "#" },
-    { name: "Status Page", href: "#" },
   ],
   legal: [
     { name: "Privacy Policy", href: "#" },
     { name: "Terms of Service", href: "#" },
     { name: "Cookie Policy", href: "#" },
-    { name: "GDPR", href: "#" },
-    { name: "Security", href: "#" },
   ],
 };
 
@@ -189,60 +178,53 @@ const Footer: React.FC = () => {
       </div> */}
 
       {/* Main Footer Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <motion.div
-            className="lg:col-span-2"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <div className="mb-8">
+            <div className="mb-6">
               <motion.h3
-                className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-4"
+                className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-3"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.2 }}
               >
                 CodeMoly
               </motion.h3>
-              <p className="text-gray-300 leading-relaxed text-lg max-w-md">
+              <p className="text-gray-300 leading-relaxed text-sm">
                 Empowering developers to build amazing applications with
                 cutting-edge tools and technologies.
               </p>
             </div>
 
             {/* Contact Info */}
-            <div className="space-y-5 mb-8">
+            <div className="space-y-3 mb-6">
               <motion.a
                 href="mailto:hello@codemoly.com"
-                className="flex items-center text-gray-300 hover:text-blue-400 transition-all duration-300 group cursor-pointer"
-                whileHover={{ x: 5 }}
+                className="flex items-center text-gray-300 hover:text-blue-400 transition-all duration-300 group cursor-pointer text-sm"
+                whileHover={{ x: 3 }}
               >
-                <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 group-hover:border-blue-400/50 group-hover:bg-blue-500/10 flex items-center justify-center mr-4 transition-all duration-300">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <span className="text-base">hello@codemoly.com</span>
+                <Mail className="w-4 h-4 mr-3" />
+                <span>hello@codemoly.com</span>
               </motion.a>
               <motion.a
                 href="tel:+15551234567"
-                className="flex items-center text-gray-300 hover:text-blue-400 transition-all duration-300 group cursor-pointer"
-                whileHover={{ x: 5 }}
+                className="flex items-center text-gray-300 hover:text-blue-400 transition-all duration-300 group cursor-pointer text-sm"
+                whileHover={{ x: 3 }}
               >
-                <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 group-hover:border-blue-400/50 group-hover:bg-blue-500/10 flex items-center justify-center mr-4 transition-all duration-300">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <span className="text-base">+1 (555) 123-4567</span>
+                <Phone className="w-4 h-4 mr-3" />
+                <span>+1 (555) 123-4567</span>
               </motion.a>
               <motion.div
-                className="flex items-center text-gray-300 hover:text-blue-400 transition-all duration-300 group"
-                whileHover={{ x: 5 }}
+                className="flex items-center text-gray-300 text-sm"
+                whileHover={{ x: 3 }}
               >
-                <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/20 group-hover:border-blue-400/50 group-hover:bg-blue-500/10 flex items-center justify-center mr-4 transition-all duration-300">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <span className="text-base">San Francisco, CA</span>
+                <MapPin className="w-4 h-4 mr-3" />
+                <span>San Francisco, CA</span>
               </motion.div>
             </div>
 
@@ -252,7 +234,7 @@ const Footer: React.FC = () => {
                 <motion.a
                   key={social.name}
                   href={social.href}
-                  className="w-12 h-12 rounded-xl bg-white/10 border border-white/20 hover:bg-gradient-to-r hover:from-blue-600/20 hover:to-purple-600/20 hover:border-blue-400/50 flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300 backdrop-blur-sm group"
+                  className="w-9 h-9 rounded-lg bg-white/10 border border-white/20 hover:bg-gradient-to-r hover:from-blue-600/20 hover:to-purple-600/20 hover:border-blue-400/50 flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300 backdrop-blur-sm group"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 0, y: 20 }}
@@ -260,7 +242,7 @@ const Footer: React.FC = () => {
                   transition={{ delay: 0.5 + index * 0.1 }}
                   title={social.name}
                 >
-                  {social.icon}
+                  {React.cloneElement(social.icon, { className: "w-4 h-4" })}
                 </motion.a>
               ))}
             </div>
@@ -274,13 +256,13 @@ const Footer: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
               viewport={{ once: true }}
-              className="space-y-6"
+              className="space-y-4"
             >
-              <h4 className="text-xl font-bold capitalize bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent relative">
+              <h4 className="text-lg font-semibold capitalize bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent relative">
                 {category}
-                <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full" />
+                <div className="absolute -bottom-1 left-0 w-6 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full" />
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-2">
                 {links.map((link, linkIndex) => (
                   <motion.li
                     key={link.name}
@@ -290,33 +272,19 @@ const Footer: React.FC = () => {
                   >
                     <motion.a
                       href={link.href}
-                      className="text-gray-300 hover:text-white transition-all duration-300 group text-base py-2 px-3 rounded-lg hover:bg-white/5 flex items-center relative overflow-hidden"
-                      whileHover={{ x: 4 }}
+                      className="text-gray-300 hover:text-white transition-all duration-300 group text-sm py-1 px-2 rounded-md hover:bg-white/5 flex items-center relative overflow-hidden"
+                      whileHover={{ x: 3 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      {/* Modern hover effect background */}
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        initial={false}
-                      />
-
-                      {/* Modern accent line */}
-                      <motion.div
-                        className="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        initial={false}
-                      />
-
                       <span className="relative z-10 group-hover:font-medium transition-all duration-300">
                         {link.name}
                       </span>
-
-                      {/* Modern arrow indicator */}
                       <motion.div
                         className="ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300"
-                        initial={{ x: -10 }}
+                        initial={{ x: -5 }}
                         whileHover={{ x: 0 }}
                       >
-                        <ArrowRight className="w-4 h-4 text-blue-400" />
+                        <ArrowRight className="w-3 h-3 text-blue-400" />
                       </motion.div>
                     </motion.a>
                   </motion.li>
@@ -329,16 +297,16 @@ const Footer: React.FC = () => {
 
       {/* Bottom Bar */}
       <div className="relative z-10 border-t border-white/10 bg-black/20 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-6xl mx-auto flex justify-center px-4 sm:px-6 lg:px-8 py-6">
           <motion.div
-            className="flex flex-col md:flex-row justify-between items-center gap-4"
+            className="flex flex-col md:flex-row justify-between items-center gap-3"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
             <motion.div
-              className="text-gray-300 text-base order-2 md:order-1"
+              className="text-gray-300 text-sm order-2 md:order-1"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
@@ -350,8 +318,8 @@ const Footer: React.FC = () => {
               . All rights reserved.
             </motion.div>
 
-            <motion.div
-              className="flex items-center text-gray-300 text-base order-1 md:order-2"
+            {/* <motion.div
+              className="flex items-center text-gray-300 text-sm order-1 md:order-2"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
@@ -369,9 +337,9 @@ const Footer: React.FC = () => {
                   ease: "easeInOut",
                 }}
               >
-                <Heart className="w-5 h-5 text-red-500 fill-current drop-shadow-sm" />
+                <Heart className="w-4 h-4 text-red-500 fill-current drop-shadow-sm" />
               </motion.div>
-              <span>by the</span>
+              <span>by</span>
               <motion.span
                 className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-semibold ml-1"
                 whileHover={{ scale: 1.05 }}
@@ -379,8 +347,7 @@ const Footer: React.FC = () => {
               >
                 CodeMoly
               </motion.span>
-              <span className="ml-1">team</span>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
         </div>
       </div>

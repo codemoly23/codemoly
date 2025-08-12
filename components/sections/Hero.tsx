@@ -192,7 +192,7 @@ const Hero = () => {
               {" "}
               intelligent solutions
             </span>{" "}
-            that drive meaningful change.
+            that drive business growth.
           </motion.p>
 
           {/* Animated Feature Showcase */}
@@ -243,7 +243,7 @@ const Hero = () => {
               className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl shadow-blue-500/25 px-8 py-4"
             >
               <Zap className="mr-2 h-5 w-5" />
-              Start Your AI Journey
+              Book a Free Consultant
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </motion.div>

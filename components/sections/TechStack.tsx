@@ -4,65 +4,67 @@ import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Code2 } from "lucide-react";
 
-// All technologies in a single array for sliding carousel
-const allTechnologies = [
-  { name: "Next.js", logo: "/api/placeholder/60/60" },
-  { name: "React", logo: "/api/placeholder/60/60" },
-  { name: "Vue.js", logo: "/api/placeholder/60/60" },
-  { name: "Angular", logo: "/api/placeholder/60/60" },
-  { name: "TypeScript", logo: "/api/placeholder/60/60" },
-  { name: "Tailwind CSS", logo: "/api/placeholder/60/60" },
-  { name: "Node.js", logo: "/api/placeholder/60/60" },
-  { name: "Laravel", logo: "/api/placeholder/60/60" },
-  { name: "Django", logo: "/api/placeholder/60/60" },
-  { name: "Spring Boot", logo: "/api/placeholder/60/60" },
-  { name: "Express.js", logo: "/api/placeholder/60/60" },
-  { name: "FastAPI", logo: "/api/placeholder/60/60" },
-  { name: "PostgreSQL", logo: "/api/placeholder/60/60" },
-  { name: "MongoDB", logo: "/api/placeholder/60/60" },
-  { name: "MySQL", logo: "/api/placeholder/60/60" },
-  { name: "Redis", logo: "/api/placeholder/60/60" },
-  { name: "Elasticsearch", logo: "/api/placeholder/60/60" },
-  { name: "Firebase", logo: "/api/placeholder/60/60" },
+// Split technologies into two rows for alternating slide directions
+const firstRowTechnologies = [
+  { name: "Frontend", logo: "/api/placeholder/60/60" },
+  { name: "Backend", logo: "/api/placeholder/60/60" },
+  { name: "App", logo: "/api/placeholder/60/60" },
+  { name: "Database", logo: "/api/placeholder/60/60" },
   { name: "AWS", logo: "/api/placeholder/60/60" },
-  { name: "Google Cloud", logo: "/api/placeholder/60/60" },
   { name: "Docker", logo: "/api/placeholder/60/60" },
   { name: "Kubernetes", logo: "/api/placeholder/60/60" },
   { name: "Vercel", logo: "/api/placeholder/60/60" },
-  { name: "Netlify", logo: "/api/placeholder/60/60" },
-  { name: "React Native", logo: "/api/placeholder/60/60" },
-  { name: "Flutter", logo: "/api/placeholder/60/60" },
-  { name: "Expo", logo: "/api/placeholder/60/60" },
-  { name: "Swift", logo: "/api/placeholder/60/60" },
-  { name: "Kotlin", logo: "/api/placeholder/60/60" },
-  { name: "Ionic", logo: "/api/placeholder/60/60" },
-  { name: "OpenAI API", logo: "/api/placeholder/60/60" },
-  { name: "n8n", logo: "/api/placeholder/60/60" },
-  { name: "Zapier", logo: "/api/placeholder/60/60" },
-  { name: "TensorFlow", logo: "/api/placeholder/60/60" },
-  { name: "LangChain", logo: "/api/placeholder/60/60" },
-  { name: "Pinecone", logo: "/api/placeholder/60/60" },
 ];
 
-// Duplicate the array for seamless infinite scroll
-const duplicatedTechnologies = [...allTechnologies, ...allTechnologies];
+const secondRowTechnologies = [
+  { name: "n8n", logo: "/api/placeholder/60/60" },
+  { name: "LangChain", logo: "/api/placeholder/60/60" },
+  { name: "Shopify", logo: "/api/placeholder/60/60" },
+  { name: "WordPress", logo: "/api/placeholder/60/60" },
+  { name: "Wix", logo: "/api/placeholder/60/60" },
+  { name: "Magento Shop", logo: "/api/placeholder/60/60" },
+  { name: "GTM", logo: "/api/placeholder/60/60" },
+];
+
+// Duplicate arrays for seamless infinite scroll
+const duplicatedFirstRow = [...firstRowTechnologies, ...firstRowTechnologies];
+// Reverse the second row for right-to-left visual effect
+const duplicatedSecondRow = [
+  ...secondRowTechnologies.reverse(),
+  ...secondRowTechnologies,
+];
 
 const TechStack: React.FC = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const firstRowRef = useRef<HTMLDivElement>(null);
+  const secondRowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
+    const firstRowContainer = firstRowRef.current;
+    const secondRowContainer = secondRowRef.current;
 
-    let scrollAmount = 0;
-    const scrollSpeed = 1; // Adjust speed as needed
+    if (!firstRowContainer || !secondRowContainer) return;
+
+    let firstRowScrollAmount = 0;
+    let secondRowScrollAmount = 0;
+    const scrollSpeed = 1;
 
     const scroll = () => {
-      scrollAmount += scrollSpeed;
-      if (scrollAmount >= scrollContainer.scrollWidth / 2) {
-        scrollAmount = 0;
+      // First row scrolls left to right (normal direction)
+      firstRowScrollAmount += scrollSpeed;
+      if (firstRowScrollAmount >= firstRowContainer.scrollWidth / 2) {
+        firstRowScrollAmount = 0;
       }
-      scrollContainer.scrollLeft = scrollAmount;
+      firstRowContainer.scrollLeft = firstRowScrollAmount;
+
+      // Second row scrolls right to left (reverse direction)
+      // Start from the right side and move left
+      secondRowScrollAmount += scrollSpeed;
+      if (secondRowScrollAmount >= secondRowContainer.scrollWidth / 2) {
+        secondRowScrollAmount = 0;
+      }
+      // For right-to-left effect, we scroll from the end backwards
+      secondRowContainer.scrollLeft =
+        secondRowContainer.scrollWidth / 2 - secondRowScrollAmount;
     };
 
     const intervalId = setInterval(scroll, 20);
@@ -104,48 +106,68 @@ const TechStack: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Sliding Technology Carousel */}
+        {/* Two-Row Sliding Technology Carousel */}
         <motion.div
-          className="relative overflow-hidden"
+          className="relative space-y-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          {/* Gradient overlays for smooth edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-slate-50 via-slate-50/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 dark:to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 dark:to-transparent z-10" />
+          {/* First Row - Slides Left to Right */}
+          <div className="relative overflow-hidden">
+            {/* Gradient overlays for smooth edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-slate-50 via-slate-50/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 dark:to-transparent z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 dark:to-transparent z-10" />
 
-          {/* Scrolling container */}
-          <div
-            ref={scrollRef}
-            className="flex gap-8 py-8 overflow-hidden"
-            style={{ scrollBehavior: "auto" }}
-          >
-            {duplicatedTechnologies.map((tech, index) => (
-              <motion.div
-                key={`${tech.name}-${index}`}
-                className="flex-shrink-0 group"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="flex flex-col items-center gap-3 p-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg transition-all duration-300 min-w-[120px]">
-                  {/* Tech Logo */}
-                  <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center group-hover:bg-blue-100 dark:group-hover:bg-blue-900/30 transition-colors duration-300">
-                    <img
-                      src={tech.logo}
-                      alt={tech.name}
-                      className="w-8 h-8 object-contain"
-                    />
+            <div
+              ref={firstRowRef}
+              className="flex gap-6 py-6 overflow-hidden"
+              style={{ scrollBehavior: "auto" }}
+            >
+              {duplicatedFirstRow.map((tech, index) => (
+                <motion.div
+                  key={`first-${tech.name}-${index}`}
+                  className="flex-shrink-0 group"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="flex items-center justify-center px-6 py-3 bg-white dark:bg-white/10 backdrop-blur-md rounded-xl border border-gray-200 dark:border-white/20 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-white/20 transition-all duration-300 min-w-[140px]">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 whitespace-nowrap">
+                      {tech.name}
+                    </h3>
                   </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
 
-                  {/* Tech Name */}
-                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white text-center group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
-                    {tech.name}
-                  </h3>
-                </div>
-              </motion.div>
-            ))}
+          {/* Second Row - Slides Right to Left */}
+          <div className="relative overflow-hidden">
+            {/* Gradient overlays for smooth edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-slate-50 via-slate-50/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 dark:to-transparent z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-slate-50 via-slate-50/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 dark:to-transparent z-10" />
+
+            <div
+              ref={secondRowRef}
+              className="flex gap-6 py-6 overflow-hidden"
+              style={{ scrollBehavior: "auto" }}
+            >
+              {duplicatedSecondRow.map((tech, index) => (
+                <motion.div
+                  key={`second-${tech.name}-${index}`}
+                  className="flex-shrink-0 group"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="flex items-center justify-center px-6 py-3 bg-white dark:bg-white/10 backdrop-blur-md rounded-xl border border-gray-200 dark:border-white/20 hover:shadow-lg hover:bg-blue-50 dark:hover:bg-white/20 transition-all duration-300 min-w-[140px]">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 whitespace-nowrap">
+                      {tech.name}
+                    </h3>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

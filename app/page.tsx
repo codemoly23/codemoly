@@ -17,12 +17,12 @@ export default function Home() {
       <Navigation />
       <Hero />
       <AIAutomations />
-      <TechStack />
       <ProductShowcase />
       <Testimonials />
       <Features />
+      <TechStack />
       <Events />
-      <About />
+      {/* <About /> */}
       <GlobalPresence />
       {/* <Pricing /> */}
       <Contact />
