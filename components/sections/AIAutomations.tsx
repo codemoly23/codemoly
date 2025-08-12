@@ -15,6 +15,8 @@ import {
   Sparkles,
   Store,
 } from "lucide-react";
+import FormModal from "@/components/ui/FormModal";
+import { useFormModal } from "@/hooks/useFormModal";
 
 // Core Services Data - Real CodeMoly Services
 const coreServices = [
@@ -143,9 +145,13 @@ const automationStats = [
 
 const AIAutomations: React.FC = () => {
   const [hoveredService, setHoveredService] = useState<number | null>(null);
+  const { isOpen, openModal, closeModal } = useFormModal();
 
   return (
-    <section id="services" className="py-16 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 relative overflow-hidden">
+    <section
+      id="services"
+      className="py-16 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 relative overflow-hidden"
+    >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl" />
@@ -369,6 +375,7 @@ const AIAutomations: React.FC = () => {
                   className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={openModal}
                 >
                   Start Free Consultation
                   <ArrowRight className="w-5 h-5" />
@@ -392,6 +399,9 @@ const AIAutomations: React.FC = () => {
           </div>
         </motion.div> */}
       </div>
+
+      {/* Form Modal */}
+      <FormModal isOpen={isOpen} onClose={closeModal} />
     </section>
   );
 };

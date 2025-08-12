@@ -3,16 +3,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import {
-  Github,
-  Twitter,
   Linkedin,
   Mail,
   Phone,
   MapPin,
   ArrowRight,
-  Heart,
+  Facebook,
+  Youtube,
 } from "lucide-react";
-import Button from "@/components/ui/Button";
 
 const footerLinks = {
   services: [
@@ -35,9 +33,21 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { name: "GitHub", icon: <Github className="w-5 h-5" />, href: "#" },
-  { name: "Twitter", icon: <Twitter className="w-5 h-5" />, href: "#" },
-  { name: "LinkedIn", icon: <Linkedin className="w-5 h-5" />, href: "#" },
+  {
+    name: "LinkedIn",
+    icon: <Linkedin className="w-5 h-5" />,
+    href: "https://www.linkedin.com/company/codemoly/",
+  },
+  {
+    name: "Facebook",
+    icon: <Facebook className="w-5 h-5" />,
+    href: "https://www.facebook.com/CodeMoly",
+  },
+  {
+    name: "Youtube",
+    icon: <Youtube className="w-5 h-5" />,
+    href: "https://www.youtube.com/@codemoly",
+  },
 ];
 
 const Footer: React.FC = () => {
@@ -217,14 +227,14 @@ const Footer: React.FC = () => {
                 whileHover={{ x: 3 }}
               >
                 <Phone className="w-4 h-4 mr-3" />
-                <span>+1 (555) 123-4567</span>
+                <span>+01894 955 491</span>
               </motion.a>
               <motion.div
                 className="flex items-center text-gray-300 text-sm"
                 whileHover={{ x: 3 }}
               >
                 <MapPin className="w-4 h-4 mr-3" />
-                <span>San Francisco, CA</span>
+                <span>Shyamoli, Dhaka</span>
               </motion.div>
             </div>
 
@@ -234,6 +244,7 @@ const Footer: React.FC = () => {
                 <motion.a
                   key={social.name}
                   href={social.href}
+                  target="_blank"
                   className="w-9 h-9 rounded-lg bg-white/10 border border-white/20 hover:bg-gradient-to-r hover:from-blue-600/20 hover:to-purple-600/20 hover:border-blue-400/50 flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300 backdrop-blur-sm group"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}

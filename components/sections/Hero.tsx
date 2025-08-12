@@ -12,9 +12,12 @@ import {
   Sparkles,
 } from "lucide-react";
 import Button from "@/components/ui/Button";
+import FormModal from "@/components/ui/FormModal";
+import { useFormModal } from "@/hooks/useFormModal";
 
 const Hero = () => {
   const [currentFeature, setCurrentFeature] = useState(0);
+  const { isOpen, openModal, closeModal } = useFormModal();
 
   const features = [
     {
@@ -241,6 +244,7 @@ const Hero = () => {
               variant="primary"
               size="lg"
               className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl shadow-blue-500/25 px-8 py-4"
+              onClick={openModal}
             >
               <Zap className="mr-2 h-5 w-5" />
               Book a Free Consultant
@@ -289,6 +293,9 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Form Modal */}
+      <FormModal isOpen={isOpen} onClose={closeModal} />
     </section>
   );
 };

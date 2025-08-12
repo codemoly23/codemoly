@@ -8,42 +8,30 @@ const Events: React.FC = () => {
   const events = [
     {
       id: 1,
-      title: "Rise Up",
-      subtitle: "Live The Dream",
-      location: "Australia",
-      date: "30 December 2024",
-      image:
-        "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      title: "VivaTech 2025",
+      subtitle: "In Paris",
+      image: "/event-1.jpg",
       gradient: "from-blue-600 to-cyan-500",
     },
     {
       id: 2,
-      title: "Painting Hopes",
-      subtitle: "In Argentina",
-      location: "Argentina",
-      date: "15 December 2024",
-      image:
-        "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      title: "VivaTech 2025",
+      subtitle: "In Paris",
+      image: "/event-2.jpg",
       gradient: "from-orange-500 to-yellow-400",
     },
     {
       id: 3,
-      title: "Dreams In",
-      subtitle: "The Making",
-      location: "Nigeria",
-      date: "10 December 2024",
-      image:
-        "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      title: "VivaTech 2025",
+      subtitle: "In Paris",
+      image: "/event-3.jpg",
       gradient: "from-green-500 to-emerald-400",
     },
     {
       id: 4,
-      title: "Lifting Spirits",
-      subtitle: "Beyond Limits",
-      location: "Chile",
-      date: "05 December 2024",
-      image:
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      title: "VivaTech 2025",
+      subtitle: "In Paris",
+      image: "/event-4.jpg",
       gradient: "from-purple-500 to-pink-400",
     },
   ];
@@ -79,10 +67,13 @@ const Events: React.FC = () => {
             viewport={{ once: true }}
           >
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              Dive into CodeMoly&apos;s global events, where coding enthusiasts
-              connect, engage, and grow. We&apos;re more than the best
-              development firm, we&apos;re a community of new and experienced
-              developers committed to learning, growing, and finding success.
+              Experience CodeMoly on the world stage at VivaTech 2025 and other
+              premier global tech events. We connect with innovators, startups,
+              and industry leaders to share ideas, build partnerships, and
+              showcase our cutting-edge solutions. At CodeMoly, we’re more than
+              just a top-tier development firm — we’re a global community of
+              passionate developers and tech professionals dedicated to
+              learning, growing, and creating impactful success stories.
             </p>
 
             {/* <button className="text-white hover:text-gray-300 transition-colors duration-300 underline underline-offset-4 text-lg font-medium">
@@ -121,7 +112,7 @@ const Events: React.FC = () => {
                 {/* Top Content */}
                 <div>
                   <div className="text-sm font-medium opacity-90 mb-2">
-                    {event.location} - {event.date}
+                    {/* {event.location} - {event.date} */}
                   </div>
                 </div>
 

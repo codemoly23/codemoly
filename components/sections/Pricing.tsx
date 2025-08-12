@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { Check, X, Star, Zap, Crown, Rocket } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
+import FormModal from "@/components/ui/FormModal";
+import { useFormModal } from "@/hooks/useFormModal";
 
 const pricingPlans = [
   {
@@ -62,6 +64,7 @@ const pricingPlans = [
 
 const Pricing: React.FC = () => {
   const [isYearly, setIsYearly] = useState(false);
+  const { isOpen, openModal, closeModal } = useFormModal();
 
   return (
     <section id="pricing" className="py-24 bg-white dark:bg-gray-900">
@@ -190,6 +193,7 @@ const Pricing: React.FC = () => {
                     variant={plan.popular ? "primary" : "outline"}
                     size="lg"
                     className="w-full"
+                    onClick={openModal}
                   >
                     {plan.price.monthly === 0
                       ? "Get Started Free"
@@ -261,7 +265,7 @@ const Pricing: React.FC = () => {
             <Button variant="outline" size="lg">
               View FAQ
             </Button>
-            <Button variant="primary" size="lg">
+            <Button variant="primary" size="lg" onClick={openModal}>
               Contact Sales
             </Button>
           </div>
@@ -281,6 +285,9 @@ const Pricing: React.FC = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Form Modal */}
+      <FormModal isOpen={isOpen} onClose={closeModal} />
     </section>
   );
 };
