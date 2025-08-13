@@ -129,3 +129,61 @@ html {
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
 }
+
+/* Mobile-specific optimizations */
+@media (max-width: 640px) {
+  /* Reduce large spacing on mobile */
+  .mobile-py-reduced { padding-top: 3rem; padding-bottom: 3rem; }
+  .mobile-px-reduced { padding-left: 1rem; padding-right: 1rem; }
+
+  /* Mobile typography scaling */
+  .mobile-text-hero { font-size: 2.5rem; line-height: 1.1; }
+  .mobile-text-section { font-size: 2rem; line-height: 1.2; }
+  .mobile-text-card { font-size: 1.125rem; line-height: 1.4; }
+
+  /* Mobile button sizing */
+  .mobile-btn-lg { padding: 0.875rem 1.5rem; font-size: 1rem; }
+  .mobile-btn-md { padding: 0.75rem 1.25rem; font-size: 0.875rem; }
+
+  /* Mobile card spacing */
+  .mobile-card-p { padding: 1.5rem; }
+  .mobile-gap-reduced { gap: 1rem; }
+
+  /* Mobile touch targets */
+  .mobile-touch-target { min-height: 44px; min-width: 44px; }
+
+  /* Mobile grid improvements */
+  .mobile-grid-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .mobile-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* Mobile background effects - reduce complexity */
+  .mobile-bg-simple { background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(168,85,247,0.05)); }
+
+  /* Mobile-specific improvements */
+  body { font-size: 16px; } /* Prevent zoom on iOS */
+
+  /* Improve mobile scrolling */
+  * { -webkit-overflow-scrolling: touch; }
+
+  /* Reduce motion for better performance */
+  .reduce-motion { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tablet-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tablet-text-hero { font-size: 3.5rem; line-height: 1.1; }
+  .tablet-py-reduced { padding-top: 4rem; padding-bottom: 4rem; }
+}
+
+/* Improved scrollbar for mobile */
+@media (max-width: 640px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+  }
+}

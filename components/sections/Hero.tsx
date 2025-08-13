@@ -52,7 +52,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen pt-28 pb-14 flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
+      className="relative min-h-screen pt-20 sm:pt-28 pb-8 sm:pb-14 flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
     >
       {/* Modern Background System */}
       <div className="absolute inset-0">
@@ -75,22 +75,22 @@ const Hero = () => {
           }}
         />
 
-        {/* Floating Elements */}
+        {/* Floating Elements - Reduced on mobile */}
         <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl"
+          className="absolute top-1/4 left-1/4 w-48 sm:w-96 h-48 sm:h-96 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl"
           animate={{
-            x: [0, 50, -30, 0],
-            y: [0, -40, 30, 0],
+            x: [0, 25, -15, 0],
+            y: [0, -20, 15, 0],
             scale: [1, 1.1, 0.9, 1],
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-gradient-to-r from-cyan-500/15 to-blue-500/15 blur-3xl"
+          className="absolute bottom-1/4 right-1/4 w-32 sm:w-80 h-32 sm:h-80 rounded-full bg-gradient-to-r from-cyan-500/15 to-blue-500/15 blur-3xl"
           animate={{
-            x: [0, -60, 40, 0],
-            y: [0, 50, -25, 0],
+            x: [0, -30, 20, 0],
+            y: [0, 25, -12, 0],
             scale: [1, 0.8, 1.2, 1],
           }}
           transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
@@ -143,25 +143,25 @@ const Hero = () => {
         </svg>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto mobile-px-reduced sm:px-6 lg:px-8">
         <div className="text-center">
           {/* Company Badge */}
           <motion.div
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 mb-8"
+            className="inline-flex items-center gap-2 px-3 sm:px-6 py-2 sm:py-3 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 mb-6 sm:mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Sparkles className="w-5 h-5 text-blue-400" />
-            <span className="text-sm font-medium text-blue-200">
+            <Sparkles className="w-4 sm:w-5 h-4 sm:h-5 text-blue-400" />
+            <span className="text-xs sm:text-sm font-medium text-blue-200">
               Transforming Business Through AI
             </span>
-            <Bot className="w-5 h-5 text-purple-400" />
+            <Bot className="w-4 sm:w-5 h-4 sm:h-5 text-purple-400" />
           </motion.div>
 
           {/* Main Headline */}
           <motion.h1
-            className="text-5xl md:text-6xl lg:text-7xl font-black mb-8 leading-[0.95] max-w-5xl mx-auto"
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black mb-6 sm:mb-8 leading-[1.1] sm:leading-[0.95] max-w-5xl mx-auto mobile-text-hero tablet-text-hero"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -179,7 +179,7 @@ const Hero = () => {
 
           {/* Subtitle */}
           <motion.p
-            className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed max-w-3xl mx-auto"
+            className="text-base sm:text-xl md:text-2xl text-gray-300 mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto px-4 sm:px-0"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -225,7 +225,7 @@ const Hero = () => {
                       </div>
                     );
                   })()}
-                  <span className="text-white text-lg font-semibold">
+                  <span className="text-white text-sm sm:text-base lg:text-lg font-semibold">
                     {features[currentFeature].text}
                   </span>
                 </motion.div>
@@ -235,7 +235,7 @@ const Hero = () => {
 
           {/* CTA Button */}
           <motion.div
-            className="flex justify-center mb-16"
+            className="flex justify-center mb-10 sm:mb-16 px-4 sm:px-0"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
@@ -243,12 +243,14 @@ const Hero = () => {
             <Button
               variant="primary"
               size="lg"
-              className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl shadow-blue-500/25 px-8 py-4"
+              className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-2xl shadow-blue-500/25 mobile-btn-lg sm:px-8 sm:py-4 w-full sm:w-auto max-w-sm sm:max-w-none"
               onClick={openModal}
             >
-              <Zap className="mr-2 h-5 w-5" />
-              Book a Free Consultant
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <Zap className="mr-2 h-4 sm:h-5 w-4 sm:w-5" />
+              <span className="text-sm sm:text-base">
+                Book a Free Consultant
+              </span>
+              <ArrowRight className="ml-2 h-4 sm:h-5 w-4 sm:w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </motion.div>
 

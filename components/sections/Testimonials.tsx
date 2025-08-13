@@ -37,7 +37,7 @@ const Testimonials: React.FC = () => {
   const { isOpen, openModal, closeModal } = useFormModal();
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.3),transparent_50%)]"></div>
@@ -46,9 +46,9 @@ const Testimonials: React.FC = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+        <div className="grid lg:grid-cols-12 gap-8 sm:gap-12 items-center">
           {/* Left Side - Content */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 mb-8 lg:mb-0">
             {/* Clutch Rating Badge */}
             {/* <motion.div
               className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6"
@@ -74,7 +74,7 @@ const Testimonials: React.FC = () => {
 
             {/* Orange Accent Text */}
             <motion.div
-              className="text-orange-400 font-semibold text-lg mb-4"
+              className="text-orange-400 font-semibold text-sm sm:text-lg mb-3 sm:mb-4"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -85,7 +85,7 @@ const Testimonials: React.FC = () => {
 
             {/* Main Heading */}
             <motion.h2
-              className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -101,7 +101,7 @@ const Testimonials: React.FC = () => {
 
             {/* Description */}
             <motion.p
-              className="text-gray-300 text-lg mb-8 leading-relaxed"
+              className="text-gray-300 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -113,7 +113,7 @@ const Testimonials: React.FC = () => {
 
             {/* CTA Button */}
             <motion.button
-              className="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-2 sm:gap-3 bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -122,35 +122,39 @@ const Testimonials: React.FC = () => {
               whileTap={{ scale: 0.95 }}
               onClick={openModal}
             >
-              <Phone className="w-5 h-5" />
+              <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
               Free 3 Day Developers Trial
             </motion.button>
           </div>
 
           {/* Right Side - Stats Cards */}
           <div className="lg:col-span-7">
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
-                  className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300"
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-white/20 hover:bg-white/15 transition-all duration-300"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.1 * index }}
                   viewport={{ once: true }}
                   whileHover={{ scale: 1.02, y: -5 }}
                 >
-                  <div className="flex items-center justify-center w-16 h-16 bg-white/20 rounded-2xl mb-6">
-                    {stat.icon}
+                  <div className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 rounded-xl sm:rounded-2xl mb-4 sm:mb-6">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-blue-400">
+                      {stat.icon}
+                    </div>
                   </div>
-                  <div className="text-4xl font-bold text-white mb-2">
+                  <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-1 sm:mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-xl font-semibold text-white mb-1">
+                  <div className="text-base sm:text-lg lg:text-xl font-semibold text-white mb-1">
                     {stat.label}
                   </div>
                   {stat.subtitle && (
-                    <div className="text-gray-400 text-sm">{stat.subtitle}</div>
+                    <div className="text-gray-400 text-xs sm:text-sm leading-tight">
+                      {stat.subtitle}
+                    </div>
                   )}
                 </motion.div>
               ))}

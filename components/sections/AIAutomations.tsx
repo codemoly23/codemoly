@@ -150,7 +150,7 @@ const AIAutomations: React.FC = () => {
   return (
     <section
       id="services"
-      className="py-16 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 relative overflow-hidden"
+      className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-indigo-900/20 relative overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -162,31 +162,31 @@ const AIAutomations: React.FC = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-800 dark:text-blue-200 px-6 py-3 rounded-full text-sm font-semibold mb-8 border border-blue-200/50 dark:border-blue-700/50"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-800 dark:text-blue-200 px-3 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-semibold mb-6 sm:mb-8 border border-blue-200/50 dark:border-blue-700/50"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <Sparkles className="w-4 h-4" />
+            <Sparkles className="w-3 sm:w-4 h-3 sm:h-4" />
             Core AI Automation Services
           </motion.div>
 
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
             Intelligent Solutions for
             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
               {" "}
               Every Business Need
             </span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
             Transform your operations with our comprehensive suite of AI-powered
             automation services, designed to optimize efficiency, reduce costs,
             and drive sustainable growth.
@@ -195,7 +195,7 @@ const AIAutomations: React.FC = () => {
 
         {/* Core Services Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-20"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -298,7 +298,7 @@ const AIAutomations: React.FC = () => {
 
         {/* Performance Stats */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid mobile-grid-2 sm:grid-cols-2 lg:grid-cols-4 mobile-gap-reduced sm:gap-6"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -319,10 +319,10 @@ const AIAutomations: React.FC = () => {
                   {stat.icon}
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                  <div className="text-sm sm:text-base lg:text-lg font-semibold text-gray-700 dark:text-gray-300 mb-1">
                     {stat.label}
                   </div>
                   <div className="text-sm text-gray-500 dark:text-gray-400">
@@ -362,10 +362,10 @@ const AIAutomations: React.FC = () => {
                 Start Your Automation Journey
               </motion.div>
 
-              <h3 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 leading-tight">
                 Ready to Transform Your Business?
               </h3>
-              <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base lg:text-lg xl:text-xl mb-6 sm:mb-8 opacity-90 max-w-2xl mx-auto">
                 Join thousands of businesses already saving 70% of their time
                 with our intelligent automation solutions
               </p>

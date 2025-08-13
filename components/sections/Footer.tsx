@@ -15,21 +15,22 @@ import Image from "next/image";
 
 const footerLinks = {
   services: [
-    { name: "Web Development", href: "#services" },
-    { name: "Mobile Apps", href: "#services" },
-    { name: "AI Solutions", href: "#services" },
-    { name: "Cloud Services", href: "#services" },
+    { name: "Web Development", href: "/#services" },
+    { name: "Mobile Apps", href: "/#services" },
+    { name: "AI Solutions", href: "/#services" },
+    { name: "Ecommerce Automation", href: "/#services" },
   ],
   company: [
-    { name: "About Us", href: "#about" },
-    { name: "Contact", href: "#contact" },
-    { name: "Careers", href: "#" },
-    { name: "Blog", href: "#" },
+    { name: "About Us", href: "/about-us" },
+    { name: "Contact", href: "/#contact" },
+    { name: "Career", href: "/career" },
+    // { name: "Blog", href: "#" },
   ],
   legal: [
-    { name: "Privacy Policy", href: "#" },
-    { name: "Terms of Service", href: "#" },
-    { name: "Cookie Policy", href: "#" },
+    { name: "Privacy Policy", href: "/privacy-policy" },
+    { name: "Terms of Service", href: "/terms-of-service" },
+    { name: "Delivery Policy", href: "/delivery-policy" },
+    // { name: "Cookie Policy", href: "#" },
   ],
 };
 
@@ -155,7 +156,7 @@ const Footer: React.FC = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">
+            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
               <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
                 Stay Updated
               </span>
@@ -200,11 +201,11 @@ const Footer: React.FC = () => {
           >
             <div className="mb-6">
               <Image
-                src="/logo-1.png"
+                src="/logo-white.png"
                 alt="CodeMoly Logo"
                 width={100}
                 height={100}
-                className="h-10 w-auto"
+                className="h-8 w-auto"
               />
               <p className="text-gray-300 leading-relaxed text-sm">
                 Empowering developers to build amazing applications with

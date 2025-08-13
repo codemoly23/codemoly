@@ -90,15 +90,15 @@ export default function GlobalPresence() {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-16 grid lg:grid-cols-2 gap-8 items-end">
+        <div className="mb-8 sm:mb-12 lg:mb-16 grid lg:grid-cols-2 gap-6 sm:gap-8 items-end">
           <div>
-            <p className="text-sm tracking-widest text-emerald-400 font-semibold mb-3">
+            <p className="text-xs tracking-widest text-emerald-400 font-semibold mb-2 sm:mb-3">
               OUR PRESENCE
             </p>
-            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
               Building on a global scale
             </h2>
-            <p className="mt-4 text-gray-300 max-w-2xl">
+            <p className="mt-3 sm:mt-4 text-gray-300 max-w-2xl text-xs sm:text-sm">
               We operate across strategic regions to stay close to our community
               and customers, ensuring faster iteration, better reliability, and
               local impact.
@@ -106,26 +106,30 @@ export default function GlobalPresence() {
           </div>
 
           {/* Quick info cards */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
-              <div className="flex items-center gap-3">
-                <Globe2 className="w-5 h-5 text-emerald-400" />
-                <span className="text-sm text-gray-300">Countries</span>
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+            <div className="rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 p-3 sm:p-4">
+              <div className="flex items-center gap-1 sm:gap-2">
+                <Globe2 className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-400" />
+                <span className="text-xs text-gray-300">Countries</span>
               </div>
-              <div className="mt-2 text-3xl font-bold">3</div>
+              <div className="mt-1 sm:mt-2 text-xl sm:text-2xl font-bold">
+                3
+              </div>
             </div>
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
-              <div className="flex items-center gap-3">
-                <Users className="w-5 h-5 text-blue-400" />
-                <span className="text-sm text-gray-300">Local teams</span>
+            <div className="rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 p-3 sm:p-4">
+              <div className="flex items-center gap-1 sm:gap-2">
+                <Users className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400" />
+                <span className="text-xs text-gray-300">Local teams</span>
               </div>
-              <div className="mt-2 text-3xl font-bold">Multi‑disciplinary</div>
+              <div className="mt-1 sm:mt-2 text-sm sm:text-lg lg:text-xl font-bold leading-tight">
+                Multi‑disciplinary
+              </div>
             </div>
           </div>
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {countries.map((c, i) => (
             <motion.div
               key={c.name}
@@ -177,7 +181,7 @@ export default function GlobalPresence() {
 
                 {/* City and Role */}
                 <div className="mb-6">
-                  <div className="text-3xl font-bold mb-2 text-white">
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 text-white">
                     {c.city}
                   </div>
                   <div className="inline-flex items-center gap-2 text-sm text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded-full">

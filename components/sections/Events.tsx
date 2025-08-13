@@ -69,9 +69,9 @@ const Events: React.FC = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <motion.h2
-            className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -87,7 +87,7 @@ const Events: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed">
               Experience CodeMoly on the world stage at VivaTech 2025 and other
               premier global tech events. We connect with innovators, startups,
               and industry leaders to share ideas, build partnerships, and
@@ -104,7 +104,7 @@ const Events: React.FC = () => {
         </div>
 
         {/* Event Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {events.map((event, index) => (
             <motion.div
               key={event.id}
@@ -134,27 +134,27 @@ const Events: React.FC = () => {
               </div>
 
               {/* Card Content */}
-              <div className="relative h-80 p-6 flex flex-col justify-between text-white">
+              <div className="relative h-64 sm:h-72 lg:h-80 p-4 sm:p-6 flex flex-col justify-between text-white">
                 {/* Top Content */}
                 <div>
-                  <div className="text-sm font-medium opacity-90 mb-2">
+                  <div className="text-xs sm:text-sm font-medium opacity-90 mb-2">
                     {/* {event.location} - {event.date} */}
                   </div>
                 </div>
 
                 {/* Bottom Content */}
                 <div>
-                  <h3 className="text-2xl font-bold mb-1 leading-tight">
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-1 leading-tight">
                     {event.title}
                   </h3>
-                  <p className="text-lg font-semibold opacity-90">
+                  <p className="text-sm sm:text-base lg:text-lg font-semibold opacity-90">
                     {event.subtitle}
                   </p>
                 </div>
 
                 {/* Hover Arrow */}
-                <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
-                  <ArrowRight className="w-6 h-6 text-white" />
+                <div className="absolute top-4 right-4 sm:top-6 sm:right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
                 </div>
               </div>
 

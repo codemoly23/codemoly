@@ -3,7 +3,6 @@ import Hero from "@/components/sections/Hero";
 import Events from "@/components/sections/Events";
 import Features from "@/components/sections/Features";
 import ProductShowcase from "@/components/sections/ProductShowcase";
-import About from "@/components/sections/About";
 import GlobalPresence from "@/components/sections/GlobalPresence";
 import AIAutomations from "@/components/sections/AIAutomations";
 import Testimonials from "@/components/sections/Testimonials";

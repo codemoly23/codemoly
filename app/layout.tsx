@@ -22,6 +22,12 @@ export const metadata: Metadata = {
   authors: [{ name: "CodeMoly Team" }],
   creator: "CodeMoly",
   publisher: "CodeMoly",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
   openGraph: {
     title: "CodeMoly - Build Your Next Digital Experience",
     description:
