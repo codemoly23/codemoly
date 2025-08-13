@@ -10,6 +10,7 @@ import {
   Mail,
   Copy,
   Check,
+  ExternalLink,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -21,6 +22,8 @@ const countries = [
     address: "14/1, BTI Emporium Tower, Mirpur Road, Shamoli, Dhaka",
     phone: "+01894 955 494",
     email: "hello@codemoly.com",
+    flagUrl: "https://flagcdn.com/w40/bd.png",
+    countryCode: "BD",
   },
   {
     name: "France",
@@ -29,6 +32,9 @@ const countries = [
     address: "78 avenue des champs élysées 75008 paris",
     phone: "+33743579692",
     email: "hello@codemoly.com",
+    website: "https://fr.codemoly.com/",
+    flagUrl: "https://flagcdn.com/w40/fr.png",
+    countryCode: "FR",
   },
   {
     name: "Austria",
@@ -37,6 +43,9 @@ const countries = [
     address: "Sonnwendgasse 30/2/11, 1100, Wien",
     phone: "+43 664 875 8864",
     email: "hello@codemoly.com",
+    website: "https://austria.codemoly.com/",
+    flagUrl: "https://flagcdn.com/w40/at.png",
+    countryCode: "AT",
   },
 ];
 
@@ -139,11 +148,30 @@ export default function GlobalPresence() {
               <div className="relative p-8">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6">
-                  <div className="text-sm uppercase tracking-wider text-gray-300 font-semibold">
-                    {c.name}
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={c.flagUrl}
+                      alt={`${c.name} flag`}
+                      className="w-6 h-4 object-cover rounded-sm shadow-sm"
+                    />
+                    <div className="text-sm uppercase tracking-wider text-gray-300 font-semibold">
+                      {c.name}
+                    </div>
                   </div>
-                  <div className="p-2 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors duration-300">
-                    <MapPin className="w-5 h-5 text-purple-400" />
+                  <div className="flex items-center gap-2">
+                    {/* Website link icon for France and Austria */}
+                    {c.website && (
+                      <button
+                        onClick={() => window.open(c.website, "_blank")}
+                        className="p-2 rounded-full bg-white/10 hover:bg-blue-500/20 transition-all duration-300 group/link"
+                        title={`Visit ${c.name} website`}
+                      >
+                        <ExternalLink className="w-4 h-4 text-blue-400 group-hover/link:text-blue-300" />
+                      </button>
+                    )}
+                    <div className="p-2 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors duration-300">
+                      <MapPin className="w-5 h-5 text-purple-400" />
+                    </div>
                   </div>
                 </div>
 
