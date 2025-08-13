@@ -51,6 +51,25 @@ const Navigation: React.FC = () => {
     }
   };
 
+  // Dynamic text color based on background
+  const getTextColorClasses = (isScrolled: boolean) => {
+    if (isScrolled) {
+      // Light background when scrolled - use dark text
+      return "text-gray-900 dark:text-gray-100";
+    } else {
+      // Transparent/dark background when not scrolled - use light text
+      return "text-white";
+    }
+  };
+
+  const getHoverTextColorClasses = (isScrolled: boolean) => {
+    if (isScrolled) {
+      return "hover:text-blue-600 dark:hover:text-blue-400";
+    } else {
+      return "hover:text-blue-300";
+    }
+  };
+
   return (
     <motion.nav
       className={cn(
@@ -90,7 +109,13 @@ const Navigation: React.FC = () => {
                       onMouseEnter={() => setActiveDropdown(item.label)}
                       onMouseLeave={() => setActiveDropdown(null)}
                     >
-                      <button className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                      <button
+                        className={cn(
+                          "flex items-center px-3 py-2 text-sm font-medium transition-colors",
+                          getTextColorClasses(scrolled),
+                          getHoverTextColorClasses(scrolled)
+                        )}
+                      >
                         {item.label}
                         <ChevronDown className="ml-1 h-4 w-4" />
                       </button>
@@ -122,7 +147,11 @@ const Navigation: React.FC = () => {
                     <a
                       href={item.href}
                       onClick={() => handleNavClick(item.href)}
-                      className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      className={cn(
+                        "px-3 py-2 text-sm font-medium transition-colors",
+                        getTextColorClasses(scrolled),
+                        getHoverTextColorClasses(scrolled)
+                      )}
                     >
                       {item.label}
                     </a>
@@ -143,7 +172,11 @@ const Navigation: React.FC = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+              className={cn(
+                "p-2 transition-colors",
+                getTextColorClasses(scrolled),
+                getHoverTextColorClasses(scrolled)
+              )}
             >
               {isOpen ? (
                 <X className="h-6 w-6" />

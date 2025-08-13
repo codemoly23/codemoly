@@ -4,6 +4,27 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
+// Helper function to get solid color from gradient class
+const getGradientColor = (gradientClass: string) => {
+  const colorMap: { [key: string]: string } = {
+    "from-blue-600": "#2563eb",
+    "from-orange-600": "#ea580c",
+    "from-green-600": "#16a34a",
+    "from-purple-600": "#9333ea",
+    "from-pink-600": "#db2777",
+    "from-red-600": "#dc2626",
+    "from-yellow-600": "#ca8a04",
+    "from-indigo-600": "#4f46e5",
+  };
+
+  // Extract the from-color from gradient class
+  const fromColorMatch = gradientClass.match(/from-(\w+-\d+)/);
+  if (fromColorMatch) {
+    return colorMap[`from-${fromColorMatch[1]}`] || "#2563eb";
+  }
+  return "#2563eb"; // default blue
+};
+
 const Events: React.FC = () => {
   const events = [
     {
@@ -101,10 +122,15 @@ const Events: React.FC = () => {
                   alt={event.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
+                {/* Bottom Gradient Overlay - starts from bottom and fades up */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-br ${event.gradient} opacity-80 group-hover:opacity-70 transition-opacity duration-500`}
+                  className={`absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-blue-500 to-transparent opacity-90`}
+                  style={{
+                    background: `linear-gradient(to top, ${getGradientColor(
+                      event.gradient
+                    )}, transparent)`,
+                  }}
                 ></div>
-                <div className="absolute inset-0 bg-black/20"></div>
               </div>
 
               {/* Card Content */}

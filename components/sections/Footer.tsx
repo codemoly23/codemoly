@@ -11,6 +11,7 @@ import {
   Facebook,
   Youtube,
 } from "lucide-react";
+import Image from "next/image";
 
 const footerLinks = {
   services: [
@@ -198,13 +199,13 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
           >
             <div className="mb-6">
-              <motion.h3
-                className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-3"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.2 }}
-              >
-                CodeMoly
-              </motion.h3>
+              <Image
+                src="/logo-1.png"
+                alt="CodeMoly Logo"
+                width={100}
+                height={100}
+                className="h-10 w-auto"
+              />
               <p className="text-gray-300 leading-relaxed text-sm">
                 Empowering developers to build amazing applications with
                 cutting-edge tools and technologies.
@@ -227,14 +228,16 @@ const Footer: React.FC = () => {
                 whileHover={{ x: 3 }}
               >
                 <Phone className="w-4 h-4 mr-3" />
-                <span>+01894 955 491</span>
+                <span>+01894 955 494</span>
               </motion.a>
               <motion.div
                 className="flex items-center text-gray-300 text-sm"
                 whileHover={{ x: 3 }}
               >
-                <MapPin className="w-4 h-4 mr-3" />
-                <span>Shyamoli, Dhaka</span>
+                <MapPin className="w-6 h-6 mr-3" />
+                <span>
+                  A-5, 14/1, The Emporium Tower, Mirpur Road, Shyamoli, Dhaka
+                </span>
               </motion.div>
             </div>
 
