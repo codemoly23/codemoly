@@ -93,7 +93,7 @@ const TechStack: React.FC = () => {
             <Code2 className="w-4 h-4" />
             TECHNOLOGY EXPERTISE
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
             Modern Tech Stack &{" "}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Partners

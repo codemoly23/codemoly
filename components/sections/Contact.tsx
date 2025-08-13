@@ -68,23 +68,23 @@ const Contact: React.FC = () => {
             viewport={{ once: true }}
           >
             <motion.div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 mb-8"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 mb-6 sm:mb-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <Sparkles className="w-4 h-4 text-white" />
-              <span className="text-sm font-medium text-white">
+              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+              <span className="text-xs sm:text-sm font-medium text-white">
                 Experience AI Development
               </span>
             </motion.div>
 
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
               Ready to Accelerate Your Development?
             </h2>
 
-            <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed mb-12">
+            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed mb-8 sm:mb-12">
               Join leading companies already building 10X faster with our
               AI-powered development platform
             </p>
@@ -92,7 +92,7 @@ const Contact: React.FC = () => {
             {/* Single CTA Button */}
             <motion.button
               onClick={openModal}
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-gray-900 font-bold text-lg rounded-full shadow-lg hover:shadow-xl hover:bg-gray-100 transition-all duration-300"
+              className="group inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 bg-white text-gray-900 font-bold text-sm sm:text-base lg:text-lg rounded-full shadow-lg hover:shadow-xl hover:bg-gray-100 transition-all duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: 20 }}
@@ -105,7 +105,7 @@ const Contact: React.FC = () => {
                 animate={{ x: [0, 4, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               >
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
               </motion.div>
             </motion.button>
           </motion.div>

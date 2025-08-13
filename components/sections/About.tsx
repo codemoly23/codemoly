@@ -67,7 +67,7 @@ const About: React.FC = () => {
                       <Zap className="w-6 h-6 text-white" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold mb-2">
                     AI Automation Excellence
                   </h3>
                   <p className="text-white/90 text-sm mb-4">
@@ -97,7 +97,7 @@ const About: React.FC = () => {
                       <Target className="w-6 h-6 text-white" />
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">
+                  <h3 className="text-lg sm:text-xl font-bold mb-2">
                     Smart Process Optimization
                   </h3>
                   <p className="text-white/90 text-sm">
@@ -121,7 +121,7 @@ const About: React.FC = () => {
               <div className="relative z-10">
                 <div className="flex items-start justify-between mb-6">
                   <div>
-                    <h3 className="text-2xl font-bold mb-3">
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3">
                       Advanced AI Workflow Platform
                     </h3>
                     <p className="text-white/90 mb-4">
@@ -264,7 +264,7 @@ const About: React.FC = () => {
 
         {/* Stats Section */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-12 sm:mt-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
@@ -278,11 +278,13 @@ const About: React.FC = () => {
               transition={{ duration: 0.2 }}
             >
               <div
-                className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2`}
+                className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-1 sm:mb-2`}
               >
                 {stat.number}
               </div>
-              <div className="text-white/80 font-medium">{stat.label}</div>
+              <div className="text-white/80 font-medium text-sm sm:text-base">
+                {stat.label}
+              </div>
             </motion.div>
           ))}
         </motion.div>

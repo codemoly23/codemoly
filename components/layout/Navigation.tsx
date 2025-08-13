@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import FormModal from "@/components/ui/FormModal";
 import { useFormModal } from "@/hooks/useFormModal";
+import Link from "next/link";
 
 interface NavItem {
   label: string;
@@ -16,14 +17,14 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: "Home", href: "#home" },
-  { label: "Services", href: "#services" },
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/#services" },
   {
     label: "Products",
-    href: "#products",
+    href: "/#products",
   },
-  { label: "Features", href: "#features" },
-  { label: "Contact", href: "#contact" },
+  { label: "Features", href: "/#features" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const Navigation: React.FC = () => {
@@ -86,6 +87,7 @@ const Navigation: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <motion.div className="flex-shrink-0" whileHover={{ scale: 1.05 }}>
+          <Link href="/">
             <Image
               src="/logo-1.png"
               alt="CodeMoly Logo"
@@ -93,6 +95,7 @@ const Navigation: React.FC = () => {
               height={100}
               className="h-8 w-auto"
             />
+          </Link>
             {/* <a href="#home" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               CodeMoly
             </a> */}
@@ -173,10 +176,11 @@ const Navigation: React.FC = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={cn(
-                "p-2 transition-colors",
+                "p-3 transition-colors mobile-touch-target rounded-lg hover:bg-white/10",
                 getTextColorClasses(scrolled),
                 getHoverTextColorClasses(scrolled)
               )}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
             >
               {isOpen ? (
                 <X className="h-6 w-6" />
@@ -192,30 +196,30 @@ const Navigation: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
+            className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-800 shadow-lg"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="px-2 pt-2 pb-3 space-y-1">
+            <div className="mobile-px-reduced pt-4 pb-6 space-y-2">
               {navItems.map((item) => (
                 <div key={item.label}>
                   <a
                     href={item.href}
                     onClick={() => handleNavClick(item.href)}
-                    className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
+                    className="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl mobile-touch-target transition-all duration-200"
                   >
                     {item.label}
                   </a>
                   {item.children && (
-                    <div className="ml-4 space-y-1">
+                    <div className="ml-4 space-y-1 mt-2">
                       {item.children.map((child) => (
                         <a
                           key={child.label}
                           href={child.href}
                           onClick={() => handleNavClick(child.href)}
-                          className="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md"
+                          className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg mobile-touch-target transition-all duration-200"
                         >
                           {child.label}
                         </a>
@@ -224,11 +228,11 @@ const Navigation: React.FC = () => {
                   )}
                 </div>
               ))}
-              <div className="pt-4">
+              <div className="pt-6 px-4">
                 <Button
                   variant="primary"
-                  size="sm"
-                  className="w-full"
+                  size="md"
+                  className="w-full mobile-btn-lg"
                   onClick={openModal}
                 >
                   Get Started

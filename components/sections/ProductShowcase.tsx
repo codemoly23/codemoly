@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import {
   ArrowLeft,
   ArrowRight,
-  Workflow,
-  Brain,
-  Settings,
-  Target,
+  ShoppingCart,
+  GraduationCap,
+  Users,
+  BarChart3,
   ExternalLink,
   Play,
 } from "lucide-react";
@@ -16,19 +17,19 @@ import {
 const products = [
   {
     id: 1,
-    title: "AI Workflow Studio",
+    title: "MolyEcom - AI-Powered E-commerce Platform",
     description:
-      "Intelligent automation platform that creates, optimizes, and manages complex business workflows with zero-code AI integration.",
-    image: "/api/placeholder/600/400",
-    category: "AI AUTOMATION PLATFORM",
+      "Complete e-commerce solution with AI-driven product recommendations, automated inventory management, and intelligent customer analytics for maximum sales conversion.",
+    image: "/molyecom.jpg",
+    category: "E-COMMERCE PLATFORM",
     gradient: "from-purple-600 via-blue-600 to-cyan-500",
-    icon: <Workflow className="w-8 h-8" />,
-    stats: { workflows: "10K+", efficiency: "85%", integrations: "400+" },
+    icon: <ShoppingCart className="w-8 h-8" />,
+    stats: { stores: "500+", conversion: "35%", revenue: "+180%" },
     features: [
-      "Zero-Code AI Workflows",
-      "Smart Process Mining",
-      "Predictive Optimization",
-      "Enterprise Integrations",
+      "AI Product Recommendations",
+      "Smart Inventory Management",
+      "Customer Analytics",
+      "Multi-Channel Integration",
     ],
     demoUrl: "#",
     githubUrl: "#",
@@ -36,19 +37,19 @@ const products = [
   },
   {
     id: 2,
-    title: "Neural Process Engine",
+    title: "MolyLearn - Smart LMS Platform",
     description:
-      "Advanced AI engine that learns from your business patterns and automatically optimizes processes for maximum efficiency and cost reduction.",
-    image: "/api/placeholder/600/400",
-    category: "INTELLIGENT OPTIMIZATION",
+      "Intelligent learning management system with AI-powered course creation, personalized learning paths, and advanced analytics for enhanced educational outcomes.",
+    image: "/molylearn.jpg",
+    category: "LEARNING MANAGEMENT",
     gradient: "from-emerald-500 via-teal-600 to-blue-600",
-    icon: <Brain className="w-8 h-8" />,
-    stats: { processes: "5K+", savings: "60%", accuracy: "94%" },
+    icon: <GraduationCap className="w-8 h-8" />,
+    stats: { students: "50K+", completion: "89%", satisfaction: "4.8/5" },
     features: [
-      "Pattern Recognition AI",
-      "Auto-Optimization",
-      "Cost Reduction Analytics",
-      "Real-time Monitoring",
+      "AI Course Generation",
+      "Personalized Learning Paths",
+      "Progress Analytics",
+      "Interactive Assessments",
     ],
     demoUrl: "#",
     githubUrl: "#",
@@ -56,19 +57,19 @@ const products = [
   },
   {
     id: 3,
-    title: "Smart Integration Hub",
+    title: "MolyFlow - CRM Automation System",
     description:
-      "Seamlessly connect any application or service with AI-powered mapping, transformation, and intelligent data synchronization.",
-    image: "/api/placeholder/600/400",
-    category: "INTEGRATION PLATFORM",
+      "Comprehensive CRM solution with intelligent lead management, automated sales workflows, and AI-powered customer insights for enhanced relationship management.",
+    image: "/molyflow.jpg",
+    category: "CRM AUTOMATION",
     gradient: "from-orange-500 via-pink-500 to-purple-600",
-    icon: <Settings className="w-8 h-8" />,
-    stats: { connections: "2K+", uptime: "99.9%", speed: "3x faster" },
+    icon: <Users className="w-8 h-8" />,
+    stats: { leads: "25K+", conversion: "42%", automation: "90%" },
     features: [
-      "AI Data Mapping",
-      "Real-time Sync",
-      "Error Auto-Recovery",
-      "Universal Connectors",
+      "Smart Lead Scoring",
+      "Automated Workflows",
+      "Customer Journey Mapping",
+      "Sales Pipeline Analytics",
     ],
     demoUrl: "#",
     githubUrl: "#",
@@ -76,19 +77,19 @@ const products = [
   },
   {
     id: 4,
-    title: "Predictive Analytics Suite",
+    title: "Bebsadar - POS and Inventory Management System",
     description:
-      "Harness the power of machine learning to predict trends, optimize resources, and make data-driven decisions with unprecedented accuracy.",
-    image: "/api/placeholder/600/400",
-    category: "PREDICTIVE INTELLIGENCE",
+      "Advanced point-of-sale and inventory management solution with real-time stock tracking, automated reordering, and comprehensive sales analytics for retail businesses.",
+    image: "/bebsadar.jpg",
+    category: "POS & INVENTORY",
     gradient: "from-indigo-600 via-purple-600 to-pink-500",
-    icon: <Target className="w-8 h-8" />,
-    stats: { predictions: "1M+", accuracy: "92%", insights: "24/7" },
+    icon: <BarChart3 className="w-8 h-8" />,
+    stats: { transactions: "1M+", accuracy: "99.8%", uptime: "24/7" },
     features: [
-      "ML-Powered Forecasting",
-      "Trend Analysis",
-      "Resource Optimization",
-      "Automated Insights",
+      "Real-time Inventory Tracking",
+      "Automated Reordering",
+      "Sales Analytics Dashboard",
+      "Multi-location Support",
     ],
     demoUrl: "#",
     githubUrl: "#",
@@ -126,12 +127,12 @@ const ProductShowcase: React.FC = () => {
   return (
     <section
       id="products"
-      className="py-24 relative bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950/30"
+      className="mobile-py-reduced sm:py-24 relative bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950/30"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto mobile-px-reduced sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
-          className="mb-16 flex items-start justify-between gap-6"
+          className="mb-12 sm:mb-16 flex flex-col sm:flex-row items-start justify-between mobile-gap-reduced sm:gap-6"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -141,7 +142,7 @@ const ProductShowcase: React.FC = () => {
             <div className="text-xs tracking-[0.2em] text-gray-500 dark:text-gray-400 mb-3 font-semibold">
               OUR PRODUCTS —
             </div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-[1.1] mobile-text-section">
               Explore our
               <br />
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-500 bg-clip-text text-transparent">
@@ -149,7 +150,7 @@ const ProductShowcase: React.FC = () => {
               </span>
             </h2>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 mt-4 sm:mt-0">
             <motion.button
               onClick={prev}
               aria-label="Previous"
@@ -201,12 +202,25 @@ const ProductShowcase: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="flex items-center gap-3 mb-4"
+                  className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4"
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white">
-                    {currentProduct.icon}
-                  </div>
-                  <div className="text-sm font-bold tracking-wider text-white/90 uppercase">
+                  <motion.div
+                    className="relative w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-2xl sm:rounded-3xl bg-white shadow-xl flex items-center justify-center group overflow-hidden"
+                    whileHover={{ scale: 1.05, rotate: 2 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    {/* Gradient background overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-cyan-50 opacity-60"></div>
+                    {/* Icon with enhanced styling */}
+                    <div className="relative w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-gray-700 group-hover:text-blue-600 transition-all duration-300 transform group-hover:scale-110">
+                      {currentProduct.icon}
+                    </div>
+                    {/* Subtle glow effect on hover */}
+                    <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-blue-400/20 via-purple-400/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {/* Enhanced shadow */}
+                    <div className="absolute inset-0 rounded-2xl sm:rounded-3xl shadow-inner opacity-10"></div>
+                  </motion.div>
+                  <div className="text-xs sm:text-sm font-bold tracking-wider text-white/90 uppercase">
                     {currentProduct.category}
                   </div>
                 </motion.div>
@@ -215,7 +229,7 @@ const ProductShowcase: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="text-4xl sm:text-5xl font-bold text-white mb-4 leading-tight"
+                  className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-3 sm:mb-4 leading-tight"
                 >
                   {currentProduct.title}
                 </motion.h3>
@@ -224,7 +238,7 @@ const ProductShowcase: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
-                  className="text-white/90 mb-8 max-w-xl text-lg leading-relaxed"
+                  className="text-white/90 mb-6 sm:mb-8 max-w-xl text-sm sm:text-base lg:text-lg leading-relaxed"
                 >
                   {currentProduct.description}
                 </motion.p>
@@ -234,20 +248,18 @@ const ProductShowcase: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
-                  className="grid grid-cols-3 gap-6 mb-8"
+                  className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8"
                 >
-                  {Object.entries(currentProduct.stats).map(
-                    ([key, value], index) => (
-                      <div key={key} className="text-center">
-                        <div className="text-2xl font-bold text-white mb-1">
-                          {value}
-                        </div>
-                        <div className="text-xs text-white/70 uppercase tracking-wider font-medium">
-                          {key.replace(/([A-Z])/g, " $1").trim()}
-                        </div>
+                  {Object.entries(currentProduct.stats).map(([key, value]) => (
+                    <div key={key} className="text-center">
+                      <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1">
+                        {value}
                       </div>
-                    )
-                  )}
+                      <div className="text-xs text-white/70 uppercase tracking-wider font-medium">
+                        {key.replace(/([A-Z])/g, " $1").trim()}
+                      </div>
+                    </div>
+                  ))}
                 </motion.div>
 
                 {/* Action Buttons */}
@@ -255,14 +267,14 @@ const ProductShowcase: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.6 }}
-                  className="flex flex-col sm:flex-row gap-4"
+                  className="flex flex-col sm:flex-row gap-3 sm:gap-4"
                 >
-                  <button className="inline-flex items-center justify-center gap-3 rounded-2xl px-6 py-3 bg-white text-gray-900 hover:bg-white/90 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl hover:scale-105">
-                    <Play className="w-4 h-4" />
+                  <button className="inline-flex items-center justify-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-gray-900 hover:bg-white/90 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl hover:scale-105 text-sm sm:text-base">
+                    <Play className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>View Demo</span>
                   </button>
-                  <button className="inline-flex items-center justify-center gap-3 rounded-2xl px-6 py-3 bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-all duration-200 font-semibold border border-white/30">
-                    <ExternalLink className="w-4 h-4" />
+                  <button className="inline-flex items-center justify-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-2.5 sm:py-3 bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-all duration-200 font-semibold border border-white/30 text-sm sm:text-base">
+                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>Learn More</span>
                   </button>
                 </motion.div>
@@ -277,30 +289,53 @@ const ProductShowcase: React.FC = () => {
               >
                 <div className="relative h-full flex items-center justify-center">
                   {/* Main Product Visual */}
-                  <div className="w-full max-w-md aspect-[4/3] rounded-3xl bg-white/10 backdrop-blur-sm border border-white/20 p-6 shadow-2xl">
-                    <div className="w-full h-full rounded-2xl bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center">
-                      <div className="text-6xl text-white/50">
-                        {currentProduct.icon}
-                      </div>
+                  <div className="w-full max-w-xs sm:max-w-md aspect-[4/3] rounded-2xl sm:rounded-3xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 sm:p-6 shadow-2xl">
+                    <div className="w-full h-full rounded-xl sm:rounded-2xl bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center">
+                      <Image
+                        src={currentProduct.image}
+                        alt={currentProduct.title}
+                        className="w-full h-auto max-h-full"
+                        width={600}
+                        height={400}
+                      />
                     </div>
                   </div>
 
-                  {/* Floating Feature Cards */}
-                  <div className="absolute -top-4 -left-4 w-32 h-20 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 p-3 shadow-lg">
-                    <div className="text-xs text-white/80 font-medium mb-1">
-                      Active Now
+                  {/* Floating Stats Cards */}
+                  <div className="absolute top-4 left-4 w-24 sm:w-28 lg:w-32 h-16 sm:h-18 lg:h-20 rounded-xl bg-white/95 backdrop-blur-sm border border-gray-200/50 p-2 sm:p-3 shadow-2xl">
+                    <div className="text-xs text-gray-600 font-semibold mb-1 uppercase tracking-wide">
+                      {Object.keys(currentProduct.stats)[0]
+                        .replace(/([A-Z])/g, " $1")
+                        .trim()}
                     </div>
-                    <div className="text-lg font-bold text-white">
+                    <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 flex items-center gap-1">
                       {Object.values(currentProduct.stats)[0]}
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                     </div>
                   </div>
 
-                  <div className="absolute -bottom-4 -right-4 w-36 h-24 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 p-3 shadow-lg">
-                    <div className="text-xs text-white/80 font-medium mb-1">
-                      Performance
+                  <div className="absolute bottom-4 right-4 w-28 sm:w-32 lg:w-36 h-18 sm:h-20 lg:h-24 rounded-xl bg-white/95 backdrop-blur-sm border border-gray-200/50 p-2 sm:p-3 shadow-2xl">
+                    <div className="text-xs text-gray-600 font-semibold mb-1 uppercase tracking-wide">
+                      {Object.keys(currentProduct.stats)[1]
+                        .replace(/([A-Z])/g, " $1")
+                        .trim()}
                     </div>
-                    <div className="text-lg font-bold text-white">
+                    <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 flex items-center gap-1">
                       {Object.values(currentProduct.stats)[1]}
+                      <div className="w-1 h-3 bg-blue-500 rounded-full"></div>
+                    </div>
+                  </div>
+
+                  {/* Third floating stat */}
+                  <div className="absolute top-4 right-4 w-24 sm:w-28 lg:w-32 h-16 sm:h-18 lg:h-20 rounded-xl bg-white/95 backdrop-blur-sm border border-gray-200/50 p-2 sm:p-3 shadow-2xl">
+                    <div className="text-xs text-gray-600 font-semibold mb-1 uppercase tracking-wide">
+                      {Object.keys(currentProduct.stats)[2]
+                        .replace(/([A-Z])/g, " $1")
+                        .trim()}
+                    </div>
+                    <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 flex items-center gap-1">
+                      {Object.values(currentProduct.stats)[2]}
+                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                     </div>
                   </div>
                 </div>

@@ -77,7 +77,7 @@ const Pricing: React.FC = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
             Simple,
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {" "}
@@ -172,7 +172,7 @@ const Pricing: React.FC = () => {
 
                   <div className="mb-6">
                     <div className="flex items-baseline justify-center">
-                      <span className="text-5xl font-bold text-gray-900 dark:text-white">
+                      <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
                         ${isYearly ? plan.price.yearly : plan.price.monthly}
                       </span>
                       {plan.price.monthly > 0 && (
