@@ -3,126 +3,97 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import * as LucideIcons from "lucide-react";
 import {
   ArrowLeft,
   ArrowRight,
-  ShoppingCart,
-  GraduationCap,
-  Users,
-  BarChart3,
   ExternalLink,
   Play,
 } from "lucide-react";
 
-const products = [
-  {
-    id: 1,
-    title: "MolyEcom - AI-Powered E-commerce Platform",
-    description:
-      "Complete e-commerce solution with AI-driven product recommendations, automated inventory management, and intelligent customer analytics for maximum sales conversion.",
-    image: "/molyecom.jpg",
-    category: "E-COMMERCE PLATFORM",
-    gradient: "from-purple-600 via-blue-600 to-cyan-500",
-    icon: <ShoppingCart className="w-8 h-8" />,
-    stats: { stores: "500+", conversion: "35%", revenue: "+180%" },
-    features: [
-      "AI Product Recommendations",
-      "Smart Inventory Management",
-      "Customer Analytics",
-      "Multi-Channel Integration",
-    ],
-    demoUrl: "#",
-    githubUrl: "#",
-    liveUrl: "#",
-  },
-  {
-    id: 2,
-    title: "MolyLearn - Smart LMS Platform",
-    description:
-      "Intelligent learning management system with AI-powered course creation, personalized learning paths, and advanced analytics for enhanced educational outcomes.",
-    image: "/molylearn.jpg",
-    category: "LEARNING MANAGEMENT",
-    gradient: "from-emerald-500 via-teal-600 to-blue-600",
-    icon: <GraduationCap className="w-8 h-8" />,
-    stats: { students: "50K+", completion: "89%", satisfaction: "4.8/5" },
-    features: [
-      "AI Course Generation",
-      "Personalized Learning Paths",
-      "Progress Analytics",
-      "Interactive Assessments",
-    ],
-    demoUrl: "#",
-    githubUrl: "#",
-    liveUrl: "#",
-  },
-  {
-    id: 3,
-    title: "MolyFlow - CRM Automation System",
-    description:
-      "Comprehensive CRM solution with intelligent lead management, automated sales workflows, and AI-powered customer insights for enhanced relationship management.",
-    image: "/molyflow.jpg",
-    category: "CRM AUTOMATION",
-    gradient: "from-orange-500 via-pink-500 to-purple-600",
-    icon: <Users className="w-8 h-8" />,
-    stats: { leads: "25K+", conversion: "42%", automation: "90%" },
-    features: [
-      "Smart Lead Scoring",
-      "Automated Workflows",
-      "Customer Journey Mapping",
-      "Sales Pipeline Analytics",
-    ],
-    demoUrl: "#",
-    githubUrl: "#",
-    liveUrl: "#",
-  },
-  {
-    id: 4,
-    title: "Bebsadar - POS and Inventory Management System",
-    description:
-      "Advanced point-of-sale and inventory management solution with real-time stock tracking, automated reordering, and comprehensive sales analytics for retail businesses.",
-    image: "/bebsadar.jpg",
-    category: "POS & INVENTORY",
-    gradient: "from-indigo-600 via-purple-600 to-pink-500",
-    icon: <BarChart3 className="w-8 h-8" />,
-    stats: { transactions: "1M+", accuracy: "99.8%", uptime: "24/7" },
-    features: [
-      "Real-time Inventory Tracking",
-      "Automated Reordering",
-      "Sales Analytics Dashboard",
-      "Multi-location Support",
-    ],
-    demoUrl: "#",
-    githubUrl: "#",
-    liveUrl: "#",
-  },
-];
+// Database product type
+interface DbProduct {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  icon: string;
+  gradient: string;
+  stats: Record<string, string>;
+  features: string[];
+  demoUrl: string | null;
+  detailsSlug: string;
+}
 
-const ProductShowcase: React.FC = () => {
+interface ProductShowcaseProps {
+  products?: DbProduct[];
+}
+
+const ProductShowcase: React.FC<ProductShowcaseProps> = ({ products = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
+  // Use database products or empty array
+  const displayProducts = products;
+
   const prev = () => {
-    setCurrentIndex((i) => (i - 1 + products.length) % products.length);
+    if (displayProducts.length === 0) return;
+    setCurrentIndex((i) => (i - 1 + displayProducts.length) % displayProducts.length);
     setIsAutoPlaying(false);
   };
 
   const next = () => {
-    setCurrentIndex((i) => (i + 1) % products.length);
+    if (displayProducts.length === 0) return;
+    setCurrentIndex((i) => (i + 1) % displayProducts.length);
     setIsAutoPlaying(false);
   };
 
   // Auto-slide functionality
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || displayProducts.length === 0) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((i) => (i + 1) % products.length);
+      setCurrentIndex((i) => (i + 1) % displayProducts.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, displayProducts.length]);
 
-  const currentProduct = products[currentIndex];
+  // Helper function to get icon component
+  const getIconComponent = (iconName: string) => {
+    const Icon = (
+      LucideIcons as Record<
+        string,
+        React.ComponentType<{ className?: string }>
+      >
+    )[iconName];
+    return Icon ? <Icon className="w-8 h-8" /> : <LucideIcons.Package className="w-8 h-8" />;
+  };
+
+  // If no products, show empty state
+  if (displayProducts.length === 0) {
+    return (
+      <section
+        id="products"
+        className="mobile-py-reduced sm:py-24 relative bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950/30"
+      >
+        <div className="max-w-7xl mx-auto mobile-px-reduced sm:px-6 lg:px-8">
+          <div className="text-center py-16">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              No Products Yet
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400">
+              Products will be displayed here once added from the admin panel.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const currentProduct = displayProducts[currentIndex];
 
   return (
     <section
@@ -213,7 +184,7 @@ const ProductShowcase: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-cyan-50 opacity-60"></div>
                     {/* Icon with enhanced styling */}
                     <div className="relative w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-gray-700 group-hover:text-blue-600 transition-all duration-300 transform group-hover:scale-110">
-                      {currentProduct.icon}
+                      {getIconComponent(currentProduct.icon)}
                     </div>
                     {/* Subtle glow effect on hover */}
                     <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-blue-400/20 via-purple-400/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -250,7 +221,7 @@ const ProductShowcase: React.FC = () => {
                   transition={{ duration: 0.6, delay: 0.5 }}
                   className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8"
                 >
-                  {Object.entries(currentProduct.stats).map(([key, value]) => (
+                  {Object.entries(currentProduct.stats).slice(0, 3).map(([key, value]) => (
                     <div key={key} className="text-center">
                       <div className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1">
                         {value}
@@ -269,14 +240,24 @@ const ProductShowcase: React.FC = () => {
                   transition={{ duration: 0.6, delay: 0.6 }}
                   className="flex flex-col sm:flex-row gap-3 sm:gap-4"
                 >
-                  <button className="inline-flex items-center justify-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-gray-900 hover:bg-white/90 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl hover:scale-105 text-sm sm:text-base">
-                    <Play className="w-3 h-3 sm:w-4 sm:h-4" />
-                    <span>View Demo</span>
-                  </button>
-                  <button className="inline-flex items-center justify-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-2.5 sm:py-3 bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-all duration-200 font-semibold border border-white/30 text-sm sm:text-base">
+                  {currentProduct.demoUrl && (
+                    <a
+                      href={currentProduct.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-gray-900 hover:bg-white/90 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl hover:scale-105 text-sm sm:text-base"
+                    >
+                      <Play className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <span>View Demo</span>
+                    </a>
+                  )}
+                  <Link
+                    href={`/products/${currentProduct.detailsSlug}`}
+                    className="inline-flex items-center justify-center gap-2 sm:gap-3 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-2.5 sm:py-3 bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-all duration-200 font-semibold border border-white/30 text-sm sm:text-base"
+                  >
                     <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>Learn More</span>
-                  </button>
+                  </Link>
                 </motion.div>
               </div>
 
@@ -290,54 +271,63 @@ const ProductShowcase: React.FC = () => {
                 <div className="relative h-full flex items-center justify-center">
                   {/* Main Product Visual */}
                   <div className="w-full max-w-xs sm:max-w-md aspect-[4/3] rounded-2xl sm:rounded-3xl bg-white/10 backdrop-blur-sm border border-white/20 p-4 sm:p-6 shadow-2xl">
-                    <div className="w-full h-full rounded-xl sm:rounded-2xl bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center">
-                      <Image
-                        src={currentProduct.image}
-                        alt={currentProduct.title}
-                        className="w-full h-auto max-h-full"
-                        width={600}
-                        height={400}
-                      />
+                    <div className="w-full h-full rounded-xl sm:rounded-2xl bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center overflow-hidden">
+                      {currentProduct.image ? (
+                        <Image
+                          src={currentProduct.image}
+                          alt={currentProduct.title}
+                          className="w-full h-full object-cover"
+                          width={600}
+                          height={400}
+                        />
+                      ) : (
+                        <div className="flex items-center justify-center text-white/50">
+                          {getIconComponent(currentProduct.icon)}
+                        </div>
+                      )}
                     </div>
                   </div>
 
                   {/* Floating Stats Cards */}
-                  <div className="absolute top-4 left-4 w-24 sm:w-28 lg:w-32 h-16 sm:h-18 lg:h-20 rounded-xl bg-white/95 backdrop-blur-sm border border-gray-200/50 p-2 sm:p-3 shadow-2xl">
-                    <div className="text-xs text-gray-600 font-semibold mb-1 uppercase tracking-wide">
-                      {Object.keys(currentProduct.stats)[0]
-                        .replace(/([A-Z])/g, " $1")
-                        .trim()}
-                    </div>
-                    <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 flex items-center gap-1">
-                      {Object.values(currentProduct.stats)[0]}
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    </div>
-                  </div>
+                  {Object.entries(currentProduct.stats).length >= 3 && (
+                    <>
+                      <div className="absolute top-4 left-4 w-24 sm:w-28 lg:w-32 h-16 sm:h-18 lg:h-20 rounded-xl bg-white/95 backdrop-blur-sm border border-gray-200/50 p-2 sm:p-3 shadow-2xl">
+                        <div className="text-xs text-gray-600 font-semibold mb-1 uppercase tracking-wide">
+                          {Object.keys(currentProduct.stats)[0]
+                            .replace(/([A-Z])/g, " $1")
+                            .trim()}
+                        </div>
+                        <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 flex items-center gap-1">
+                          {Object.values(currentProduct.stats)[0]}
+                          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        </div>
+                      </div>
 
-                  <div className="absolute bottom-4 right-4 w-28 sm:w-32 lg:w-36 h-18 sm:h-20 lg:h-24 rounded-xl bg-white/95 backdrop-blur-sm border border-gray-200/50 p-2 sm:p-3 shadow-2xl">
-                    <div className="text-xs text-gray-600 font-semibold mb-1 uppercase tracking-wide">
-                      {Object.keys(currentProduct.stats)[1]
-                        .replace(/([A-Z])/g, " $1")
-                        .trim()}
-                    </div>
-                    <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 flex items-center gap-1">
-                      {Object.values(currentProduct.stats)[1]}
-                      <div className="w-1 h-3 bg-blue-500 rounded-full"></div>
-                    </div>
-                  </div>
+                      <div className="absolute bottom-4 right-4 w-28 sm:w-32 lg:w-36 h-18 sm:h-20 lg:h-24 rounded-xl bg-white/95 backdrop-blur-sm border border-gray-200/50 p-2 sm:p-3 shadow-2xl">
+                        <div className="text-xs text-gray-600 font-semibold mb-1 uppercase tracking-wide">
+                          {Object.keys(currentProduct.stats)[1]
+                            .replace(/([A-Z])/g, " $1")
+                            .trim()}
+                        </div>
+                        <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 flex items-center gap-1">
+                          {Object.values(currentProduct.stats)[1]}
+                          <div className="w-1 h-3 bg-blue-500 rounded-full"></div>
+                        </div>
+                      </div>
 
-                  {/* Third floating stat */}
-                  <div className="absolute top-4 right-4 w-24 sm:w-28 lg:w-32 h-16 sm:h-18 lg:h-20 rounded-xl bg-white/95 backdrop-blur-sm border border-gray-200/50 p-2 sm:p-3 shadow-2xl">
-                    <div className="text-xs text-gray-600 font-semibold mb-1 uppercase tracking-wide">
-                      {Object.keys(currentProduct.stats)[2]
-                        .replace(/([A-Z])/g, " $1")
-                        .trim()}
-                    </div>
-                    <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 flex items-center gap-1">
-                      {Object.values(currentProduct.stats)[2]}
-                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    </div>
-                  </div>
+                      <div className="absolute top-4 right-4 w-24 sm:w-28 lg:w-32 h-16 sm:h-18 lg:h-20 rounded-xl bg-white/95 backdrop-blur-sm border border-gray-200/50 p-2 sm:p-3 shadow-2xl">
+                        <div className="text-xs text-gray-600 font-semibold mb-1 uppercase tracking-wide">
+                          {Object.keys(currentProduct.stats)[2]
+                            .replace(/([A-Z])/g, " $1")
+                            .trim()}
+                        </div>
+                        <div className="text-sm sm:text-base lg:text-lg font-bold text-gray-900 flex items-center gap-1">
+                          {Object.values(currentProduct.stats)[2]}
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </motion.div>
             </motion.div>
@@ -353,7 +343,7 @@ const ProductShowcase: React.FC = () => {
           className="flex items-center justify-center gap-4 mt-12"
         >
           <div className="flex items-center gap-3">
-            {products.map((_, index) => (
+            {displayProducts.map((_, index) => (
               <motion.button
                 key={index}
                 onClick={() => {
@@ -377,7 +367,7 @@ const ProductShowcase: React.FC = () => {
             ))}
           </div>
           <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-            {currentIndex + 1} / {products.length}
+            {currentIndex + 1} / {displayProducts.length}
           </div>
         </motion.div>
 

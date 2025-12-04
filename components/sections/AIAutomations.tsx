@@ -2,116 +2,32 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import * as LucideIcons from "lucide-react";
 import {
   Bot,
   Workflow,
-  Target,
   CheckCircle,
-  ArrowRight,
   Clock,
-  MessageSquare,
   Settings,
-  Eye,
   Sparkles,
-  Store,
 } from "lucide-react";
 import FormModal from "@/components/ui/FormModal";
 import { useFormModal } from "@/hooks/useFormModal";
 
-// Core Services Data - Real CodeMoly Services
-const coreServices = [
-  {
-    id: 1,
-    icon: <Workflow className="w-8 h-8" />,
-    title: "n8n Workflow Automation",
-    description:
-      "Build powerful automation workflows with n8n's visual interface. Connect 400+ apps and services to streamline your business processes without coding.",
-    gradient: "from-blue-600 via-purple-600 to-indigo-700",
-    features: [
-      "400+ App Integrations",
-      "Visual Workflow Builder",
-      "Custom API Connections",
-    ],
-    stats: { integrations: "400+", workflows: "Unlimited", setup: "No-Code" },
-    hoverColor: "hover:shadow-blue-500/25",
-  },
-  {
-    id: 2,
-    icon: <Store className="w-8 h-8" />,
-    title: "E-commerce AI Automation",
-    description:
-      "Supercharge your online store with AI-powered inventory management, dynamic pricing, personalized recommendations, and automated customer service.",
-    gradient: "from-emerald-500 via-teal-600 to-cyan-700",
-    features: [
-      "Smart Inventory Management",
-      "Dynamic Pricing AI",
-      "Personalized Recommendations",
-    ],
-    stats: { sales: "+35%", efficiency: "80%", automation: "24/7" },
-    hoverColor: "hover:shadow-emerald-500/25",
-  },
-  {
-    id: 3,
-    icon: <Bot className="w-8 h-8" />,
-    title: "Custom AI Agents",
-    description:
-      "Deploy intelligent AI agents tailored to your business needs. From customer service to data analysis, our custom agents work around the clock.",
-    gradient: "from-orange-500 via-red-500 to-pink-600",
-    features: [
-      "Custom Training",
-      "Multi-Platform Deploy",
-      "Continuous Learning",
-    ],
-    stats: { accuracy: "95%", response: "<2s", availability: "24/7" },
-    hoverColor: "hover:shadow-orange-500/25",
-  },
-  {
-    id: 4,
-    icon: <Settings className="w-8 h-8" />,
-    title: "Business Operations Automation",
-    description:
-      "Streamline your entire business operations with intelligent automation. From HR processes to financial workflows, eliminate manual tasks.",
-    gradient: "from-violet-600 via-purple-600 to-fuchsia-700",
-    features: [
-      "HR Process Automation",
-      "Financial Workflows",
-      "Document Management",
-    ],
-    stats: { efficiency: "75%", time_saved: "30hrs/week", errors: "-90%" },
-    hoverColor: "hover:shadow-violet-500/25",
-  },
-  {
-    id: 5,
-    icon: <Target className="w-8 h-8" />,
-    title: "Marketing Automation with AI",
-    description:
-      "Transform your marketing with AI-driven campaigns, automated lead nurturing, social media management, and intelligent customer segmentation.",
-    gradient: "from-pink-500 via-rose-600 to-red-700",
-    features: [
-      "AI Campaign Optimization",
-      "Lead Scoring",
-      "Social Media Automation",
-    ],
-    stats: { conversion: "+45%", leads: "3x more", roi: "+120%" },
-    hoverColor: "hover:shadow-pink-500/25",
-  },
-  {
-    id: 6,
-    icon: <MessageSquare className="w-8 h-8" />,
-    title: "Support Assistant Automation",
-    description:
-      "Deploy intelligent support assistants that handle customer inquiries, provide instant solutions, and escalate complex issues to human agents.",
-    gradient: "from-cyan-500 via-blue-600 to-indigo-700",
-    features: [
-      "Intelligent Ticket Routing",
-      "24/7 Customer Support",
-      "Multi-language Support",
-    ],
-    stats: { resolution: "85%", response: "Instant", satisfaction: "96%" },
-    hoverColor: "hover:shadow-cyan-500/25",
-  },
-];
+// Database service type
+interface DbService {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  gradient: string;
+  features: string[];
+  stats: Record<string, string>;
+  order: number;
+  isActive: boolean;
+}
 
+// Static automation stats (can be made dynamic later)
 const automationStats = [
   {
     icon: <Workflow className="w-8 h-8 text-emerald-500" />,
@@ -143,9 +59,41 @@ const automationStats = [
   },
 ];
 
-const AIAutomations: React.FC = () => {
-  const [hoveredService, setHoveredService] = useState<number | null>(null);
+interface AIAutomationsProps {
+  title?: string;
+  description?: string;
+  services?: DbService[];
+}
+
+const AIAutomations: React.FC<AIAutomationsProps> = ({
+  title = "Intelligent Solutions for Every Business Need",
+  description = "Transform your operations with our comprehensive suite of AI-powered automation services, designed to optimize efficiency, reduce costs, and drive sustainable growth.",
+  services = [],
+}) => {
+  const [hoveredService, setHoveredService] = useState<string | null>(null);
   const { isOpen, openModal, closeModal } = useFormModal();
+
+  // Helper function to get Lucide icon component by name
+  const getIconComponent = (iconName: string) => {
+    const Icon = (
+      LucideIcons as Record<
+        string,
+        React.ComponentType<{ className?: string }>
+      >
+    )[iconName];
+    return Icon ? <Icon className="w-8 h-8" /> : <Workflow className="w-8 h-8" />;
+  };
+
+  // Generate hover color from gradient
+  const getHoverColor = (gradient: string) => {
+    if (gradient.includes("blue")) return "hover:shadow-blue-500/25";
+    if (gradient.includes("emerald") || gradient.includes("green")) return "hover:shadow-emerald-500/25";
+    if (gradient.includes("orange")) return "hover:shadow-orange-500/25";
+    if (gradient.includes("violet") || gradient.includes("purple")) return "hover:shadow-violet-500/25";
+    if (gradient.includes("pink") || gradient.includes("rose")) return "hover:shadow-pink-500/25";
+    if (gradient.includes("cyan")) return "hover:shadow-cyan-500/25";
+    return "hover:shadow-blue-500/25";
+  };
 
   return (
     <section
@@ -180,121 +128,124 @@ const AIAutomations: React.FC = () => {
           </motion.div>
 
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight">
-            Intelligent Solutions for
             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent">
-              {" "}
-              Every Business Need
+              {title}
             </span>
           </h2>
           <p className="text-base sm:text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            Transform your operations with our comprehensive suite of AI-powered
-            automation services, designed to optimize efficiency, reduce costs,
-            and drive sustainable growth.
+            {description}
           </p>
         </motion.div>
 
         {/* Core Services Grid */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-20"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          {coreServices.map((service, index) => (
-            <motion.div
-              key={service.id}
-              className={`relative group cursor-pointer ${service.hoverColor}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 * index }}
-              viewport={{ once: true }}
-              onHoverStart={() => setHoveredService(service.id)}
-              onHoverEnd={() => setHoveredService(null)}
-              whileHover={{ scale: 1.02, y: -8 }}
-            >
-              {/* Card Background with Gradient */}
-              <div
-                className={`relative h-full bg-gradient-to-br ${service.gradient} rounded-3xl p-8 text-white overflow-hidden shadow-xl transition-all duration-500 group-hover:shadow-2xl`}
-              >
-                {/* Animated Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -translate-y-16 translate-x-16" />
-                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-white rounded-full translate-y-12 -translate-x-12" />
-                </div>
+        {services.length > 0 && (
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-20"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            {services.map((service, index) => {
+              const features = (service.features as string[]) || [];
+              const stats = (service.stats as Record<string, string>) || {};
 
-                {/* Content */}
-                <div className="relative z-10">
-                  {/* Icon */}
-                  <motion.div
-                    className="flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-6 text-white"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.3 }}
+              return (
+                <motion.div
+                  key={service.id}
+                  className={`relative group cursor-pointer ${getHoverColor(service.gradient)}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 * index }}
+                  viewport={{ once: true }}
+                  onHoverStart={() => setHoveredService(service.id)}
+                  onHoverEnd={() => setHoveredService(null)}
+                  whileHover={{ scale: 1.02, y: -8 }}
+                >
+                  {/* Card Background with Gradient */}
+                  <div
+                    className={`relative h-full bg-gradient-to-br ${service.gradient} rounded-3xl p-8 text-white overflow-hidden shadow-xl transition-all duration-500 group-hover:shadow-2xl`}
                   >
-                    {service.icon}
-                  </motion.div>
+                    {/* Animated Background Pattern */}
+                    <div className="absolute inset-0 opacity-10">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -translate-y-16 translate-x-16" />
+                      <div className="absolute bottom-0 left-0 w-24 h-24 bg-white rounded-full translate-y-12 -translate-x-12" />
+                    </div>
 
-                  {/* Title */}
-                  <h3 className="text-2xl font-bold mb-4 leading-tight">
-                    {service.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-white/90 mb-6 leading-relaxed text-sm">
-                    {service.description}
-                  </p>
-
-                  {/* Features */}
-                  <div className="space-y-3 mb-6">
-                    {service.features.map((feature, featureIndex) => (
+                    {/* Content */}
+                    <div className="relative z-10">
+                      {/* Icon */}
                       <motion.div
-                        key={featureIndex}
-                        className="flex items-center gap-3"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{
-                          duration: 0.4,
-                          delay: 0.1 * featureIndex,
-                        }}
-                        viewport={{ once: true }}
+                        className="flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-6 text-white"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        <CheckCircle className="w-4 h-4 text-white/80 flex-shrink-0" />
-                        <span className="text-sm text-white/90">{feature}</span>
+                        {getIconComponent(service.icon)}
                       </motion.div>
-                    ))}
-                  </div>
 
-                  {/* Stats */}
-                  <div className="flex items-center justify-between pt-4 border-t border-white/20">
-                    {Object.entries(service.stats).map(([key, value]) => (
-                      <div key={key} className="text-center">
-                        <div className="text-lg font-bold text-white">
-                          {value}
-                        </div>
-                        <div className="text-xs text-white/70 capitalize">
-                          {key}
-                        </div>
+                      {/* Title */}
+                      <h3 className="text-2xl font-bold mb-4 leading-tight">
+                        {service.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-white/90 mb-6 leading-relaxed text-sm">
+                        {service.description}
+                      </p>
+
+                      {/* Features */}
+                      <div className="space-y-3 mb-6">
+                        {features.map((feature, featureIndex) => (
+                          <motion.div
+                            key={featureIndex}
+                            className="flex items-center gap-3"
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{
+                              duration: 0.4,
+                              delay: 0.1 * featureIndex,
+                            }}
+                            viewport={{ once: true }}
+                          >
+                            <CheckCircle className="w-4 h-4 text-white/80 flex-shrink-0" />
+                            <span className="text-sm text-white/90">{feature}</span>
+                          </motion.div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </div>
 
-                {/* Hover Effect Overlay */}
-                <AnimatePresence>
-                  {hoveredService === service.id && (
-                    <motion.div
-                      className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                      {/* Stats */}
+                      <div className="flex items-center justify-between pt-4 border-t border-white/20">
+                        {Object.entries(stats).map(([key, value]) => (
+                          <div key={key} className="text-center">
+                            <div className="text-lg font-bold text-white">
+                              {value}
+                            </div>
+                            <div className="text-xs text-white/70 capitalize">
+                              {key.replace(/_/g, " ")}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Hover Effect Overlay */}
+                    <AnimatePresence>
+                      {hoveredService === service.id && (
+                        <motion.div
+                          className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        )}
 
         {/* Performance Stats */}
         <motion.div

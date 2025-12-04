@@ -1,0 +1,20 @@
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+
+// GET /api/public/services - Fetch active services (no auth required)
+export async function GET() {
+  try {
+    const services = await prisma.service.findMany({
+      where: { isActive: true },
+      orderBy: { order: "asc" },
+    });
+
+    return NextResponse.json(services);
+  } catch (error) {
+    console.error("Error fetching public services:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch services" },
+      { status: 500 }
+    );
+  }
+}

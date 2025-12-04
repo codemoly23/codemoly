@@ -15,7 +15,11 @@ import Button from "@/components/ui/Button";
 import FormModal from "@/components/ui/FormModal";
 import { useFormModal } from "@/hooks/useFormModal";
 
-const Hero = () => {
+interface HeroProps {
+  videoUrl?: string;
+}
+
+const Hero = ({ videoUrl = "https://www.youtube.com/embed/9s2ydfkRz2E" }: HeroProps) => {
   const [currentFeature, setCurrentFeature] = useState(0);
   const { isOpen, openModal, closeModal } = useFormModal();
 
@@ -269,7 +273,7 @@ const Hero = () => {
               {/* YouTube Video Embed */}
               <iframe
                 className="absolute inset-[2px] w-full h-full rounded-2xl border-0"
-                src="https://www.youtube.com/embed/9s2ydfkRz2E?rel=0&modestbranding=1&showinfo=0&controls=1&autoplay=0&mute=0&loop=0&playlist=9s2ydfkRz2E"
+                src={`${videoUrl}?rel=0&modestbranding=1&showinfo=0&controls=1&autoplay=0&mute=0&loop=0`}
                 title="CodeMoly - Transforming Business Through AI Innovation"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen

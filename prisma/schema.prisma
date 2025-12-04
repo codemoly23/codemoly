@@ -1,0 +1,160 @@
+// CodeMoly CMS - Prisma Schema
+// Database: MySQL (shared VPS with molyecom, molylearn)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ============ AUTHENTICATION ============
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  blogs Blog[]
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+}
+
+// ============ SITE SETTINGS ============
+model SiteSettings {
+  id           String   @id @default("main")
+  heroVideoUrl String   @db.VarChar(500) @default("https://www.youtube.com/embed/9s2ydfkRz2E")
+  heroTitle    String?  @db.Text
+  heroSubtitle String?  @db.Text
+  servicesTitle String  @db.VarChar(255) @default("Intelligent Solutions for Every Business Need")
+  servicesDesc  String  @db.Text
+  updatedAt    DateTime @updatedAt
+}
+
+// ============ SERVICES (AI Automations Section) ============
+model Service {
+  id          String   @id @default(cuid())
+  title       String   @db.VarChar(255)
+  description String   @db.Text
+  icon        String   @db.VarChar(100) // Icon name from lucide-react
+  gradient    String   @db.VarChar(255) // Tailwind gradient classes
+  features    Json     // Array of feature strings
+  stats       Json     // Object with key-value pairs
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ============ PRODUCTS ============
+model Product {
+  id             String   @id @default(cuid())
+  title          String   @db.VarChar(255)
+  description    String   @db.Text
+  category       String   @db.VarChar(100)
+  image          String   @db.VarChar(500) // Path to uploaded image
+  icon           String   @db.VarChar(100) // Icon name from lucide-react
+  gradient       String   @db.VarChar(255) // Tailwind gradient classes
+  stats          Json     // Object with key-value pairs
+  features       Json     // Array of feature strings
+  demoUrl        String?  @db.VarChar(500)
+  detailsSlug    String   @unique @db.VarChar(255) // URL slug for details page
+  detailsContent String?  @db.LongText // Product details page content (rich text)
+  order          Int      @default(0)
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// ============ EVENTS (Global Events Section) ============
+model Event {
+  id          String    @id @default(cuid())
+  title       String    @db.VarChar(255)
+  subtitle    String?   @db.VarChar(255) // e.g., "In Paris"
+  description String?   @db.Text
+  mediaType   MediaType @default(IMAGE) // IMAGE, VIDEO, or YOUTUBE
+  mediaUrl    String    @db.VarChar(500) // Image path or YouTube/Video URL
+  thumbnail   String?   @db.VarChar(500) // Thumbnail for videos
+  gradient    String    @db.VarChar(255) // Tailwind gradient classes for overlay
+  eventDate   DateTime? // When the event happened/will happen
+  location    String?   @db.VarChar(255)
+  externalUrl String?   @db.VarChar(500) // Link to event page/details
+  order       Int       @default(0)
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  YOUTUBE
+}
+
+// ============ EVENT SECTION SETTINGS ============
+model EventSectionSettings {
+  id             String           @id @default("main")
+  sectionTitle   String           @db.VarChar(255) @default("Global Events")
+  sectionDesc    String           @db.Text // No default - MySQL doesn't allow defaults on TEXT
+  displayMode    EventDisplayMode @default(GRID) // GRID or SLIDER
+  autoSlideDelay Int              @default(5000) // milliseconds, for slider mode
+  updatedAt      DateTime         @updatedAt
+}
+
+enum EventDisplayMode {
+  GRID   // Show all events in grid (current design)
+  SLIDER // Show as carousel/slider when multiple events
+}
+
+// ============ BLOG SYSTEM ============
+model BlogCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique @db.VarChar(100)
+  slug      String   @unique @db.VarChar(100)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  blogs Blog[]
+}
+
+model Blog {
+  id          String        @id @default(cuid())
+  title       String        @db.VarChar(255)
+  slug        String        @unique @db.VarChar(255)
+  excerpt     String?       @db.Text
+  content     String        @db.LongText // Sun Editor HTML content
+  coverImage  String?       @db.VarChar(500)
+  isPublished Boolean       @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  categoryId String
+  category   BlogCategory @relation(fields: [categoryId], references: [id])
+
+  authorId String
+  author   Admin @relation(fields: [authorId], references: [id])
+
+  @@index([categoryId])
+  @@index([authorId])
+}
+
+// ============ MEDIA LIBRARY ============
+model Media {
+  id        String   @id @default(cuid())
+  filename  String   @db.VarChar(255)
+  path      String   @db.VarChar(500)
+  mimeType  String   @db.VarChar(100)
+  size      Int
+  alt       String?  @db.VarChar(255)
+  createdAt DateTime @default(now())
+}
