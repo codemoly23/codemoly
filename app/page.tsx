@@ -12,8 +12,8 @@ import TechStack from "@/components/sections/TechStack";
 import { prisma } from "@/lib/prisma";
 
 export default async function Home() {
-  // Fetch site settings, services, and products from database
-  const [settings, services, products] = await Promise.all([
+  // Fetch site settings, services, products, events, and event settings from database
+  const [settings, services, products, events, eventSettings] = await Promise.all([
     prisma.siteSettings.findUnique({
       where: { id: "main" },
     }),
@@ -24,6 +24,13 @@ export default async function Home() {
     prisma.product.findMany({
       where: { isActive: true },
       orderBy: { order: "asc" },
+    }),
+    prisma.event.findMany({
+      where: { isActive: true },
+      orderBy: { order: "asc" },
+    }),
+    prisma.eventSectionSettings.findUnique({
+      where: { id: "main" },
     }),
   ]);
 
@@ -59,6 +66,31 @@ export default async function Home() {
     detailsSlug: product.detailsSlug,
   }));
 
+  // Transform events for the Events component
+  const transformedEvents = events.map((event) => ({
+    id: event.id,
+    title: event.title,
+    subtitle: event.subtitle,
+    description: event.description,
+    mediaType: event.mediaType as "IMAGE" | "VIDEO" | "YOUTUBE",
+    mediaUrl: event.mediaUrl,
+    thumbnail: event.thumbnail,
+    gradient: event.gradient,
+    eventDate: event.eventDate?.toISOString() || null,
+    location: event.location,
+    externalUrl: event.externalUrl,
+  }));
+
+  // Event section settings
+  const eventSectionConfig = eventSettings
+    ? {
+        sectionTitle: eventSettings.sectionTitle,
+        sectionDesc: eventSettings.sectionDesc,
+        displayMode: eventSettings.displayMode as "GRID" | "SLIDER",
+        autoSlideDelay: eventSettings.autoSlideDelay,
+      }
+    : undefined;
+
   return (
     <main className="min-h-screen">
       <Navigation />
@@ -68,7 +100,7 @@ export default async function Home() {
       <Testimonials />
       <Features />
       <TechStack />
-      <Events />
+      <Events events={transformedEvents} settings={eventSectionConfig} />
       {/* <About /> */}
       <GlobalPresence />
       {/* <Pricing /> */}

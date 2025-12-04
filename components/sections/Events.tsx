@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calendar, MapPin, Video, Youtube } from "lucide-react";
 
 // Helper function to get solid color from gradient class
 const getGradientColor = (gradientClass: string) => {
@@ -15,6 +16,10 @@ const getGradientColor = (gradientClass: string) => {
     "from-red-600": "#dc2626",
     "from-yellow-600": "#ca8a04",
     "from-indigo-600": "#4f46e5",
+    "from-cyan-600": "#0891b2",
+    "from-emerald-600": "#059669",
+    "from-violet-600": "#7c3aed",
+    "from-rose-600": "#e11d48",
   };
 
   // Extract the from-color from gradient class
@@ -25,40 +30,114 @@ const getGradientColor = (gradientClass: string) => {
   return "#2563eb"; // default blue
 };
 
-const Events: React.FC = () => {
-  const events = [
-    {
-      id: 1,
-      title: "VivaTech 2025",
-      subtitle: "In Paris",
-      image: "/event-1.jpg",
-      gradient: "from-blue-600 to-cyan-500",
-    },
-    {
-      id: 2,
-      title: "VivaTech 2025",
-      subtitle: "In Paris",
-      image: "/event-2.jpg",
-      gradient: "from-orange-500 to-yellow-400",
-    },
-    {
-      id: 3,
-      title: "VivaTech 2025",
-      subtitle: "In Paris",
-      image: "/event-3.jpg",
-      gradient: "from-green-500 to-emerald-400",
-    },
-    {
-      id: 4,
-      title: "VivaTech 2025",
-      subtitle: "In Paris",
-      image: "/event-4.jpg",
-      gradient: "from-purple-500 to-pink-400",
-    },
-  ];
+interface Event {
+  id: string;
+  title: string;
+  subtitle: string | null;
+  description: string | null;
+  mediaType: "IMAGE" | "VIDEO" | "YOUTUBE";
+  mediaUrl: string;
+  thumbnail: string | null;
+  gradient: string;
+  eventDate: string | null;
+  location: string | null;
+  externalUrl: string | null;
+}
+
+interface EventSectionSettings {
+  sectionTitle: string;
+  sectionDesc: string;
+  displayMode: "GRID" | "SLIDER";
+  autoSlideDelay: number;
+}
+
+interface EventsProps {
+  events?: Event[];
+  settings?: EventSectionSettings;
+}
+
+// Default events for fallback
+const defaultEvents: Event[] = [
+  {
+    id: "1",
+    title: "VivaTech 2025",
+    subtitle: "In Paris",
+    description: null,
+    mediaType: "IMAGE",
+    mediaUrl: "/event-1.jpg",
+    thumbnail: null,
+    gradient: "from-blue-600 to-cyan-500",
+    eventDate: null,
+    location: "Paris, France",
+    externalUrl: null,
+  },
+  {
+    id: "2",
+    title: "VivaTech 2025",
+    subtitle: "In Paris",
+    description: null,
+    mediaType: "IMAGE",
+    mediaUrl: "/event-2.jpg",
+    thumbnail: null,
+    gradient: "from-orange-500 to-yellow-400",
+    eventDate: null,
+    location: "Paris, France",
+    externalUrl: null,
+  },
+  {
+    id: "3",
+    title: "VivaTech 2025",
+    subtitle: "In Paris",
+    description: null,
+    mediaType: "IMAGE",
+    mediaUrl: "/event-3.jpg",
+    thumbnail: null,
+    gradient: "from-green-500 to-emerald-400",
+    eventDate: null,
+    location: "Paris, France",
+    externalUrl: null,
+  },
+  {
+    id: "4",
+    title: "VivaTech 2025",
+    subtitle: "In Paris",
+    description: null,
+    mediaType: "IMAGE",
+    mediaUrl: "/event-4.jpg",
+    thumbnail: null,
+    gradient: "from-purple-500 to-pink-400",
+    eventDate: null,
+    location: "Paris, France",
+    externalUrl: null,
+  },
+];
+
+const defaultSettings: EventSectionSettings = {
+  sectionTitle: "Global Events",
+  sectionDesc:
+    "Experience CodeMoly on the world stage at VivaTech 2025 and other premier global tech events. We connect with innovators, startups, and industry leaders to share ideas, build partnerships, and showcase our cutting-edge solutions. At CodeMoly, we're more than just a top-tier development firm — we're a global community of passionate developers and tech professionals dedicated to learning, growing, and creating impactful success stories.",
+  displayMode: "GRID",
+  autoSlideDelay: 5000,
+};
+
+const Events: React.FC<EventsProps> = ({
+  events = defaultEvents,
+  settings = defaultSettings,
+}) => {
+  const displayEvents = events.length > 0 ? events : defaultEvents;
+  const displaySettings = settings || defaultSettings;
+
+  const handleEventClick = (event: Event) => {
+    if (event.externalUrl) {
+      window.open(event.externalUrl, "_blank");
+    }
+  };
 
   return (
-    <section className="relative py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
+    <section
+      id="events"
+      className="relative py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden"
+    >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-20 w-32 h-32 bg-blue-500 rounded-full blur-3xl"></div>
@@ -77,7 +156,7 @@ const Events: React.FC = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            Global Events
+            {displaySettings.sectionTitle}
           </motion.h2>
 
           <motion.div
@@ -88,43 +167,50 @@ const Events: React.FC = () => {
             viewport={{ once: true }}
           >
             <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed">
-              Experience CodeMoly on the world stage at VivaTech 2025 and other
-              premier global tech events. We connect with innovators, startups,
-              and industry leaders to share ideas, build partnerships, and
-              showcase our cutting-edge solutions. At CodeMoly, we’re more than
-              just a top-tier development firm — we’re a global community of
-              passionate developers and tech professionals dedicated to
-              learning, growing, and creating impactful success stories.
+              {displaySettings.sectionDesc}
             </p>
-
-            {/* <button className="text-white hover:text-gray-300 transition-colors duration-300 underline underline-offset-4 text-lg font-medium">
-              Learn more
-            </button> */}
           </motion.div>
         </div>
 
         {/* Event Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {events.map((event, index) => (
+          {displayEvents.map((event, index) => (
             <motion.div
               key={event.id}
-              className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-500 cursor-pointer"
+              className={`group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-500 ${
+                event.externalUrl ? "cursor-pointer" : ""
+              }`}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ y: -10, scale: 1.02 }}
+              onClick={() => handleEventClick(event)}
             >
-              {/* Card Background Image */}
+              {/* Card Background */}
               <div className="absolute inset-0">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                {/* Bottom Gradient Overlay - starts from bottom and fades up */}
+                {event.mediaType === "IMAGE" ? (
+                  <Image
+                    src={event.mediaUrl}
+                    alt={event.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                ) : event.thumbnail ? (
+                  <Image
+                    src={event.thumbnail}
+                    alt={event.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                ) : (
+                  <div
+                    className={`w-full h-full bg-gradient-to-br ${event.gradient}`}
+                  />
+                )}
+                {/* Bottom Gradient Overlay */}
                 <div
-                  className={`absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-blue-500 to-transparent opacity-90`}
+                  className="absolute bottom-0 left-0 right-0 h-32 opacity-90"
                   style={{
                     background: `linear-gradient(to top, ${getGradientColor(
                       event.gradient
@@ -133,13 +219,37 @@ const Events: React.FC = () => {
                 ></div>
               </div>
 
+              {/* Media Type Indicator */}
+              {event.mediaType !== "IMAGE" && (
+                <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm rounded-full p-2 z-10">
+                  {event.mediaType === "VIDEO" ? (
+                    <Video className="w-4 h-4 text-white" />
+                  ) : (
+                    <Youtube className="w-4 h-4 text-white" />
+                  )}
+                </div>
+              )}
+
               {/* Card Content */}
               <div className="relative h-64 sm:h-72 lg:h-80 p-4 sm:p-6 flex flex-col justify-between text-white">
-                {/* Top Content */}
+                {/* Top Content - Date & Location */}
                 <div>
-                  <div className="text-xs sm:text-sm font-medium opacity-90 mb-2">
-                    {/* {event.location} - {event.date} */}
-                  </div>
+                  {(event.eventDate || event.location) && (
+                    <div className="flex flex-col gap-1 text-xs sm:text-sm font-medium opacity-90">
+                      {event.eventDate && (
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          {new Date(event.eventDate).toLocaleDateString()}
+                        </span>
+                      )}
+                      {event.location && (
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-3 h-3" />
+                          {event.location}
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 {/* Bottom Content */}
@@ -147,15 +257,19 @@ const Events: React.FC = () => {
                   <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-1 leading-tight">
                     {event.title}
                   </h3>
-                  <p className="text-sm sm:text-base lg:text-lg font-semibold opacity-90">
-                    {event.subtitle}
-                  </p>
+                  {event.subtitle && (
+                    <p className="text-sm sm:text-base lg:text-lg font-semibold opacity-90">
+                      {event.subtitle}
+                    </p>
+                  )}
                 </div>
 
                 {/* Hover Arrow */}
-                <div className="absolute top-4 right-4 sm:top-6 sm:right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
-                </div>
+                {event.externalUrl && (
+                  <div className="absolute top-4 right-4 sm:top-6 sm:right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
+                  </div>
+                )}
               </div>
 
               {/* Shine Effect */}

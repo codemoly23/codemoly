@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { ToastProvider } from "@/components/admin/Toast";
 
 export const metadata: Metadata = {
   title: "Admin Panel - CodeMoly",
@@ -11,5 +12,5 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <ToastProvider>{children}</ToastProvider>;
 }

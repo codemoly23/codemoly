@@ -83,8 +83,7 @@ export default function SunEditorWrapper({
           defaultStyle: "font-family: inherit; font-size: 16px;",
           resizingBar: true,
           showPathLabel: false,
-          charCounter: true,
-          charCounterLabel: "Characters: ",
+          charCounter: false,
           imageUploadSizeLimit: 5 * 1024 * 1024, // 5MB
           videoFileInput: false,
           tabDisable: false,

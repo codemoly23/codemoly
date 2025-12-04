@@ -38,7 +38,36 @@ NEXTAUTH_SECRET="your-secret-key-here"
 NEXTAUTH_URL="http://localhost:3002"
 ```
 
-### 3. Database Setup
+### 3. MySQL Installation
+
+#### Windows
+
+1. Download MySQL Installer from [MySQL Downloads](https://dev.mysql.com/downloads/installer/)
+2. Run the installer and select "MySQL Server" + "MySQL Workbench"
+3. Follow setup wizard, set root password
+4. Add MySQL to PATH: `C:\Program Files\MySQL\MySQL Server 8.0\bin`
+
+#### macOS
+
+```bash
+# Using Homebrew
+brew install mysql
+brew services start mysql
+
+# Set root password
+mysql_secure_installation
+```
+
+#### Ubuntu/Debian
+
+```bash
+sudo apt update
+sudo apt install mysql-server
+sudo systemctl start mysql
+sudo mysql_secure_installation
+```
+
+### 4. Database Setup
 
 ```bash
 # Create database in MySQL
@@ -53,7 +82,7 @@ pnpm db:migrate
 pnpm db:seed
 ```
 
-### 4. Run Development Server
+### 5. Run Development Server
 
 ```bash
 pnpm dev

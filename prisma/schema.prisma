@@ -123,7 +123,14 @@ model BlogCategory {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  // Parent-child relationship for subcategories
+  parentId String?
+  parent   BlogCategory?  @relation("SubCategories", fields: [parentId], references: [id], onDelete: SetNull)
+  children BlogCategory[] @relation("SubCategories")
+
   blogs Blog[]
+
+  @@index([parentId])
 }
 
 model Blog {
