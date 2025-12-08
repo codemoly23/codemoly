@@ -8,7 +8,7 @@ async function main() {
   console.log("🌱 Starting seed...");
 
   // Create default admin user
-  const hashedPassword = await bcrypt.hash("admin123", 12);
+  const hashedPassword = await bcrypt.hash("passLagbei?@26", 12);
 
   const admin = await prisma.admin.upsert({
     where: { email: "admin@codemoly.com" },
@@ -291,8 +291,8 @@ async function main() {
   console.log("\n🎉 Seed completed successfully!");
   console.log("\n📝 Default admin credentials:");
   console.log("   Email: admin@codemoly.com");
-  console.log("   Password: admin123");
-  console.log("\n⚠️  Please change the password after first login!");
+  console.log("   Password: [set in seed.ts]");
+  console.log("\n⚠️  Please keep your credentials secure!");
 }
 
 main()

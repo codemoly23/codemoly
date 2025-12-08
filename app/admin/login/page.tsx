@@ -4,7 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Lock, Mail, Eye, EyeOff, AlertCircle, Loader2, Copy, Check } from "lucide-react";
+import { Lock, Mail, Eye, EyeOff, AlertCircle, Loader2 } from "lucide-react";
 import Image from "next/image";
 
 export default function AdminLoginPage() {
@@ -14,14 +14,6 @@ export default function AdminLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const fillDemoCredentials = () => {
-    setEmail("admin@codemoly.com");
-    setPassword("admin123");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,25 +68,6 @@ export default function AdminLoginPage() {
             </div>
             <h1 className="text-2xl font-bold text-white">Admin Panel</h1>
             <p className="text-gray-400 mt-2">Sign in to manage your content</p>
-
-            {/* Demo Credentials Button */}
-            <button
-              type="button"
-              onClick={fillDemoCredentials}
-              className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-sm text-gray-300 transition-all"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-4 h-4 text-green-400" />
-                  <span className="text-green-400">Filled!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-4 h-4" />
-                  <span>Fill Demo Credentials</span>
-                </>
-              )}
-            </button>
           </div>
 
           {/* Error Message */}
