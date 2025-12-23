@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import ImageUploader from "./ImageUploader";
@@ -290,12 +291,12 @@ export default function BlogForm({ initialData, categories }: BlogFormProps) {
               {categories.length === 0 && (
                 <p className="mt-2 text-xs text-yellow-600 dark:text-yellow-400">
                   No categories found.{" "}
-                  <a
+                  <Link
                     href="/admin/blog/categories"
                     className="underline hover:no-underline"
                   >
                     Create one first
-                  </a>
+                  </Link>
                 </p>
               )}
             </div>

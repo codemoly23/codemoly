@@ -357,7 +357,7 @@ export default function CategoriesClient({
                   onChange={(e) =>
                     setFormData({ ...formData, parentId: e.target.value })
                   }
-                  disabled={editingCategory && hasChildren(editingCategory)}
+                  disabled={!!(editingCategory && hasChildren(editingCategory))}
                   className="w-full px-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:opacity-50"
                 >
                   <option value="">None (Top Level Category)</option>

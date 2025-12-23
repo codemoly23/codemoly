@@ -46,7 +46,7 @@ export default function ProductsClient({
   // Get icon component
   const getIcon = (iconName: string) => {
     const Icon = (
-      LucideIcons as Record<
+      LucideIcons as unknown as Record<
         string,
         React.ComponentType<{ className?: string }>
       >
