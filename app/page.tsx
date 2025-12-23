@@ -6,14 +6,15 @@ import ProductShowcase from "@/components/sections/ProductShowcase";
 import GlobalPresence from "@/components/sections/GlobalPresence";
 import AIAutomations from "@/components/sections/AIAutomations";
 import Testimonials from "@/components/sections/Testimonials";
+import BlogSection from "@/components/sections/BlogSection";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import TechStack from "@/components/sections/TechStack";
 import { prisma } from "@/lib/prisma";
 
 export default async function Home() {
-  // Fetch site settings, services, products, events, and event settings from database
-  const [settings, services, products, events, eventSettings] = await Promise.all([
+  // Fetch site settings, services, products, events, event settings, and blogs from database
+  const [settings, services, products, events, eventSettings, blogs] = await Promise.all([
     prisma.siteSettings.findUnique({
       where: { id: "main" },
     }),
@@ -31,6 +32,19 @@ export default async function Home() {
     }),
     prisma.eventSectionSettings.findUnique({
       where: { id: "main" },
+    }),
+    prisma.blog.findMany({
+      where: { isPublished: true },
+      orderBy: { publishedAt: "desc" },
+      take: 3,
+      include: {
+        category: {
+          select: { name: true, slug: true },
+        },
+        author: {
+          select: { name: true },
+        },
+      },
     }),
   ]);
 
@@ -91,6 +105,18 @@ export default async function Home() {
       }
     : undefined;
 
+  // Transform blogs for the BlogSection component
+  const transformedBlogs = blogs.map((blog) => ({
+    id: blog.id,
+    title: blog.title,
+    slug: blog.slug,
+    excerpt: blog.excerpt,
+    coverImage: blog.coverImage,
+    publishedAt: blog.publishedAt?.toISOString() || null,
+    category: blog.category,
+    author: blog.author,
+  }));
+
   return (
     <main className="min-h-screen">
       <Navigation />
@@ -104,6 +130,7 @@ export default async function Home() {
       {/* <About /> */}
       <GlobalPresence />
       {/* <Pricing /> */}
+      <BlogSection blogs={transformedBlogs} />
       <Contact />
       <Footer />
     </main>

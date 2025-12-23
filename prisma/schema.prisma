@@ -1,6 +1,3 @@
-// CodeMoly CMS - Prisma Schema
-// Database: MySQL (shared VPS with molyecom, molylearn)
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,17 +7,129 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ============ AUTHENTICATION ============
 model Admin {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  name      String
-  role      Role     @default(ADMIN)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(cuid()) @db.VarChar(36)
+  email     String    @unique(map: "email") @db.VarChar(255)
+  password  String    @db.VarChar(255)
+  name      String    @db.VarChar(255)
+  role      Role?     @default(ADMIN)
+  createdAt DateTime? @default(now()) @db.DateTime(0)
+  updatedAt DateTime? @default(now()) @updatedAt @db.DateTime(0)
+  blogs     Blog[]
+}
 
-  blogs Blog[]
+model SiteSettings {
+  id            String    @id @default("main") @db.VarChar(36)
+  heroVideoUrl  String?   @default("https://www.youtube.com/embed/9s2ydfkRz2E") @db.VarChar(500)
+  heroTitle     String?   @db.Text
+  heroSubtitle  String?   @db.Text
+  servicesTitle String?   @default("Intelligent Solutions for Every Business Need") @db.VarChar(255)
+  servicesDesc  String?   @db.Text
+  updatedAt     DateTime? @default(now()) @updatedAt @db.DateTime(0)
+}
+
+model Service {
+  id          String    @id @default(cuid()) @db.VarChar(36)
+  title       String    @db.VarChar(255)
+  description String    @db.Text
+  icon        String    @db.VarChar(100)
+  gradient    String    @db.VarChar(255)
+  features    Json?
+  stats       Json?
+  order       Int?      @default(0)
+  isActive    Boolean?  @default(true)
+  createdAt   DateTime? @default(now()) @db.DateTime(0)
+  updatedAt   DateTime? @default(now()) @updatedAt @db.DateTime(0)
+}
+
+model Product {
+  id             String    @id @default(cuid()) @db.VarChar(36)
+  title          String    @db.VarChar(255)
+  description    String    @db.Text
+  category       String    @db.VarChar(100)
+  image          String    @db.VarChar(500)
+  icon           String    @db.VarChar(100)
+  gradient       String    @db.VarChar(255)
+  stats          Json?
+  features       Json?
+  demoUrl        String?   @db.VarChar(500)
+  detailsSlug    String    @unique(map: "detailsSlug") @db.VarChar(255)
+  detailsContent String?   @db.LongText
+  order          Int?      @default(0)
+  isActive       Boolean?  @default(true)
+  createdAt      DateTime? @default(now()) @db.DateTime(0)
+  updatedAt      DateTime? @default(now()) @updatedAt @db.DateTime(0)
+}
+
+model Event {
+  id          String     @id @default(cuid()) @db.VarChar(36)
+  title       String     @db.VarChar(255)
+  subtitle    String?    @db.VarChar(255)
+  description String?    @db.Text
+  mediaType   MediaType? @default(IMAGE)
+  mediaUrl    String     @db.VarChar(500)
+  thumbnail   String?    @db.VarChar(500)
+  gradient    String     @db.VarChar(255)
+  eventDate   DateTime?  @db.DateTime(0)
+  location    String?    @db.VarChar(255)
+  externalUrl String?    @db.VarChar(500)
+  order       Int?       @default(0)
+  isActive    Boolean?   @default(true)
+  createdAt   DateTime?  @default(now()) @db.DateTime(0)
+  updatedAt   DateTime?  @default(now()) @updatedAt @db.DateTime(0)
+}
+
+model EventSectionSettings {
+  id             String            @id @default("main") @db.VarChar(36)
+  sectionTitle   String?           @default("Global Events") @db.VarChar(255)
+  sectionDesc    String?           @db.Text
+  displayMode    EventDisplayMode? @default(GRID)
+  autoSlideDelay Int?              @default(5000)
+  updatedAt      DateTime?         @default(now()) @updatedAt @db.DateTime(0)
+}
+
+model BlogCategory {
+  id        String         @id @default(cuid()) @db.VarChar(36)
+  name      String         @unique(map: "name") @db.VarChar(100)
+  slug      String         @unique(map: "slug") @db.VarChar(100)
+  parentId  String?        @db.VarChar(36)
+  createdAt DateTime?      @default(now()) @db.DateTime(0)
+  updatedAt DateTime?      @default(now()) @updatedAt @db.DateTime(0)
+  blogs     Blog[]
+  parent    BlogCategory?  @relation("SubCategories", fields: [parentId], references: [id], onUpdate: NoAction, map: "BlogCategory_ibfk_1")
+  children  BlogCategory[] @relation("SubCategories")
+
+  @@index([parentId], map: "parentId")
+}
+
+model Blog {
+  id          String       @id @default(cuid()) @db.VarChar(36)
+  title       String       @db.VarChar(255)
+  slug        String       @unique(map: "slug") @db.VarChar(255)
+  excerpt     String?      @db.Text
+  content     String       @db.LongText
+  coverImage  String?      @db.VarChar(500)
+  isPublished Boolean?     @default(false)
+  publishedAt DateTime?    @db.DateTime(0)
+  categoryId  String       @db.VarChar(36)
+  authorId    String       @db.VarChar(36)
+  createdAt   DateTime?    @default(now()) @db.DateTime(0)
+  updatedAt   DateTime?    @default(now()) @updatedAt @db.DateTime(0)
+  category    BlogCategory @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Blog_ibfk_1")
+  author      Admin        @relation(fields: [authorId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Blog_ibfk_2")
+
+  @@index([authorId], map: "authorId")
+  @@index([categoryId], map: "categoryId")
+}
+
+model Media {
+  id        String    @id @default(cuid()) @db.VarChar(36)
+  filename  String    @db.VarChar(255)
+  path      String    @db.VarChar(500)
+  mimeType  String    @db.VarChar(100)
+  size      Int
+  alt       String?   @db.VarChar(255)
+  createdAt DateTime? @default(now()) @db.DateTime(0)
 }
 
 enum Role {
@@ -29,139 +138,13 @@ enum Role {
   EDITOR
 }
 
-// ============ SITE SETTINGS ============
-model SiteSettings {
-  id           String   @id @default("main")
-  heroVideoUrl String   @db.VarChar(500) @default("https://www.youtube.com/embed/9s2ydfkRz2E")
-  heroTitle    String?  @db.Text
-  heroSubtitle String?  @db.Text
-  servicesTitle String  @db.VarChar(255) @default("Intelligent Solutions for Every Business Need")
-  servicesDesc  String  @db.Text
-  updatedAt    DateTime @updatedAt
-}
-
-// ============ SERVICES (AI Automations Section) ============
-model Service {
-  id          String   @id @default(cuid())
-  title       String   @db.VarChar(255)
-  description String   @db.Text
-  icon        String   @db.VarChar(100) // Icon name from lucide-react
-  gradient    String   @db.VarChar(255) // Tailwind gradient classes
-  features    Json     // Array of feature strings
-  stats       Json     // Object with key-value pairs
-  order       Int      @default(0)
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-// ============ PRODUCTS ============
-model Product {
-  id             String   @id @default(cuid())
-  title          String   @db.VarChar(255)
-  description    String   @db.Text
-  category       String   @db.VarChar(100)
-  image          String   @db.VarChar(500) // Path to uploaded image
-  icon           String   @db.VarChar(100) // Icon name from lucide-react
-  gradient       String   @db.VarChar(255) // Tailwind gradient classes
-  stats          Json     // Object with key-value pairs
-  features       Json     // Array of feature strings
-  demoUrl        String?  @db.VarChar(500)
-  detailsSlug    String   @unique @db.VarChar(255) // URL slug for details page
-  detailsContent String?  @db.LongText // Product details page content (rich text)
-  order          Int      @default(0)
-  isActive       Boolean  @default(true)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-}
-
-// ============ EVENTS (Global Events Section) ============
-model Event {
-  id          String    @id @default(cuid())
-  title       String    @db.VarChar(255)
-  subtitle    String?   @db.VarChar(255) // e.g., "In Paris"
-  description String?   @db.Text
-  mediaType   MediaType @default(IMAGE) // IMAGE, VIDEO, or YOUTUBE
-  mediaUrl    String    @db.VarChar(500) // Image path or YouTube/Video URL
-  thumbnail   String?   @db.VarChar(500) // Thumbnail for videos
-  gradient    String    @db.VarChar(255) // Tailwind gradient classes for overlay
-  eventDate   DateTime? // When the event happened/will happen
-  location    String?   @db.VarChar(255)
-  externalUrl String?   @db.VarChar(500) // Link to event page/details
-  order       Int       @default(0)
-  isActive    Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
 enum MediaType {
   IMAGE
   VIDEO
   YOUTUBE
 }
 
-// ============ EVENT SECTION SETTINGS ============
-model EventSectionSettings {
-  id             String           @id @default("main")
-  sectionTitle   String           @db.VarChar(255) @default("Global Events")
-  sectionDesc    String           @db.Text // No default - MySQL doesn't allow defaults on TEXT
-  displayMode    EventDisplayMode @default(GRID) // GRID or SLIDER
-  autoSlideDelay Int              @default(5000) // milliseconds, for slider mode
-  updatedAt      DateTime         @updatedAt
-}
-
 enum EventDisplayMode {
-  GRID   // Show all events in grid (current design)
-  SLIDER // Show as carousel/slider when multiple events
-}
-
-// ============ BLOG SYSTEM ============
-model BlogCategory {
-  id        String   @id @default(cuid())
-  name      String   @unique @db.VarChar(100)
-  slug      String   @unique @db.VarChar(100)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Parent-child relationship for subcategories
-  parentId String?
-  parent   BlogCategory?  @relation("SubCategories", fields: [parentId], references: [id], onDelete: SetNull)
-  children BlogCategory[] @relation("SubCategories")
-
-  blogs Blog[]
-
-  @@index([parentId])
-}
-
-model Blog {
-  id          String        @id @default(cuid())
-  title       String        @db.VarChar(255)
-  slug        String        @unique @db.VarChar(255)
-  excerpt     String?       @db.Text
-  content     String        @db.LongText // Sun Editor HTML content
-  coverImage  String?       @db.VarChar(500)
-  isPublished Boolean       @default(false)
-  publishedAt DateTime?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-
-  categoryId String
-  category   BlogCategory @relation(fields: [categoryId], references: [id])
-
-  authorId String
-  author   Admin @relation(fields: [authorId], references: [id])
-
-  @@index([categoryId])
-  @@index([authorId])
-}
-
-// ============ MEDIA LIBRARY ============
-model Media {
-  id        String   @id @default(cuid())
-  filename  String   @db.VarChar(255)
-  path      String   @db.VarChar(500)
-  mimeType  String   @db.VarChar(100)
-  size      Int
-  alt       String?  @db.VarChar(255)
-  createdAt DateTime @default(now())
+  GRID
+  SLIDER
 }

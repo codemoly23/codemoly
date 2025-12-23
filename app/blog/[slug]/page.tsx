@@ -89,13 +89,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <section className="relative pt-32 pb-16 bg-gradient-to-b from-slate-900 via-purple-900/30 to-slate-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back Button */}
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-8 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Blog
-          </Link>
+          <div className="flex justify-end mb-8">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+            >
+              Back to Blog
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
 
           {/* Category */}
           <Link

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
@@ -151,6 +152,15 @@ export async function PUT(
       },
     });
 
+    // Revalidate blog pages
+    revalidatePath("/");
+    revalidatePath("/blog");
+    // Revalidate old slug if changed
+    if (existingBlog.slug !== blog.slug) {
+      revalidatePath(`/blog/${existingBlog.slug}`);
+    }
+    revalidatePath(`/blog/${blog.slug}`);
+
     return NextResponse.json(blog);
   } catch (error) {
     console.error("Error updating blog:", error);
@@ -190,6 +200,11 @@ export async function DELETE(
     await prisma.blog.delete({
       where: { id },
     });
+
+    // Revalidate blog pages
+    revalidatePath("/");
+    revalidatePath("/blog");
+    revalidatePath(`/blog/${existingBlog.slug}`);
 
     return NextResponse.json({ message: "Blog post deleted successfully" });
   } catch (error) {
