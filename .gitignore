@@ -44,3 +44,7 @@ next-env.d.ts
 
 # Windows reserved names
 nul
+
+# deployment cache
+.lockfile-hash
+.next-cache-tmp
