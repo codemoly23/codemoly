@@ -2,6 +2,8 @@
 
 A modern Next.js website with an integrated CMS admin panel for managing content.
 
+[![Deploy to Production](https://github.com/codemoly23/codemoly/actions/workflows/deploy.yml/badge.svg)](https://github.com/codemoly23/codemoly/actions/workflows/deploy.yml)
+
 ## Tech Stack
 
 | Category | Technology |
