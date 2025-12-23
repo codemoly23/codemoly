@@ -48,3 +48,8 @@ nul
 # deployment cache
 .lockfile-hash
 .next-cache-tmp
+.uploads-backup
+
+# User uploaded files (preserved on server, not in git)
+/public/uploads/*
+!/public/uploads/.gitkeep

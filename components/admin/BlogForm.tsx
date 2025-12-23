@@ -402,9 +402,9 @@ export default function BlogForm({ initialData, categories }: BlogFormProps) {
               </button>
             </div>
             <ImageUploader
-              onUpload={handleImageSelect}
+              value={formData.coverImage}
+              onChange={handleImageSelect}
               folder="blog"
-              aspectRatio="16:9"
             />
           </div>
         </div>
