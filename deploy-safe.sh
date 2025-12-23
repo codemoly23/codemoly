@@ -6,6 +6,9 @@ set -e
 # Zero-downtime with atomic folder swap
 # ============================================
 
+# Set CI environment for non-interactive mode
+export CI=true
+
 APP_NAME="codemoly"
 APP_DIR="/var/www/codemoly"
 PORT=3020
