@@ -310,6 +310,7 @@ export default function MediaLibraryClient({
                         alt={item.alt || item.filename}
                         fill
                         className="object-cover"
+                        unoptimized={item.path.startsWith('/uploads/')}
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
@@ -393,6 +394,7 @@ export default function MediaLibraryClient({
                   width={300}
                   height={300}
                   className="w-full h-full object-contain"
+                  unoptimized={selectedMedia.path.startsWith('/uploads/')}
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">

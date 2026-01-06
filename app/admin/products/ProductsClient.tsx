@@ -116,6 +116,7 @@ export default function ProductsClient({
               alt={item.title}
               fill
               className="object-cover"
+              unoptimized={item.image.startsWith('/uploads/')}
             />
           ) : (
             <div

@@ -143,6 +143,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               fill
               className="object-cover"
               priority
+              unoptimized={blog.coverImage.startsWith('/uploads/')}
             />
           </div>
         </div>
@@ -190,6 +191,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         alt={post.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized={post.coverImage.startsWith('/uploads/')}
                       />
                     </div>
                   ) : (

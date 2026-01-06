@@ -132,6 +132,7 @@ async function BlogContent({ searchParams }: BlogPageProps) {
                         alt={blog.title}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized={blog.coverImage.startsWith('/uploads/')}
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">

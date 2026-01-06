@@ -315,6 +315,7 @@ export default function BlogForm({ initialData, categories }: BlogFormProps) {
                       alt="Cover"
                       fill
                       className="object-cover"
+                      unoptimized={formData.coverImage.startsWith('/uploads/')}
                     />
                   </div>
                   <div className="absolute top-2 right-2 flex gap-1">

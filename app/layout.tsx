@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import { GoogleTagManager } from "@next/third-parties/google";
@@ -14,7 +14,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://codemoly.com"),
   title: "CodeMoly - Build Your Next Digital Experience",
   description:
     "Create stunning web applications with our cutting-edge development platform. Fast, reliable, and built for the modern web.",
@@ -23,12 +31,6 @@ export const metadata: Metadata = {
   authors: [{ name: "CodeMoly Team" }],
   creator: "CodeMoly",
   publisher: "CodeMoly",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
-  },
   openGraph: {
     title: "CodeMoly - Build Your Next Digital Experience",
     description:

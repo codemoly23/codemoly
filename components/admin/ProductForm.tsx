@@ -640,6 +640,7 @@ export default function ProductForm({
                         alt="Product preview"
                         fill
                         className="object-cover"
+                        unoptimized={formData.image.startsWith('/uploads/')}
                       />
                     </div>
                   )}

@@ -127,6 +127,7 @@ export default function EventsClient({
               alt={item.title}
               fill
               className="object-cover"
+              unoptimized={item.mediaUrl.startsWith('/uploads/')}
             />
           ) : item.thumbnail ? (
             <Image
@@ -134,6 +135,7 @@ export default function EventsClient({
               alt={item.title}
               fill
               className="object-cover"
+              unoptimized={item.thumbnail.startsWith('/uploads/')}
             />
           ) : (
             <div

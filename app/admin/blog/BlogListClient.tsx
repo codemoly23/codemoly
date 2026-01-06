@@ -117,6 +117,7 @@ export default function BlogListClient({
               alt={item.title}
               fill
               className="object-cover"
+              unoptimized={item.coverImage.startsWith('/uploads/')}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400">

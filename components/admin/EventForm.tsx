@@ -542,6 +542,7 @@ export default function EventForm({
                     alt="Preview"
                     fill
                     className="object-cover"
+                    unoptimized={formData.mediaUrl.startsWith('/uploads/')}
                   />
                 ) : formData.thumbnail ? (
                   <Image
@@ -549,6 +550,7 @@ export default function EventForm({
                     alt="Preview"
                     fill
                     className="object-cover"
+                    unoptimized={formData.thumbnail.startsWith('/uploads/')}
                   />
                 ) : (
                   <div
