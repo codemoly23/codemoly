@@ -126,7 +126,7 @@ const globalOffices = [
     role: "HQ for APAC",
     address: "14/1, BTI Emporium Tower, Mirpur Road, Shamoli, Dhaka",
     phone: "+01894 955 494",
-    email: "hello@codemoly.com",
+    email: "codemoly.info@gmail.com",
   },
   {
     country: "France",
@@ -134,7 +134,7 @@ const globalOffices = [
     role: "EU Product Hub",
     address: "78 avenue des champs élysées 75008 paris",
     phone: "+33743579692",
-    email: "hello@codemoly.com",
+    email: "codemoly.info@gmail.com",
   },
   {
     country: "Austria",
@@ -142,7 +142,7 @@ const globalOffices = [
     role: "Engineering",
     address: "Sonnwendgasse 30/2/11, 1100, Wien",
     phone: "+43 664 875 8864",
-    email: "hello@codemoly.com",
+    email: "codemoly.info@gmail.com",
   },
 ];
 

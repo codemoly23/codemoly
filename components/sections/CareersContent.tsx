@@ -415,12 +415,12 @@ export default function CareersContent() {
                 careers@codemoly.com
               </motion.a>
               <motion.a
-                href="mailto:hello@codemoly.com"
+                href="mailto:codemoly.info@gmail.com"
                 className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors text-base font-medium"
                 whileHover={{ scale: 1.05 }}
               >
                 <Mail className="w-5 h-5" />
-                hello@codemoly.com
+                codemoly.info@gmail.com
               </motion.a>
             </div>
           </motion.div>

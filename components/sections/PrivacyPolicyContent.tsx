@@ -291,21 +291,21 @@ export default function PrivacyPolicyContent() {
               clear all your doubts related to our privacy policy by reaching us
               at{" "}
               <a
-                href="mailto:hello@codemoly.com"
+                href="mailto:codemoly.info@gmail.com"
                 className="text-blue-400 hover:text-blue-300 underline"
               >
-                hello@codemoly.com
+                codemoly.info@gmail.com
               </a>
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <motion.a
-                href="mailto:hello@codemoly.com"
+                href="mailto:codemoly.info@gmail.com"
                 className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors text-base font-medium"
                 whileHover={{ scale: 1.05 }}
               >
                 <Mail className="w-5 h-5" />
-                hello@codemoly.com
+                codemoly.info@gmail.com
               </motion.a>
               <motion.a
                 href="tel:+01894955494"

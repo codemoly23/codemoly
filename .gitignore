@@ -42,6 +42,12 @@ next-env.d.ts
 
 /lib/generated/prisma
 
+# prisma migrations (not used in production/live)
+/prisma/migrations
+
+# playwright mcp snapshots/screenshots
+.playwright-mcp/
+
 # Windows reserved names
 nul
 

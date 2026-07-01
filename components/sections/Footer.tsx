@@ -216,12 +216,12 @@ const Footer: React.FC = () => {
             {/* Contact Info */}
             <div className="space-y-3 mb-6">
               <motion.a
-                href="mailto:hello@codemoly.com"
+                href="mailto:codemoly.info@gmail.com"
                 className="flex items-center text-gray-300 hover:text-blue-400 transition-all duration-300 group cursor-pointer text-sm"
                 whileHover={{ x: 3 }}
               >
                 <Mail className="w-4 h-4 mr-3" />
-                <span>hello@codemoly.com</span>
+                <span>codemoly.info@gmail.com</span>
               </motion.a>
               <motion.a
                 href="tel:+15551234567"

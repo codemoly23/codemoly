@@ -118,7 +118,7 @@ const policyData = [
     icon: <HeadphonesIcon className="w-6 h-6" />,
     content: [
       "If you have questions or need clarification about our delivery process, please don't hesitate to contact us:",
-      "Email: hello@codemoly.com",
+      "Email: codemoly.info@gmail.com",
       "Phone: +01894 955 494",
       "Website: www.codemoly.com",
     ],
@@ -320,12 +320,12 @@ const DeliveryPolicyContent: React.FC = () => {
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-10">
               <motion.a
-                href="mailto:hello@codemoly.com"
+                href="mailto:codemoly.info@gmail.com"
                 className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors text-base font-medium"
                 whileHover={{ scale: 1.05 }}
               >
                 <Mail className="w-5 h-5" />
-                hello@codemoly.com
+                codemoly.info@gmail.com
               </motion.a>
               <motion.a
                 href="tel:+01894955494"
