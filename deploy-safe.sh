@@ -9,6 +9,13 @@ set -e
 # Set CI environment for non-interactive mode
 export CI=true
 
+# Raise open-file-descriptor limit. GitHub Actions (appleboy/ssh-action) runs this
+# over a non-login SSH session where the soft nofile limit defaults to 1024, which
+# starves Turbopack's CSS/PostCSS worker IPC and makes `next build` hang on
+# app/globals.css ("timeout while receiving message from process / deadline has
+# elapsed"). Hard limit is 1048576; 65536 is plenty for the build.
+ulimit -n 65536 2>/dev/null || true
+
 APP_NAME="codemoly"
 APP_DIR="/var/www/codemoly"
 PORT=3020
