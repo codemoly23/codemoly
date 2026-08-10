@@ -15,15 +15,16 @@ export CI=true
 # app/globals.css ("timeout while receiving message from process / deadline has
 # elapsed"). Hard limit is 1048576; 65536 is plenty for the build.
 ulimit -n 65536 2>/dev/null || true
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] nofile limit (soft/hard): $(ulimit -Sn)/$(ulimit -Hn)"
 
 APP_NAME="codemoly"
 APP_DIR="/var/www/codemoly"
 PORT=3020
 BRANCH="main"
 
-# Telegram Config
-TELEGRAM_BOT_TOKEN="8249121385:AAE2xwzRENwj3CG3SG96j3uWmvBVJtNh0Ss"
-TELEGRAM_CHAT_ID="7337103477"
+# Telegram Config - set these as secrets on the server/CI environment, never hardcode
+TELEGRAM_BOT_TOKEN="${TELEGRAM_BOT_TOKEN:-}"
+TELEGRAM_CHAT_ID="${TELEGRAM_CHAT_ID:-}"
 
 # Colors for output
 RED='\033[0;31m'
@@ -45,6 +46,9 @@ error() {
 
 send_telegram() {
     local message="$1"
+    if [ -z "$TELEGRAM_BOT_TOKEN" ] || [ -z "$TELEGRAM_CHAT_ID" ]; then
+        return 0
+    fi
     curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
         -d chat_id="${TELEGRAM_CHAT_ID}" \
         -d text="$message" \
