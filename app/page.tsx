@@ -2,6 +2,7 @@ import Navigation from "@/components/layout/Navigation";
 import Hero from "@/components/sections/Hero";
 import Events from "@/components/sections/Events";
 import Features from "@/components/sections/Features";
+import TrainingPrograms from "@/components/sections/TrainingPrograms";
 import ProductShowcase from "@/components/sections/ProductShowcase";
 import GlobalPresence from "@/components/sections/GlobalPresence";
 import AIAutomations from "@/components/sections/AIAutomations";
@@ -124,6 +125,7 @@ export default async function Home() {
       <AIAutomations title={servicesTitle} description={servicesDesc} services={transformedServices} />
       <ProductShowcase products={transformedProducts} />
       <Testimonials />
+      <TrainingPrograms />
       <Features />
       <TechStack />
       <Events events={transformedEvents} settings={eventSectionConfig} />
