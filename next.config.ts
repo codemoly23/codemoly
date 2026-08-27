@@ -1,12 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // NEXT_DIST_DIR is set only during CI builds (deploy-safe.sh) so the build
+  // writes to a side directory while the live server keeps serving ./.next.
+  // It must never be set in the runtime environment.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   typescript: {
     ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
   experimental: {
     optimizePackageImports: ["framer-motion", "lucide-react"],

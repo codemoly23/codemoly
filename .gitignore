@@ -56,6 +56,12 @@ nul
 .next-cache-tmp
 .uploads-backup
 
+# deployment side-build and lock artifacts (deploy-safe.sh)
+/.next-build/
+/.next-old/
+/.next-failed/
+.deploy.lock
+
 # User uploaded files (preserved on server, not in git)
 /public/uploads/*
 !/public/uploads/.gitkeep

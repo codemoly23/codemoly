@@ -4,6 +4,10 @@ set -e
 # ============================================
 # CodeMoly - Optimized Deployment
 # Zero-downtime with smart caching
+#
+# The live app keeps serving ./.next untouched for the whole build.
+# The build goes into ./.next-build (via NEXT_DIST_DIR, see next.config.ts)
+# and is swapped in atomically only after it succeeds.
 # ============================================
 
 # Set CI environment for non-interactive mode
@@ -21,6 +25,12 @@ APP_NAME="codemoly"
 APP_DIR="/var/www/codemoly"
 PORT=3020
 BRANCH="main"
+BUILD_DIR="$APP_DIR/.next-build"
+LOCK_FILE="$APP_DIR/.deploy.lock"
+# V8 heap cap for the build. Prevents the kernel OOM killer from silently reaping
+# a Turbopack worker mid-IPC (which surfaces as the timeout above). Tune against
+# the preflight `free -h` output; drop to 1536 if the box has <= 2 GB free.
+NODE_MEM_MB=2048
 
 # Telegram Config - set these as secrets on the server/CI environment, never hardcode
 TELEGRAM_BOT_TOKEN="${TELEGRAM_BOT_TOKEN:-}"
@@ -75,126 +85,169 @@ health_check() {
     return 1
 }
 
-rollback() {
+# Best-effort evidence of the kernel OOM killer reaping a build worker.
+oom_report() {
+    {
+        dmesg -T 2>/dev/null | grep -iE 'killed process|out of memory|oom' | tail -5
+        journalctl -k --since "30 min ago" 2>/dev/null | grep -i 'oom' | tail -5
+    } 2>/dev/null || true
+}
+
+fail_deploy() {
     local error_msg="$1"
     error "$error_msg"
-
-    if [ -d "$APP_DIR/.next-old" ]; then
-        log "Restoring previous build..."
-        rm -rf "$APP_DIR/.next" 2>/dev/null || true
-        mv "$APP_DIR/.next-old" "$APP_DIR/.next"
-
-        PM2_HOME=/home/ubuntu/.pm2 pm2 restart "$APP_NAME" --update-env || true
-        PM2_HOME=/home/ubuntu/.pm2 pm2 save
-        log "Rollback completed"
-    fi
 
     send_telegram "❌ <b>DEPLOY FAILED: $APP_NAME</b>
 
 🔀 Branch: $BRANCH
 ❗ Error: $error_msg
-✅ Action: Auto-rollback completed
+✅ Action: Live app untouched, still serving previous build
 🕐 Time: $(date '+%Y-%m-%d %H:%M:%S UTC')"
 
     exit 1
+}
+
+# NEXT_DIST_DIR and NODE_OPTIONS are set inline for the build command ONLY.
+# Never export them: `pm2 restart --update-env` would propagate NEXT_DIST_DIR
+# into the runtime and make the app serve a directory that no longer exists.
+run_build() {
+    local label="$1"
+    log "Building application ($label)..."
+    NEXT_DIST_DIR=.next-build NODE_OPTIONS="--max-old-space-size=${NODE_MEM_MB}" pnpm build
 }
 
 # ============================================
 # Main Deployment
 # ============================================
 
-cd "$APP_DIR"
-START_TIME=$(date +%s)
+main() {
+    cd "$APP_DIR"
+    START_TIME=$(date +%s)
 
-log "=========================================="
-log "Starting deployment for $APP_NAME"
-log "=========================================="
-
-# Cleanup any previous failed deployment
-rm -rf "$APP_DIR/.next-old" 2>/dev/null || true
-
-# Save current lockfile hash
-OLD_LOCK_HASH=""
-if [ -f "$APP_DIR/.lockfile-hash" ]; then
-    OLD_LOCK_HASH=$(cat "$APP_DIR/.lockfile-hash")
-fi
-
-# Step 1: Pull latest code
-log "Pulling latest code from $BRANCH..."
-if ! git pull origin "$BRANCH"; then
-    rollback "git pull failed"
-fi
-
-# Step 2: Check if dependencies changed
-NEW_LOCK_HASH=$(md5sum "$APP_DIR/pnpm-lock.yaml" 2>/dev/null | cut -d' ' -f1 || echo "none")
-
-if [ "$OLD_LOCK_HASH" != "$NEW_LOCK_HASH" ] || [ ! -d "$APP_DIR/node_modules" ]; then
-    log "Dependencies changed, installing..."
-    if ! pnpm install --frozen-lockfile --prefer-offline; then
-        rollback "pnpm install failed"
+    # Refuse to run concurrently with another deploy on this box
+    exec 200>"$LOCK_FILE"
+    if ! flock -n 200; then
+        error "Another deployment is already running (lock: $LOCK_FILE)"
+        exit 1
     fi
-    echo "$NEW_LOCK_HASH" > "$APP_DIR/.lockfile-hash"
-else
-    log "Dependencies unchanged, skipping install"
-fi
 
-# Step 3: Preserve old build but keep cache
-if [ -d "$APP_DIR/.next" ]; then
-    log "Preserving current build..."
-    # Keep the cache directory for faster rebuilds
+    log "=========================================="
+    log "Starting deployment for $APP_NAME"
+    log "=========================================="
+
+    # Cleanup leftovers from any previous killed/failed run
+    rm -rf "$BUILD_DIR" "$APP_DIR/.next-old" "$APP_DIR/.next-cache-tmp" "$APP_DIR/.next-failed" 2>/dev/null || true
+
+    # Preflight diagnostics (for tuning NODE_MEM_MB and spotting resource pressure)
+    log "Preflight: memory / cpu / disk"
+    free -h 2>/dev/null || true
+    log "CPUs: $(nproc 2>/dev/null || echo '?')"
+    df -h "$APP_DIR" 2>/dev/null || true
+
+    # Save current lockfile hash
+    OLD_LOCK_HASH=""
+    if [ -f "$APP_DIR/.lockfile-hash" ]; then
+        OLD_LOCK_HASH=$(cat "$APP_DIR/.lockfile-hash")
+    fi
+
+    # Step 1: Pull latest code
+    log "Pulling latest code from $BRANCH..."
+    if ! git pull origin "$BRANCH"; then
+        fail_deploy "git pull failed"
+    fi
+
+    # Step 2: Check if dependencies changed
+    NEW_LOCK_HASH=$(md5sum "$APP_DIR/pnpm-lock.yaml" 2>/dev/null | cut -d' ' -f1 || echo "none")
+
+    if [ "$OLD_LOCK_HASH" != "$NEW_LOCK_HASH" ] || [ ! -d "$APP_DIR/node_modules" ]; then
+        log "Dependencies changed, installing..."
+        if ! pnpm install --frozen-lockfile --prefer-offline; then
+            fail_deploy "pnpm install failed"
+        fi
+        echo "$NEW_LOCK_HASH" > "$APP_DIR/.lockfile-hash"
+    else
+        log "Dependencies unchanged, skipping install"
+    fi
+
+    # Step 3: Seed build cache by COPY - the live .next stays untouched and serving
     if [ -d "$APP_DIR/.next/cache" ]; then
-        cp -r "$APP_DIR/.next/cache" "$APP_DIR/.next-cache-tmp" 2>/dev/null || true
+        log "Seeding build cache from current build..."
+        mkdir -p "$BUILD_DIR"
+        cp -r "$APP_DIR/.next/cache" "$BUILD_DIR/cache" 2>/dev/null || true
     fi
+
+    # Step 4: Build into .next-build; on failure retry once with a cold cache
+    # (a cache written by a previously killed build can poison every rebuild)
+    RETRY_NOTE=""
+    if ! run_build "attempt 1, warm cache"; then
+        error "Build attempt 1 failed - clearing cache and retrying once"
+        OOM_INFO="$(oom_report)"
+        [ -n "$OOM_INFO" ] && error "Possible OOM kills detected:"$'\n'"$OOM_INFO"
+        free -h 2>/dev/null || true
+        rm -rf "$BUILD_DIR"
+        if ! run_build "attempt 2, cold cache"; then
+            OOM_INFO="$(oom_report)"
+            rm -rf "$BUILD_DIR"
+            fail_deploy "pnpm build failed (both attempts). OOM evidence: ${OOM_INFO:-none found}"
+        fi
+        RETRY_NOTE="
+⚠️ Succeeded only on cold-cache retry (cache corruption likely)"
+    fi
+
+    # Step 5: Atomic swap - the only moment the live dir is touched (~milliseconds)
+    log "Swapping in new build..."
     mv "$APP_DIR/.next" "$APP_DIR/.next-old"
-fi
+    mv "$BUILD_DIR" "$APP_DIR/.next"
 
-# Step 4: Build application
-log "Building application..."
-# Restore cache before build
-if [ -d "$APP_DIR/.next-cache-tmp" ]; then
-    mkdir -p "$APP_DIR/.next"
-    mv "$APP_DIR/.next-cache-tmp" "$APP_DIR/.next/cache"
-fi
+    # Step 6: Restart PM2
+    log "Restarting PM2..."
+    PM2_HOME=/home/ubuntu/.pm2 pm2 restart "$APP_NAME" --update-env || PM2_HOME=/home/ubuntu/.pm2 pm2 start "$APP_DIR/ecosystem.config.js"
+    PM2_HOME=/home/ubuntu/.pm2 pm2 save
 
-if ! pnpm build; then
-    if [ -d "$APP_DIR/.next-old" ]; then
-        rm -rf "$APP_DIR/.next" 2>/dev/null || true
+    # Step 7: Health check; on failure roll back to the previous build
+    sleep 3
+    if ! health_check; then
+        error "Health check failed - rolling back to previous build"
+        mv "$APP_DIR/.next" "$APP_DIR/.next-failed"
         mv "$APP_DIR/.next-old" "$APP_DIR/.next"
+        PM2_HOME=/home/ubuntu/.pm2 pm2 restart "$APP_NAME" --update-env || true
+        PM2_HOME=/home/ubuntu/.pm2 pm2 save
+        health_check || true
+
+        send_telegram "❌ <b>DEPLOY FAILED: $APP_NAME</b>
+
+🔀 Branch: $BRANCH
+❗ Error: Health check failed after swap
+✅ Action: Rolled back to previous build (bad build kept at .next-failed)
+🕐 Time: $(date '+%Y-%m-%d %H:%M:%S UTC')"
+
+        exit 1
     fi
-    rollback "pnpm build failed"
-fi
 
-# Step 5: Restart PM2
-log "Restarting PM2..."
-PM2_HOME=/home/ubuntu/.pm2 pm2 restart "$APP_NAME" --update-env || PM2_HOME=/home/ubuntu/.pm2 pm2 start "$APP_DIR/ecosystem.config.js"
-PM2_HOME=/home/ubuntu/.pm2 pm2 save
+    # Step 8: Cleanup
+    log "Cleaning up..."
+    rm -rf "$APP_DIR/.next-old" 2>/dev/null || true
 
-# Step 6: Health check
-sleep 3
-if ! health_check; then
-    rollback "Health check failed - app not responding"
-fi
+    # Calculate deployment time
+    END_TIME=$(date +%s)
+    DEPLOY_TIME=$((END_TIME - START_TIME))
 
-# Step 7: Cleanup
-log "Cleaning up..."
-rm -rf "$APP_DIR/.next-old" 2>/dev/null || true
-rm -rf "$APP_DIR/.next-cache-tmp" 2>/dev/null || true
-
-# Calculate deployment time
-END_TIME=$(date +%s)
-DEPLOY_TIME=$((END_TIME - START_TIME))
-
-# Step 8: Send success notification
-COMMIT=$(git rev-parse --short HEAD)
-send_telegram "✅ <b>DEPLOYED: $APP_NAME</b>
+    # Step 9: Send success notification
+    COMMIT=$(git rev-parse --short HEAD)
+    send_telegram "✅ <b>DEPLOYED: $APP_NAME</b>
 
 🔀 Branch: $BRANCH
 📝 Commit: $COMMIT
-⏱ Time: ${DEPLOY_TIME}s
+⏱ Time: ${DEPLOY_TIME}s${RETRY_NOTE}
 🕐 $(date '+%Y-%m-%d %H:%M:%S UTC')"
 
-log "=========================================="
-log "Deployment completed in ${DEPLOY_TIME} seconds!"
-log "=========================================="
+    log "=========================================="
+    log "Deployment completed in ${DEPLOY_TIME} seconds!"
+    log "=========================================="
 
-exit 0
+    exit 0
+}
+
+# The whole body lives in main() so bash parses the entire file before executing
+# anything - this script overwrites itself via `git pull` while running.
+main "$@"
