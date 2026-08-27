@@ -149,7 +149,7 @@ const trainingStats = [
 
 const TrainingPrograms: React.FC = () => {
   return (
-    <section className="py-24 bg-[#07070f] relative overflow-hidden">
+    <section id="training" className="py-24 bg-[#07070f] relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-32 left-1/4 w-[32rem] h-[32rem] bg-gradient-to-br from-indigo-600/20 to-purple-700/10 rounded-full blur-3xl" />
